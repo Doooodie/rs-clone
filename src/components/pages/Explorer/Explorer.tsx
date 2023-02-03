@@ -1,12 +1,17 @@
 import Aside from './components/Aside/Aside';
+import Files from './components/Files/Files';
 import Header from './components/Header/Header';
+import './Explorer.css';
 
 function Explorer() {
   return (
-    <main>
+    <div className='explorer'>
       <Header />
-      <Aside />
-    </main>
+      <main className="main">
+        <Aside />
+        <Files />
+      </main>
+    </div>
   );
 }
 

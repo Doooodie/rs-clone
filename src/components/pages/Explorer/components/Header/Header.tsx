@@ -3,7 +3,7 @@ import './Header.css';
 import { IconButton } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
-import SearchField from '../SearchField/SearchField';
+import SearchField from '../UI/SearchField';
 
 export default function Header() {
   return (

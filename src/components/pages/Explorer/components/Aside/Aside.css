@@ -1,0 +1,85 @@
+.aside {
+    height: 100%;
+    width: 20%;
+    min-width: 238px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.aside-button {
+    margin: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: white;
+    border: none;
+    gap: 0.8rem;
+    padding: 0.45rem 1.2rem;
+    border-radius: 6.25rem;
+    box-shadow: var(--dt-surface1-shadow,0 1px 2px 0 rgba(60,64,67,.3),0 1px 3px 1px rgba(60,64,67,.15));
+    transition: 0.35s linear;
+    cursor: pointer;
+    font-size: 14px;
+    color: rgb(60, 64, 67);
+}
+
+.aside-button:hover {
+    box-shadow: var(--dt-surface3-shadow,0 1px 3px 0 rgba(60,64,67,.3),0 4px 8px 3px rgba(60,64,67,.15));
+    background-color: rgba(60, 60, 60, 0.1);
+}
+
+.aside-list {
+    width: 100%;
+    padding-right: 1rem;
+}
+
+.aside-list-item {
+    font-size: 13px;
+    padding-left: 2rem;
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    border-radius: 0 66px 66px 0;
+    color: #5f6368;
+    cursor: pointer;
+}
+
+.aside-list-item svg {
+    fill: #5f6368;
+}
+
+.aside-list-item:hover {
+    background-color: rgba(60, 60, 60, 0.1);
+}
+
+.aside-list-item-active{
+    background-color: rgb(232,240,254);
+    color: rgb(25,103,210);
+}
+
+.aside-list-item-active{ 
+    fill: rgb(25,103,210);
+}
+
+.aside-list-item  .icon{ 
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.sky-item {
+    position: relative;
+    margin-top: 16px;
+}
+.sky-item::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #dadce0;
+}
