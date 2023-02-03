@@ -2,13 +2,13 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
-import { Box } from '@mui/system';
+import { Box } from '@mui/material';
 
 export default function SearchField() {
   return (
     <Box
-      component="form"
-      sx={{ 
+      component='form'
+      sx={{
         borderRadius: '8px',
         display: 'flex',
         alignItems: 'center',
@@ -18,22 +18,15 @@ export default function SearchField() {
         padding: '0 10px',
       }}
     >
-      <IconButton 
-        aria-label="menu"
-        size='small'
-      >
+      <IconButton aria-label='menu' size='small'>
         <SearchIcon />
       </IconButton>
       <InputBase
         sx={{ ml: 1, flex: 1, color: 'black' }}
-        placeholder="Поиск на Диске"
+        placeholder='Поиск на Диске'
         inputProps={{ 'aria-label': 'search google maps' }}
       />
-      <IconButton
-        type="button"
-        aria-label="search"
-        size='small'
-      >
+      <IconButton type='button' aria-label='search' size='small'>
         <TuneIcon />
       </IconButton>
     </Box>

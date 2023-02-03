@@ -11,11 +11,11 @@ import '@fontsource/roboto/700.css';
 
 import './App.css';
 
-import Layout from './pages/Layout/Layout';
 import NoPage from './pages/NoPage/NoPage';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Explorer from './pages/Explorer/Explorer';
+
 function App() {
   return (
     <Provider store={store}>
