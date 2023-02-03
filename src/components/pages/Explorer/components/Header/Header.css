@@ -1,0 +1,44 @@
+.header {
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #dadce0;
+    font-size: 13px;
+    color: black;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    width: 10%;
+    min-width: 238px;
+}
+
+.header-logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.header-logo span {
+    font-family: "Product Sans",Arial,sans-serif;
+    font-size: 22px;
+    line-height: 24px;
+    color: #5f6368;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.header-search {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
