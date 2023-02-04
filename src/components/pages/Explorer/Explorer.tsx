@@ -7,7 +7,7 @@ function Explorer() {
   return (
     <div className='explorer'>
       <Header />
-      <main className="main">
+      <main className='main'>
         <Aside />
         <Files />
       </main>
