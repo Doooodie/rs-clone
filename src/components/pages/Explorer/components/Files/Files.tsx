@@ -1,43 +1,34 @@
-import { IconButton, Paper } from '@mui/material';
+import { IconButton } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import MenuArrowDownIcon from '../../../../../assets/SvgComponents/MenuArrowDown';
-
 import './Files.css';
+import ModalCreateFile from '../CreateModal/ModalCreateFile';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { changeHeaderModal } from '../../../../store/modalSlice';
 
 export default function Files() {
-  function handleHeaderFilesButton() {
-    document
-      .getElementById('files-action-modal')
-      ?.classList.toggle('files-header-actions-list-visible');
+  const dispatch = useAppDispatch();
+  const modalVisible = useAppSelector((store) => store.modal.headerModal);
+
+  function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    dispatch(changeHeaderModal(!modalVisible));
   }
 
   return (
     <section className='files'>
       <div className='files-header'>
-        <div className='file-header-menu'>
+        <div className={modalVisible ? `file-header-menu visible` : 'file-header-menu'}>
           <button
             type='button'
-            onClick={() => handleHeaderFilesButton()}
             className='files-header-menu-button'
+            onClick={(e) => handleModalOpen(e)}
           >
             <span>Мой диск</span>
             <MenuArrowDownIcon />
           </button>
-
-          <div id='files-action-modal' className='files-header-actions-list'>
-            <Paper elevation={3}>
-              <div className='header-actions-item'>
-                <span>Создать папку</span>
-              </div>
-              <div className='header-actions-item'>
-                <span>Загрузить файлы</span>
-              </div>
-              <div className='header-actions-item'>
-                <span>Загрузить папку</span>
-              </div>
-            </Paper>
-          </div>
+          <ModalCreateFile visible={modalVisible} />
         </div>
         <div className='setting'>
           <IconButton>

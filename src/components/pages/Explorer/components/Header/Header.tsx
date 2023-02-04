@@ -1,4 +1,5 @@
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 import { IconButton } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
@@ -8,13 +9,15 @@ import SearchField from '../UI/SearchField';
 export default function Header() {
   return (
     <header className='header'>
-      <div className='header-logo'>
-        <img
-          src='https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png'
-          alt=''
-        />
-        <span>Диск</span>
-      </div>
+      <Link to='/'>
+        <div className='header-logo'>
+          <img
+            src='https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_48dp.png'
+            alt=''
+          />
+          <span>Диск</span>
+        </div>
+      </Link>
       <div className='header-search'>
         <SearchField />
 

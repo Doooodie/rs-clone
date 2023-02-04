@@ -16,3 +16,7 @@ body {
   max-width: 95vw;
   margin: 0 auto;
 }
+
+a {
+  text-decoration: none;
+}

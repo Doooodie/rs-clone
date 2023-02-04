@@ -5,6 +5,9 @@ import StarIcon from '../../../../../assets/SvgComponents/StarIcon';
 import CartIcon from '../../../../../assets/SvgComponents/CartIcon';
 import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
 import './Aside.css';
+import ModalCreateFile from '../CreateModal/ModalCreateFile';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { changeAsideModal } from '../../../../store/modalSlice';
 
 function handleAsideItem({ currentTarget }: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
   const allButtons = document.querySelectorAll('.aside-list-item');
@@ -16,12 +19,24 @@ function handleAsideItem({ currentTarget }: MouseEvent<HTMLButtonElement, global
 }
 
 export default function Aside() {
+  const dispatch = useAppDispatch();
+  const modalVisible = useAppSelector((store) => store.modal.asideModal);
+
+  function handleModalOpen(e: MouseEvent) {
+    e.stopPropagation();
+    dispatch(changeAsideModal(!modalVisible));
+  }
+
   return (
     <div className='aside'>
-      <button type='button' className='aside-button'>
-        <GooglePlusIcon />
-        <span>Создать</span>
-      </button>
+      <div className='aside-create'>
+        <button type='button' className='aside-button' onClick={(e) => handleModalOpen(e)}>
+          <GooglePlusIcon />
+          <span>Создать</span>
+        </button>
+        <ModalCreateFile visible={modalVisible} />
+      </div>
+
       <div className='aside-list'>
         <button
           type='button'

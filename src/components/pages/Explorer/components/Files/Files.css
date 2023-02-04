@@ -15,19 +15,9 @@
   position: relative;
 }
 
-.files-header-actions-list {
-  position: absolute;
-  opacity: 0;
-  width: 350px;
-  padding: 0.5rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  border-radius: 8px;
-  transition: 0.4s ease-in;
-  top: 30px;
-  left: 0;
-  z-index: -1;
+.visible .modal-list {
+  opacity: 1;
+  z-index: 10;
 }
 
 .files-header-menu-button {
@@ -43,26 +33,20 @@
   transition: 0.25s linear;
 }
 
-.files-header-menu-button span {
-  margin-right: 5px;
-}
-
 .files-header-menu-button:hover {
   background-color: rgba(60 60 60 / 10%);
 }
 
-.files-header-actions-list-visible {
-  opacity: 1;
+.visible .files-header-menu-button {
+  background-color: rgb(232 240 254);
+  color: rgb(25 103 210);
 }
 
-.header-actions-item {
-  width: 100%;
-  font-size: 13px;
-  padding: 0.5rem 0 0.5rem 2rem;
-  cursor: pointer;
-  transition: 0.1s linear;
+.visible .files-header-menu-button:hover {
+  background-color: rgb(232 240 254);
+  color: rgb(25 103 210);
 }
 
-.header-actions-item:hover {
-  background-color: rgba(60 60 60 / 10%);
+.files-header-menu-button span {
+  margin-right: 5px;
 }
