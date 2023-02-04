@@ -25,7 +25,8 @@ export default function SearchField() {
       </IconButton>
       <div style={{ width: '100%' }}>
         <InputBase
-          sx={{ color: 'black', width: '100%' }}
+          fullWidth
+          sx={{ color: 'black' }}
           placeholder={t('explorer.search') || 'Search in drive'}
           inputProps={{ 'aria-label': 'search google maps' }}
         />
