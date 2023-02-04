@@ -21,11 +21,14 @@ export default function SearchField() {
       <IconButton aria-label='menu' size='small'>
         <SearchIcon />
       </IconButton>
-      <InputBase
-        sx={{ ml: 1, flex: 1, color: 'black' }}
-        placeholder='Поиск на Диске'
-        inputProps={{ 'aria-label': 'search google maps' }}
-      />
+      <div style={{ width: '100%' }}>
+        <InputBase
+          sx={{ color: 'black', width: '100%' }}
+          placeholder='Поиск на Диске'
+          inputProps={{ 'aria-label': 'search google maps' }}
+        />
+      </div>
+
       <IconButton type='button' aria-label='search' size='small'>
         <TuneIcon />
       </IconButton>

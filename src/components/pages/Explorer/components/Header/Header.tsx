@@ -20,7 +20,6 @@ export default function Header() {
       </Link>
       <div className='header-search'>
         <SearchField />
-
         <div className='setting'>
           <IconButton>
             <HelpOutlineIcon />
