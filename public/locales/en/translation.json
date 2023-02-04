@@ -1,3 +1,22 @@
 {
-  "learn": "Learn React"
+  "learn": "Learn React",
+  "explorer": {
+    "driver": "Drive",
+    "search": "Search in Drive",
+    "create": "New",
+    "mydrive": "My Drive",
+    "important": "Starred",
+    "cart": "Trash",
+    "storage": "Storage",
+    "byumore": "Byu storage",
+    "use": "Used",
+    "gb": "GB",
+    "of": "of",
+    "createdir": "New folder",
+    "fileupload": "File upload",
+    "dirupload": "Folder upload",
+    "newdir": "New folder",
+    "dirname": "Untitled folder",
+    "cancel": "Cancel"
+  }
 }

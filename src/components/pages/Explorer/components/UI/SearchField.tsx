@@ -3,8 +3,10 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import { Box } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 export default function SearchField() {
+  const { t } = useTranslation();
   return (
     <Box
       component='form'
@@ -24,7 +26,7 @@ export default function SearchField() {
       <div style={{ width: '100%' }}>
         <InputBase
           sx={{ color: 'black', width: '100%' }}
-          placeholder='Поиск на Диске'
+          placeholder={t('explorer.search') || 'Search in drive'}
           inputProps={{ 'aria-label': 'search google maps' }}
         />
       </div>

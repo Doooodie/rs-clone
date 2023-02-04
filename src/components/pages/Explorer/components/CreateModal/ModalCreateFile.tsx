@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import './ModalCreateFile.css';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface IModal {
   visible: boolean;
@@ -21,6 +22,7 @@ export default function ModalCreateFile({ visible }: IModal) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { t } = useTranslation();
 
   return (
     <div
@@ -34,23 +36,23 @@ export default function ModalCreateFile({ visible }: IModal) {
           onClick={handleOpen}
         >
           <AddToDriveIcon htmlColor='#5f6368' />
-          <span>Создать папку</span>
+          <span>{t('explorer.createdir')}</span>
         </button>
         <div className='header-actions-item'>
           <UploadFileIcon htmlColor='#5f6368' />
-          <span>Загрузить файлы</span>
+          <span>{t('explorer.fileupload')}</span>
         </div>
         <div className='header-actions-item'>
           <DriveFolderUploadIcon htmlColor='#5f6368' />
-          <span>Загрузить папку</span>
+          <span>{t('explorer.dirupload')}</span>
         </div>
       </Paper>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Новая папка</DialogTitle>
+        <DialogTitle>{t('explorer.newdir')}</DialogTitle>
         <DialogContent>
           <TextField
-            placeholder='Без названия'
+            placeholder={t('explorer.dirname') || ''}
             sx={{ minWidth: '300px', padding: '0 20px' }}
             autoFocus
             margin='dense'
@@ -61,8 +63,8 @@ export default function ModalCreateFile({ visible }: IModal) {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Отмена</Button>
-          <Button onClick={handleClose}>Создать</Button>
+          <Button onClick={handleClose}>{t('explorer.cancel')}</Button>
+          <Button onClick={handleClose}>{t('explorer.create')}</Button>
         </DialogActions>
       </Dialog>
     </div>
