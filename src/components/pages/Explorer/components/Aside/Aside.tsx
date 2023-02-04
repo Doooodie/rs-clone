@@ -1,9 +1,19 @@
+import { MouseEvent } from 'react';
 import GooglePlusIcon from '../../../../../assets/SvgComponents/GooglePlusIcon';
 import MyDescIcon from '../../../../../assets/SvgComponents/MyDescIcon';
 import StarIcon from '../../../../../assets/SvgComponents/StarIcon';
 import CartIcon from '../../../../../assets/SvgComponents/CartIcon';
 import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
 import './Aside.css';
+
+function handleAsideItem({ currentTarget }: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
+  const allButtons = document.querySelectorAll('.aside-list-item');
+  allButtons.forEach((item) => {
+    const button = item;
+    button.classList.remove('aside-list-item-active');
+  });
+  currentTarget.classList.add('aside-list-item-active');
+}
 
 export default function Aside() {
   return (
@@ -13,31 +23,39 @@ export default function Aside() {
         <span>Создать</span>
       </button>
       <div className='aside-list'>
-        <div className='aside-list-item'>
+        <button
+          type='button'
+          className='aside-list-item aside-list-item-active'
+          onClick={(e) => handleAsideItem(e)}
+        >
           <span className='icon'>
             <MyDescIcon />
           </span>
           <span>Мой диск</span>
-        </div>
-        <div className='aside-list-item'>
+        </button>
+        <button type='button' className='aside-list-item' onClick={(e) => handleAsideItem(e)}>
           <span className='icon'>
             <StarIcon />
           </span>
           <span>Помеченные</span>
-        </div>
-        <div className='aside-list-item'>
+        </button>
+        <button type='button' className='aside-list-item' onClick={(e) => handleAsideItem(e)}>
           <span className='icon'>
             <CartIcon />
           </span>
           <span>Корзина</span>
-        </div>
+        </button>
       </div>
-      <div className='aside-list-item sky-item'>
+      <button
+        type='button'
+        className='sky-item aside-list-item'
+        onClick={(e) => handleAsideItem(e)}
+      >
         <span className='icon'>
           <SkyIcon />
         </span>
         <span>Хранилище</span>
-      </div>
+      </button>
       <div className='storage-info'>
         <div className='progress-bar'>
           <div style={{ width: '10%' }} className='progress-value' />

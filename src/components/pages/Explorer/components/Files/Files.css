@@ -1,0 +1,68 @@
+.files {
+  width: 100%;
+}
+
+.files-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid #dadce0;
+}
+
+.file-header-menu {
+  position: relative;
+}
+
+.files-header-actions-list {
+  position: absolute;
+  opacity: 0;
+  width: 350px;
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  border-radius: 8px;
+  transition: 0.4s ease-in;
+  top: 30px;
+  left: 0;
+  z-index: -1;
+}
+
+.files-header-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  padding: 0.4rem;
+  background: none;
+  font-size: 18px;
+  color: rgb(60 64 67);
+  border-radius: 8px;
+  transition: 0.25s linear;
+}
+
+.files-header-menu-button span {
+  margin-right: 5px;
+}
+
+.files-header-menu-button:hover {
+  background-color: rgba(60 60 60 / 10%);
+}
+
+.files-header-actions-list-visible {
+  opacity: 1;
+}
+
+.header-actions-item {
+  width: 100%;
+  font-size: 13px;
+  padding: 0.5rem 0 0.5rem 2rem;
+  cursor: pointer;
+  transition: 0.1s linear;
+}
+
+.header-actions-item:hover {
+  background-color: rgba(60 60 60 / 10%);
+}
