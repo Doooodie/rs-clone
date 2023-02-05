@@ -1,7 +1,7 @@
 import { useAppDispatch } from '../../hooks';
 import { changeHeaderModal, changeAsideModal, changeSettingModal } from '../../store/modalSlice';
 import Aside from './components/Aside/Aside';
-import Files from './components/Files/Files';
+import Drive from './components/Drive/Drive';
 import Header from './components/Header/Header';
 import './Explorer.css';
 
@@ -17,13 +17,13 @@ function Explorer() {
     const isLangButtons = target.classList.contains('setting-button-lang');
     if (!isLangButtons) dispatch(changeSettingModal(false));
   }
-
+  
   return (
     <div role='presentation' id='explorer' className='explorer' onClick={(e) => hiddenModal(e)}>
       <Header />
       <main className='main'>
         <Aside />
-        <Files />
+        <Drive />
       </main>
     </div>
   );

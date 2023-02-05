@@ -1,0 +1,26 @@
+.drive {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.files-list {
+  padding-right: 6rem;
+  max-height: 100%;
+}
+
+.file-list-item{
+  display: grid;
+  padding: 0.8rem 0.5rem 0.3rem 0.5rem;
+  align-items: center;
+  border-bottom: solid 1px #dadce0;
+  grid-template-columns: 7fr 2fr 3fr 1fr;
+  color: #3c4043;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.file-list-wrapper {
+  max-height: calc(100vh - 65px - 48px - 58px);
+  overflow: scroll;
+}

@@ -1,0 +1,19 @@
+.file-item {
+  display: grid;
+  padding: 0.6rem;
+  align-items: center;
+  border-bottom: solid 1px #dadce0;
+  grid-template-columns: 7fr 2fr 3fr 1fr;
+  color: #3c4043;
+  font-size: 13px;
+}
+
+.file-item-img {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.file-item img {
+  margin-right: 1rem;
+}

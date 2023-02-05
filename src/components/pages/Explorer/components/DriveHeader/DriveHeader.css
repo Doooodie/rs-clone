@@ -1,8 +1,4 @@
-.files {
-  width: 100%;
-}
-
-.files-header {
+.drive-header {
   width: 100%;
   display: flex;
   align-items: center;
@@ -11,7 +7,7 @@
   border-bottom: 1px solid #dadce0;
 }
 
-.file-header-menu {
+.drive-header-menu {
   position: relative;
 }
 
@@ -20,7 +16,7 @@
   z-index: 10;
 }
 
-.files-header-menu-button {
+.drive-header-menu-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,20 +29,20 @@
   transition: 0.25s linear;
 }
 
-.files-header-menu-button:hover {
+.drive-header-menu-button:hover {
   background-color: rgba(60 60 60 / 10%);
 }
 
-.visible .files-header-menu-button {
+.visible .drive-header-menu-button {
   background-color: rgb(232 240 254);
   color: rgb(25 103 210);
 }
 
-.visible .files-header-menu-button:hover {
+.visible .drive-header-menu-button:hover {
   background-color: rgb(232 240 254);
   color: rgb(25 103 210);
 }
 
-.files-header-menu-button span {
+.drive-header-menu-button span {
   margin-right: 5px;
 }

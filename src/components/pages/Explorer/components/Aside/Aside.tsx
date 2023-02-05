@@ -5,29 +5,50 @@ import MyDescIcon from '../../../../../assets/SvgComponents/MyDescIcon';
 import StarIcon from '../../../../../assets/SvgComponents/StarIcon';
 import CartIcon from '../../../../../assets/SvgComponents/CartIcon';
 import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
-import './Aside.css';
 import ModalCreateFile from '../CreateModal/ModalCreateFile';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { changeAsideModal } from '../../../../store/modalSlice';
+import { addFile } from '../../../../store/driveSlice';
+import { DrivesNames } from '../../types/enums';
+import { changeCurrentDrive } from '../../../../store/driveSlice';
+import { AllDrive } from '../../types/types';
+import './Aside.css';
 
-function handleAsideItem({ currentTarget }: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
-  const allButtons = document.querySelectorAll('.aside-list-item');
-  allButtons.forEach((item) => {
-    const button = item;
-    button.classList.remove('aside-list-item-active');
-  });
-  currentTarget.classList.add('aside-list-item-active');
+enum ButtonClassNames {
+  active = 'aside-list-item aside-list-item-active',
+  default = 'aside-list-item'
 }
 
 export default function Aside() {
   const dispatch = useAppDispatch();
   const modalVisible = useAppSelector((store) => store.modal.asideModal);
   const { t } = useTranslation();
+  const currentDriveName = useAppSelector((store) => store.files.currentDrive)
 
   function handleModalOpen(e: MouseEvent) {
     e.stopPropagation();
     dispatch(changeAsideModal(!modalVisible));
   }
+
+  function handleAddFile() {
+    dispatch(addFile(
+      {
+        name: 'test1',
+        owner: 'me',
+        lastChange: '03:02:2023 21:40',
+        size: '13KB',
+      }
+    ));
+  }
+
+  function isActive(buttonName: string) {
+    return buttonName === currentDriveName;
+  }
+
+  function handleSwitchDrivePandel(id: keyof AllDrive) {
+    dispatch(changeCurrentDrive(id))
+  } 
+
   const MAX_STORAGE_SIZE = 15;
   const CURRENT_STORAGE_SIZE = 1;
 
@@ -50,37 +71,53 @@ export default function Aside() {
       <div className='aside-list'>
         <button
           type='button'
-          className='aside-list-item aside-list-item-active'
-          onClick={(e) => handleAsideItem(e)}
+          className = {isActive(DrivesNames.drive)? ButtonClassNames.active : ButtonClassNames.default}
+          onClick={() => handleSwitchDrivePandel(DrivesNames.drive)}
         >
           <span className='icon'>
             <MyDescIcon />
           </span>
           <span>{t('explorer.mydrive')}</span>
         </button>
-        <button type='button' className='aside-list-item' onClick={(e) => handleAsideItem(e)}>
+
+
+        <button
+          type='button'
+          className = {isActive(DrivesNames.important)? ButtonClassNames.active : ButtonClassNames.default}
+          onClick={() => handleSwitchDrivePandel(DrivesNames.important)}
+        >
           <span className='icon'>
             <StarIcon />
           </span>
           <span>{t('explorer.important')}</span>
         </button>
-        <button type='button' className='aside-list-item' onClick={(e) => handleAsideItem(e)}>
+
+
+        <button
+          type='button'
+          className = {isActive(DrivesNames.trash) ? ButtonClassNames.active : ButtonClassNames.default}
+          onClick={() => handleSwitchDrivePandel(DrivesNames.trash)}
+        >
           <span className='icon'>
             <CartIcon />
           </span>
           <span>{t('explorer.cart')}</span>
         </button>
+
+
       </div>
       <button
         type='button'
-        className='sky-item aside-list-item'
-        onClick={(e) => handleAsideItem(e)}
+        className = {isActive(DrivesNames.storage)? ButtonClassNames.active : ButtonClassNames.default}
+        onClick={() => handleSwitchDrivePandel(DrivesNames.storage)}
       >
         <span className='icon'>
           <SkyIcon />
         </span>
         <span>{t('explorer.storage')}</span>
       </button>
+
+      
       <div className='storage-info'>
         <div className='progress-bar'>
           <div style={{ width: '10%' }} className='progress-value' />
@@ -88,7 +125,7 @@ export default function Aside() {
 
         <span className='storage-text'>{usedDriveString}</span>
 
-        <button type='button' className='byu-memory'>
+        <button type='button' className='byu-memory' onClick={() => handleAddFile()}>
           <span>{t('explorer.byumore')}</span>
         </button>
       </div>

@@ -11,11 +11,13 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import cartReducer from './cartSlice';
-import modalSlice from './modalSlice';
+import modalReducer from './modalSlice';
+import filesReducer from './driveSlice'
 
 const rootReducer = combineReducers({
   cart: cartReducer,
-  modal: modalSlice,
+  modal: modalReducer,
+  files: filesReducer,
 });
 
 const persistConfig = {
