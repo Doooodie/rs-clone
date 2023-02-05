@@ -1,5 +1,6 @@
 import { IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import React from 'react';
 import { useAppDispatch } from '../../../../hooks';
 import { removeFile } from '../../../../store/driveSlice';
 import './File.css';
@@ -14,6 +15,12 @@ type FileProps = {
 
 export default function File({ name, owner, lastChange, size, id }: FileProps) {
   const dispatch = useAppDispatch();
+
+  function hadleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    dispatch(removeFile(id));
+  }
+
   return (
     <div className='file-item'>
       <div className='file-item-img'>
@@ -34,7 +41,7 @@ export default function File({ name, owner, lastChange, size, id }: FileProps) {
 
       <div className='file-item-info file-item-size'>
         <span>{size}</span>
-        <IconButton onClick={() => dispatch(removeFile(id))}>
+        <IconButton onContextMenu={(e) => hadleDelete(e)}>
           <DeleteForeverIcon color='error' />
         </IconButton>
       </div>

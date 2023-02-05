@@ -1,0 +1,77 @@
+.drive {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.files-list {
+  padding-right: 6rem;
+  max-height: 100%;
+}
+
+.file-list-item {
+  display: grid;
+  padding: 0.8rem 0.5rem 0.3rem;
+  align-items: center;
+  border-bottom: solid 1px #dadce0;
+  grid-template-columns: 7fr 2fr 3fr 1fr;
+  color: #3c4043;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.file-list-wrapper {
+  width: 99%;
+  padding: 0 0.5rem;
+  max-height: calc(100vh - 65px - 48px - 58px);
+  overflow: scroll;
+  border: 2px solid white;
+}
+
+.file-list-wrapper-active {
+  border: solid 2px rgb(25 103 210);
+}
+
+.file-item-size {
+  display: flex;
+  align-items: center;
+}
+
+.modal-dropper {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  transform: translateY(300%);
+  top: 80%;
+  width: 30%;
+  max-width: max-content;
+  height: 12vh;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(25 103 210);
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  transition: 0.3s ease-in;
+}
+
+.modal-dropper-active {
+  transform: translateY(0);
+}
+
+.modal-dropper-text {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.modal-dropper-text h4 {
+  margin: 0;
+  padding: 0;
+}

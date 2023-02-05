@@ -17,6 +17,7 @@
     "dirupload": "Folder upload",
     "newdir": "New folder",
     "dirname": "Untitled folder",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "dropfile": "Drop files to upload them to:"
   }
 }
