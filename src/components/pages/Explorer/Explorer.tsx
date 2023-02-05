@@ -17,7 +17,7 @@ function Explorer() {
     const isLangButtons = target.classList.contains('setting-button-lang');
     if (!isLangButtons) dispatch(changeSettingModal(false));
   }
-  
+
   return (
     <div role='presentation' id='explorer' className='explorer' onClick={(e) => hiddenModal(e)}>
       <Header />

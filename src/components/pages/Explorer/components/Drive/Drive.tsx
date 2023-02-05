@@ -13,32 +13,38 @@ export default function Drive() {
       <DriveHeader name={name} />
 
       <div className='files-list'>
-        <div className="file-list-item sticky">
-          <div className="file-item-info file-item-name">
+        <div className='file-list-item sticky'>
+          <div className='file-item-info file-item-name'>
             <span>Name</span>
             <IconButton>
               <NorthIcon fontSize='small' />
-          </IconButton>
+            </IconButton>
           </div>
-          <div className="file-list-info file-list-owner">
+          <div className='file-list-info file-list-owner'>
             <span>Owner</span>
           </div>
 
-          <div className="file-item-info file-item-time">
+          <div className='file-item-info file-item-time'>
             <span>Last modified</span>
           </div>
 
-          <div className="file-item-size file-item-size">
+          <div className='file-item-size file-item-size'>
             <span>File size</span>
           </div>
-
         </div>
 
-
-    <div className="file-list-wrapper">
-      {files.map((file) => <File name={file.name} owner={file.owner} size={file.size} lastChange={file.lastChange} />)}
-    </div>
-
+        <div className='file-list-wrapper'>
+          {files.map((file) => (
+            <File
+              name={file.name}
+              owner={file.owner}
+              key={file.id}
+              size={file.size}
+              lastChange={file.lastChange}
+              id={file.id}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

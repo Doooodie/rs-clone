@@ -9,9 +9,9 @@
   max-height: 100%;
 }
 
-.file-list-item{
+.file-list-item {
   display: grid;
-  padding: 0.8rem 0.5rem 0.3rem 0.5rem;
+  padding: 0.8rem 0.5rem 0.3rem;
   align-items: center;
   border-bottom: solid 1px #dadce0;
   grid-template-columns: 7fr 2fr 3fr 1fr;
@@ -23,4 +23,9 @@
 .file-list-wrapper {
   max-height: calc(100vh - 65px - 48px - 58px);
   overflow: scroll;
+}
+
+.file-item-size {
+  display: flex;
+  align-items: center;
 }

@@ -8,22 +8,16 @@ import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
 import ModalCreateFile from '../CreateModal/ModalCreateFile';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { changeAsideModal } from '../../../../store/modalSlice';
-import { addFile } from '../../../../store/driveSlice';
-import { DrivesNames } from '../../types/enums';
-import { changeCurrentDrive } from '../../../../store/driveSlice';
+import { addFile, changeCurrentDrive } from '../../../../store/driveSlice';
+import { DrivesNames, ButtonClassNames } from '../../types/enums';
 import { AllDrive } from '../../types/types';
 import './Aside.css';
-
-enum ButtonClassNames {
-  active = 'aside-list-item aside-list-item-active',
-  default = 'aside-list-item'
-}
 
 export default function Aside() {
   const dispatch = useAppDispatch();
   const modalVisible = useAppSelector((store) => store.modal.asideModal);
   const { t } = useTranslation();
-  const currentDriveName = useAppSelector((store) => store.files.currentDrive)
+  const currentDriveName = useAppSelector((store) => store.files.currentDrive);
 
   function handleModalOpen(e: MouseEvent) {
     e.stopPropagation();
@@ -31,14 +25,15 @@ export default function Aside() {
   }
 
   function handleAddFile() {
-    dispatch(addFile(
-      {
+    dispatch(
+      addFile({
         name: 'test1',
         owner: 'me',
         lastChange: '03:02:2023 21:40',
         size: '13KB',
-      }
-    ));
+        id: Math.random(),
+      }),
+    );
   }
 
   function isActive(buttonName: string) {
@@ -46,8 +41,8 @@ export default function Aside() {
   }
 
   function handleSwitchDrivePandel(id: keyof AllDrive) {
-    dispatch(changeCurrentDrive(id))
-  } 
+    dispatch(changeCurrentDrive(id));
+  }
 
   const MAX_STORAGE_SIZE = 15;
   const CURRENT_STORAGE_SIZE = 1;
@@ -71,7 +66,9 @@ export default function Aside() {
       <div className='aside-list'>
         <button
           type='button'
-          className = {isActive(DrivesNames.drive)? ButtonClassNames.active : ButtonClassNames.default}
+          className={
+            isActive(DrivesNames.drive) ? ButtonClassNames.active : ButtonClassNames.default
+          }
           onClick={() => handleSwitchDrivePandel(DrivesNames.drive)}
         >
           <span className='icon'>
@@ -80,10 +77,11 @@ export default function Aside() {
           <span>{t('explorer.mydrive')}</span>
         </button>
 
-
         <button
           type='button'
-          className = {isActive(DrivesNames.important)? ButtonClassNames.active : ButtonClassNames.default}
+          className={
+            isActive(DrivesNames.important) ? ButtonClassNames.active : ButtonClassNames.default
+          }
           onClick={() => handleSwitchDrivePandel(DrivesNames.important)}
         >
           <span className='icon'>
@@ -92,10 +90,11 @@ export default function Aside() {
           <span>{t('explorer.important')}</span>
         </button>
 
-
         <button
           type='button'
-          className = {isActive(DrivesNames.trash) ? ButtonClassNames.active : ButtonClassNames.default}
+          className={
+            isActive(DrivesNames.trash) ? ButtonClassNames.active : ButtonClassNames.default
+          }
           onClick={() => handleSwitchDrivePandel(DrivesNames.trash)}
         >
           <span className='icon'>
@@ -103,12 +102,12 @@ export default function Aside() {
           </span>
           <span>{t('explorer.cart')}</span>
         </button>
-
-
       </div>
       <button
         type='button'
-        className = {isActive(DrivesNames.storage)? ButtonClassNames.active : ButtonClassNames.default}
+        className={
+          isActive(DrivesNames.storage) ? ButtonClassNames.active : ButtonClassNames.default
+        }
         onClick={() => handleSwitchDrivePandel(DrivesNames.storage)}
       >
         <span className='icon'>
@@ -117,7 +116,6 @@ export default function Aside() {
         <span>{t('explorer.storage')}</span>
       </button>
 
-      
       <div className='storage-info'>
         <div className='progress-bar'>
           <div style={{ width: '10%' }} className='progress-value' />

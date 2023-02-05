@@ -1,6 +1,6 @@
 .file-item {
   display: grid;
-  padding: 0.6rem;
+  padding: 0.35rem 0.5;
   align-items: center;
   border-bottom: solid 1px #dadce0;
   grid-template-columns: 7fr 2fr 3fr 1fr;

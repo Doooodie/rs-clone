@@ -12,7 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import cartReducer from './cartSlice';
 import modalReducer from './modalSlice';
-import filesReducer from './driveSlice'
+import filesReducer from './driveSlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,

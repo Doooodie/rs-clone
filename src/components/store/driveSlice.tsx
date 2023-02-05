@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AllDrive } from '../pages/Explorer/types/types';
-import { File } from '../pages/Explorer/types/types';
+import { AllDrive, File } from '../pages/Explorer/types/types';
 
 enum DrivesNames {
   drive = 'drive',
@@ -10,21 +9,21 @@ enum DrivesNames {
 }
 
 type DriveInitialState = {
-  allDrive: AllDrive,
-  currentDrive: keyof AllDrive,
-}
+  allDrive: AllDrive;
+  currentDrive: keyof AllDrive;
+};
 
 const initialState: DriveInitialState = {
   allDrive: {
     drive: {
       name: 'mydrive',
       files: [],
-      folders: []
+      folders: [],
     },
     important: {
       name: 'important',
       files: [],
-      folders: []
+      folders: [],
     },
     trash: {
       name: 'cart',
@@ -33,7 +32,7 @@ const initialState: DriveInitialState = {
     storage: {
       name: 'storage',
       files: [],
-      folders: []
+      folders: [],
     },
   },
   currentDrive: DrivesNames.drive,
@@ -45,14 +44,20 @@ const driveSlice = createSlice({
   reducers: {
     addFile(state, action: PayloadAction<File>) {
       const currentState = state;
-      currentState.allDrive.drive.files.push(action.payload)
+      currentState.allDrive.drive.files.push(action.payload);
+    },
+    removeFile(state, action: PayloadAction<number>) {
+      const currentState = state;
+      currentState.allDrive.drive.files = currentState.allDrive.drive.files.filter(
+        (file) => file.id !== action.payload,
+      );
     },
     changeCurrentDrive(state, action: PayloadAction<keyof AllDrive>) {
       const currentState = state;
       currentState.currentDrive = action.payload;
     },
-  }
+  },
 });
 
 export default driveSlice.reducer;
-export const { addFile, changeCurrentDrive} = driveSlice.actions;
+export const { addFile, changeCurrentDrive, removeFile } = driveSlice.actions;
