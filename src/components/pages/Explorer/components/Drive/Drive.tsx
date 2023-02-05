@@ -3,6 +3,7 @@ import NorthIcon from '@mui/icons-material/North';
 import './Drive.css';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import File from '../File/File';
 import DriveHeader from '../DriveHeader/DriveHeader';
 import { useAppSelector } from '../../../../hooks';
@@ -39,21 +40,21 @@ export default function Drive() {
       <div className='file-list'>
         <div className='file-list-item sticky'>
           <div className='file-item-info file-item-name'>
-            <span>Name</span>
+            <span>{t(`explorer.filename`)}</span>
             <IconButton>
               <NorthIcon fontSize='small' />
             </IconButton>
           </div>
           <div className='file-list-info file-list-owner'>
-            <span>Owner</span>
+            <span>{t(`explorer.owner`)}</span>
           </div>
 
           <div className='file-item-info file-item-time'>
-            <span>Last modified</span>
+            <span>{t(`explorer.modified`)}</span>
           </div>
 
           <div className='file-item-size file-item-size'>
-            <span>File size</span>
+            <span>{t(`explorer.size`)}</span>
           </div>
         </div>
 
@@ -75,9 +76,11 @@ export default function Drive() {
           ))}
         </div>
       </div>
-
       <div className={drop ? ModalListClas.active : ModalListClas.default}>
         <div className='modal-dropper-text'>
+          <div className='modal-cloudi-icon'>
+            <CloudUploadOutlinedIcon color='primary' />
+          </div>
           <div>{t(`explorer.dropfile`)}</div>
           <h4>{t(`explorer.${name}`)}</h4>
         </div>

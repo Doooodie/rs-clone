@@ -11,7 +11,7 @@
 
 .file-list-item {
   display: grid;
-  padding: 0.8rem 0.5rem 0.3rem;
+  padding: 0.8rem 3rem 0.3rem 0.5rem;
   align-items: center;
   border-bottom: solid 1px #dadce0;
   grid-template-columns: 7fr 2fr 3fr 1fr;
@@ -22,7 +22,7 @@
 
 .file-list-wrapper {
   width: 99%;
-  padding: 0 0.5rem;
+  padding: 0 3rem 0 0.5rem;
   max-height: calc(100vh - 65px - 48px - 58px);
   overflow: scroll;
   border: 2px solid white;
@@ -39,6 +39,7 @@
 
 .modal-dropper {
   position: absolute;
+  border-radius: 8px;
   left: 50%;
   transform: translateX(-50%);
   transform: translateY(300%);
@@ -54,6 +55,7 @@
   color: white;
   font-size: 14px;
   font-weight: 400;
+  box-shadow: 0 0 16px rgb(25 103 210);
   transition: 0.3s ease-in;
 }
 
@@ -62,6 +64,7 @@
 }
 
 .modal-dropper-text {
+  position: relative;
   text-align: center;
   padding: 0;
   margin: 0;
@@ -74,4 +77,25 @@
 .modal-dropper-text h4 {
   margin: 0;
   padding: 0;
+}
+
+.modal-cloudi-icon {
+  position: absolute;
+  top: -130%;
+  left: 50%;
+  transform: translateX(-50%) scale(350%);
+  animation-duration: 0.35s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(-50%) translateY(-80%) scale(350%);
+  }
+
+  to {
+    transform: translateX(-50%) translateY(-20%) scale(350%);
+  }
 }

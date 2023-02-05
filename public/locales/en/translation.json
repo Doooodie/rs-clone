@@ -18,6 +18,10 @@
     "newdir": "New folder",
     "dirname": "Untitled folder",
     "cancel": "Cancel",
-    "dropfile": "Drop files to upload them to:"
+    "dropfile": "Drop files to upload them to:",
+    "filename": "Name",
+    "owner": "Name",
+    "modified": "Last modified",
+    "size": "File size"
   }
 }
