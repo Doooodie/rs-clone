@@ -1,24 +1,16 @@
 import { IconButton } from '@mui/material';
 import NorthIcon from '@mui/icons-material/North';
-import './Drive.css';
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import File from '../File/File';
-import DriveHeader from '../DriveHeader/DriveHeader';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { addFile } from '../../../../store/driveSlice';
 import { MyFile } from '../../types/types';
-
-enum FileListClass {
-  active = 'file-list-wrapper file-list-wrapper-active',
-  default = 'file-list-wrapper',
-}
-
-enum ModalListClas {
-  active = 'modal-dropper modal-dropper-active',
-  default = 'modal-dropper',
-}
+import { ModalListClass, FileListClass } from '../../types/enums';
+import DriveHeader from '../DriveHeader/DriveHeader';
+import File from '../File/File';
+import FolderComponent from '../FolderComponent/FolderComponent';
+import './Drive.css';
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -26,6 +18,7 @@ export default function Drive() {
   const [drop, setDrop] = useState(false);
   const currentDrive = useAppSelector((store) => store.files.currentDrive);
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
+  const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
 
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -47,6 +40,7 @@ export default function Drive() {
       // todo Id
       id: Math.random(),
     };
+    // todo add file to server
     dispatch(addFile(uploaderFile));
     setDrop(false);
   }
@@ -91,6 +85,16 @@ export default function Drive() {
           onDragOver={(e) => dragStartHandler(e)}
           onDrop={(e) => onDropHandler(e)}
         >
+          {folders.map((folder) => (
+            <FolderComponent
+              name={folder.name}
+              owner={folder.owner}
+              key={folder.id}
+              size={folder.size}
+              lastChange={folder.lastChange}
+              id={folder.id}
+            />
+          ))}
           {files.map((file) => (
             <File
               name={file.name}
@@ -103,7 +107,7 @@ export default function Drive() {
           ))}
         </div>
       </div>
-      <div className={drop ? ModalListClas.active : ModalListClas.default}>
+      <div className={drop ? ModalListClass.active : ModalListClass.default}>
         <div className='modal-dropper-text'>
           <div className='modal-cloudi-icon'>
             <CloudUploadOutlinedIcon color='primary' />

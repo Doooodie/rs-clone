@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AllDrive, MyFile } from '../pages/Explorer/types/types';
+import { AllDrive, MyFile, MyFolder } from '../pages/Explorer/types/types';
 
 enum DrivesNames {
   drive = 'drive',
@@ -28,6 +28,7 @@ const initialState: DriveInitialState = {
     trash: {
       name: 'cart',
       files: [],
+      folders: [],
     },
     storage: {
       name: 'storage',
@@ -46,10 +47,20 @@ const driveSlice = createSlice({
       const currentState = state;
       currentState.allDrive.drive.files.push(action.payload);
     },
+    addFolder(state, action: PayloadAction<MyFolder>) {
+      const currentState = state;
+      currentState.allDrive.drive.folders.push(action.payload);
+    },
     removeFile(state, action: PayloadAction<number>) {
       const currentState = state;
       currentState.allDrive.drive.files = currentState.allDrive.drive.files.filter(
         (file) => file.id !== action.payload,
+      );
+    },
+    removeFolder(state, action: PayloadAction<number>) {
+      const currentState = state;
+      currentState.allDrive.drive.folders = currentState.allDrive.drive.folders.filter(
+        (folder) => folder.id !== action.payload,
       );
     },
     changeCurrentDrive(state, action: PayloadAction<keyof AllDrive>) {
@@ -60,4 +71,5 @@ const driveSlice = createSlice({
 });
 
 export default driveSlice.reducer;
-export const { addFile, changeCurrentDrive, removeFile } = driveSlice.actions;
+export const { addFile, removeFile, addFolder, removeFolder, changeCurrentDrive } =
+  driveSlice.actions;

@@ -6,6 +6,17 @@ export type MyFile = {
   id: number;
 };
 
+export type MyFolder = {
+  name: string;
+  owner: string;
+  lastChange: number;
+  size: number;
+  id: number;
+  files: MyFile[];
+  children: MyFolder[];
+  parent: number;
+};
+
 export type MainDrive = {
   name: string;
   files: MyFile[];
@@ -15,6 +26,7 @@ export type MainDrive = {
 export type TrashDrive = {
   name: string;
   files: MyFile[];
+  folders: MyFile[];
 };
 
 export type ImportantDrive = {

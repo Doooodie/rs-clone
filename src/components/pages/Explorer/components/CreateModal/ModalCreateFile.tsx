@@ -13,16 +13,39 @@ import {
 import './ModalCreateFile.css';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { MyFolder } from '../../types/types';
+import { addFolder } from '../../../../store/driveSlice';
+import { useAppDispatch } from '../../../../hooks';
 
 interface IModal {
   visible: boolean;
 }
 
 export default function ModalCreateFile({ visible }: IModal) {
+  const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
+  const [folderName, setFolderName] = useState(t(`explorer.dirname`));
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { t } = useTranslation();
+
+  function handleCreatefolder() {
+    // todo translation folder name
+    // todo id and parent id
+    const currentDate = Number(new Date());
+    const newFolder: MyFolder = {
+      id: Math.random(),
+      name: folderName || 'Untitled folder',
+      owner: 'Me',
+      lastChange: currentDate,
+      size: 0,
+      files: [],
+      children: [],
+      parent: Math.random(),
+    };
+    dispatch(addFolder(newFolder));
+    handleClose();
+  }
 
   return (
     <div
@@ -60,11 +83,13 @@ export default function ModalCreateFile({ visible }: IModal) {
             type='text'
             fullWidth
             variant='outlined'
+            value={folderName}
+            onChange={(e) => setFolderName(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
+          <Button onClick={() => handleCreatefolder()}>{t('explorer.create')}</Button>
           <Button onClick={handleClose}>{t('explorer.cancel')}</Button>
-          <Button onClick={handleClose}>{t('explorer.create')}</Button>
         </DialogActions>
       </Dialog>
     </div>
