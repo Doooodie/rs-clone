@@ -54,7 +54,7 @@ export default function Drive() {
   function onDropHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     const uploaderFiles = e.dataTransfer.files;
-    for (let i = 0; i < files.length; i += 1) {
+    for (let i = 0; i < uploaderFiles.length; i += 1) {
       const uploadFile = uploaderFiles[i];
       addFileOnDrop(uploadFile);
     }

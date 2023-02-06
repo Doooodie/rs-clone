@@ -24,8 +24,9 @@
   width: 99%;
   padding: 0 3rem 0 0.5rem;
   max-height: calc(100vh - 65px - 48px - 58px);
-  overflow: scroll;
+  min-height: 50vh;
   border: 2px solid white;
+  overflow: scroll;
 }
 
 .file-list-wrapper-active {
