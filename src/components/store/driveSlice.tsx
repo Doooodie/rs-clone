@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AllDrive, File } from '../pages/Explorer/types/types';
+import { AllDrive, MyFile } from '../pages/Explorer/types/types';
 
 enum DrivesNames {
   drive = 'drive',
@@ -42,7 +42,7 @@ const driveSlice = createSlice({
   name: 'files',
   initialState,
   reducers: {
-    addFile(state, action: PayloadAction<File>) {
+    addFile(state, action: PayloadAction<MyFile>) {
       const currentState = state;
       currentState.allDrive.drive.files.push(action.payload);
     },

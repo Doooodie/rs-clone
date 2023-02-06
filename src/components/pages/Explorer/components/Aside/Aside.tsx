@@ -29,8 +29,8 @@ export default function Aside() {
       addFile({
         name: 'test1',
         owner: 'me',
-        lastChange: '03:02:2023 21:40',
-        size: '13KB',
+        lastChange: 33333,
+        size: 13,
         id: Math.random(),
       }),
     );

@@ -1,32 +1,32 @@
-export type MainDrive = {
-  name: string;
-  files: File[];
-  folders: File[];
-};
-
-export type File = {
+export type MyFile = {
   name: string;
   owner: string;
-  lastChange: string;
-  size: string;
+  lastChange: number;
+  size: number;
   id: number;
+};
+
+export type MainDrive = {
+  name: string;
+  files: MyFile[];
+  folders: MyFile[];
 };
 
 export type TrashDrive = {
   name: string;
-  files: File[];
+  files: MyFile[];
 };
 
 export type ImportantDrive = {
   name: string;
-  files: File[];
-  folders: File[];
+  files: MyFile[];
+  folders: MyFile[];
 };
 
 export type StorageDrive = {
   name: string;
-  files: File[];
-  folders: File[];
+  files: MyFile[];
+  folders: MyFile[];
 };
 
 export type AllDrive = {

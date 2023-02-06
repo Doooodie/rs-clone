@@ -1,12 +1,14 @@
 import { IconButton } from '@mui/material';
 import NorthIcon from '@mui/icons-material/North';
 import './Drive.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import File from '../File/File';
 import DriveHeader from '../DriveHeader/DriveHeader';
-import { useAppSelector } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { addFile } from '../../../../store/driveSlice';
+import { MyFile } from '../../types/types';
 
 enum FileListClass {
   active = 'file-list-wrapper file-list-wrapper-active',
@@ -19,6 +21,7 @@ enum ModalListClas {
 }
 
 export default function Drive() {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [drop, setDrop] = useState(false);
   const currentDrive = useAppSelector((store) => store.files.currentDrive);
@@ -32,6 +35,29 @@ export default function Drive() {
   function dragLeaveHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
     setDrop(false);
+  }
+
+  function addFileOnDrop(file: File) {
+    const uploaderFile: MyFile = {
+      name: file.name,
+      // todo userID
+      owner: 'Me',
+      lastChange: file.lastModified,
+      size: file.size,
+      // todo Id
+      id: Math.random(),
+    };
+    dispatch(addFile(uploaderFile));
+    setDrop(false);
+  }
+
+  function onDropHandler(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault();
+    const uploaderFiles = e.dataTransfer.files;
+    for (let i = 0; i < files.length; i += 1) {
+      const uploadFile = uploaderFiles[i];
+      addFileOnDrop(uploadFile);
+    }
   }
 
   return (
@@ -63,6 +89,7 @@ export default function Drive() {
           onDragStart={(e) => dragStartHandler(e)}
           onDragLeave={(e) => dragLeaveHandler(e)}
           onDragOver={(e) => dragStartHandler(e)}
+          onDrop={(e) => onDropHandler(e)}
         >
           {files.map((file) => (
             <File

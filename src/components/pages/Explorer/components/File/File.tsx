@@ -1,21 +1,26 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import React from 'react';
 import { useAppDispatch } from '../../../../hooks';
 import { removeFile } from '../../../../store/driveSlice';
+import convertNumberToDate from '../../helpers/convertNumberToDate';
+import convertBytesToKbMb from '../../helpers/convertBytesToKbMd';
 import './File.css';
 
 type FileProps = {
   name: string;
   owner: string;
-  lastChange: string;
-  size: string;
+  lastChange: number;
+  size: number;
   id: number;
 };
 
 export default function File({ name, owner, lastChange, size, id }: FileProps) {
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
-
+  const { convertedSize, convertedName } = convertBytesToKbMb(size);
+  const sizeString = `${convertedSize}${t(`explorer.${convertedName}`)}`;
   function hadleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     dispatch(removeFile(id));
@@ -36,11 +41,11 @@ export default function File({ name, owner, lastChange, size, id }: FileProps) {
       </div>
 
       <div className='file-item-info file-item-time'>
-        <span>{lastChange}</span>
+        <span>{convertNumberToDate(lastChange)}</span>
       </div>
 
       <div className='file-item-info file-item-size'>
-        <span>{size}</span>
+        <span>{sizeString}</span>
         <IconButton onContextMenu={(e) => hadleDelete(e)}>
           <DeleteForeverIcon color='error' />
         </IconButton>
