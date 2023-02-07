@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppDispatch } from '../../../../hooks';
-import { removeFolder } from '../../../../store/driveSlice';
+import { addFolderToTrash, removeFolder } from '../../../../store/driveSlice';
 import convertNumberToDate from '../../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../../helpers/convertBytesToKbMd';
 import FolderIcon from '../../../../../assets/SvgComponents/FolderIcon';
@@ -31,6 +31,7 @@ export default function FolderComponent({
 
   function hadleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
+    dispatch(addFolderToTrash(id));
     dispatch(removeFolder(id));
   }
 

@@ -57,6 +57,16 @@ const driveSlice = createSlice({
         (file) => file.id !== action.payload,
       );
     },
+    addFileToTrash(state, action: PayloadAction<number>) {
+      const currentState = state;
+      const index = currentState.allDrive.drive.files.findIndex((file) => file.id === action.payload);
+      currentState.allDrive.trash.files.push(currentState.allDrive.drive.files[index]);
+    },
+    addFolderToTrash(state, action: PayloadAction<number>) {
+      const currentState = state;
+      const index = currentState.allDrive.drive.folders.findIndex((folder) => folder.id === action.payload);
+      currentState.allDrive.trash.folders.push(currentState.allDrive.drive.folders[index]);
+    },
     removeFolder(state, action: PayloadAction<number>) {
       const currentState = state;
       currentState.allDrive.drive.folders = currentState.allDrive.drive.folders.filter(
@@ -71,5 +81,12 @@ const driveSlice = createSlice({
 });
 
 export default driveSlice.reducer;
-export const { addFile, removeFile, addFolder, removeFolder, changeCurrentDrive } =
-  driveSlice.actions;
+export const {
+  addFile,
+  removeFile,
+  addFileToTrash,
+  addFolder,
+  addFolderToTrash,
+  removeFolder,
+  changeCurrentDrive
+} = driveSlice.actions;

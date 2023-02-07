@@ -19,6 +19,8 @@ export default function Drive() {
   const currentDrive = useAppSelector((store) => store.files.currentDrive);
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
   const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
+  console.log('currentDrive', currentDrive);
+  console.log('files', files);
 
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
