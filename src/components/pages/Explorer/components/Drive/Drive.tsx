@@ -1,16 +1,22 @@
 import { IconButton } from '@mui/material';
 import NorthIcon from '@mui/icons-material/North';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { addFile } from '../../../../store/driveSlice';
+import { addFile, addFileToTrash, removeFile, removeFileFromTrash } from '../../../../store/driveSlice';
 import { MyFile } from '../../types/types';
 import { ModalListClass, FileListClass } from '../../types/enums';
 import DriveHeader from '../DriveHeader/DriveHeader';
 import File from '../File/File';
 import FolderComponent from '../FolderComponent/FolderComponent';
 import './Drive.css';
+import ContextMenu from '../Modals/ContextMenu/ContextMenu';
+
+type Coordinate = {
+  xCoordinate: number,
+  yCoordinate: number,
+};
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -19,8 +25,38 @@ export default function Drive() {
   const currentDrive = useAppSelector((store) => store.files.currentDrive);
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
   const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
-  console.log('currentDrive', currentDrive);
-  console.log('files', files);
+  // context menu
+  const [coordinate, setCoodinate] = useState<Coordinate>({xCoordinate: 0, yCoordinate: 0});
+  const [contextVisible, setContextVisible] = useState(false);
+  const [contextId, setContextId] = useState(0);
+
+  function hadleContexMenu(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.preventDefault();
+    const id = e.currentTarget.id;
+    setContextId(Number(id))
+    const xCoordinate = e.clientX;
+    const yCoordinate = e.clientY;
+    setCoodinate({xCoordinate, yCoordinate});
+    setContextVisible(true);
+  }
+
+  function handleDeleteFile(id: number) {
+    if (currentDrive === 'drive') {
+      dispatch(addFileToTrash(id));
+      dispatch(removeFile(id));
+    }
+    else {
+      dispatch(removeFileFromTrash(id));
+    }
+  }
+
+    useEffect(() => {
+      const handleClick = () => setContextVisible(false);
+      window.addEventListener('click', handleClick);
+      return () => window.removeEventListener('click', handleClick);
+    }, []);
+
+  // context menu end
 
   function dragStartHandler(e: React.DragEvent<HTMLDivElement>) {
     e.preventDefault();
@@ -105,8 +141,15 @@ export default function Drive() {
               size={file.size}
               lastChange={file.lastChange}
               id={file.id}
+              onContextMenu={hadleContexMenu}
             />
           ))}
+          <ContextMenu
+            visible = { contextVisible }
+            x = { coordinate.xCoordinate }
+            y = { coordinate.yCoordinate }
+            handleDelete = {() => handleDeleteFile(contextId)}
+          />
         </div>
       </div>
       <div className={drop ? ModalListClass.active : ModalListClass.default}>

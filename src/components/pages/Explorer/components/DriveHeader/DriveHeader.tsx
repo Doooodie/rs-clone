@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { changeHeaderModal } from '../../../../store/modalSlice';
 import MenuArrowDownIcon from '../../../../../assets/SvgComponents/MenuArrowDown';
-import ModalCreateFile from '../CreateModal/ModalCreateFile';
+import ModalCreateFile from '../Modals/CreateModal/ModalCreateFile';
 import './DriveHeader.css';
 
 interface IDriveHeader {

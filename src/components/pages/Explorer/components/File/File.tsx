@@ -1,13 +1,8 @@
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { IconButton } from '@mui/material';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { useAppDispatch } from '../../../../hooks';
-import { addFileToTrash, removeFile } from '../../../../store/driveSlice';
 import convertNumberToDate from '../../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../../helpers/convertBytesToKbMd';
-import './File.css';
 import { addActiveClassOnDriveItem } from '../../helpers/handleFileItem';
+import './File.css';
 
 type FileProps = {
   name: string;
@@ -15,21 +10,22 @@ type FileProps = {
   lastChange: number;
   size: number;
   id: number;
+  onContextMenu: (value: any) => void;
 };
 
-export default function File({ name, owner, lastChange, size, id }: FileProps) {
+export default function File({ name, owner, lastChange, size, id, onContextMenu }: FileProps) {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const { convertedSize, convertedName } = convertBytesToKbMb(size);
   const sizeString = `${convertedSize}${t(`explorer.${convertedName}`)}`;
-  function hadleDelete(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
-    e.preventDefault();
-    dispatch(addFileToTrash(id));
-    dispatch(removeFile(id));
-  }
 
   return (
-    <div role='presentation' className='file-item' onClick={(e) => addActiveClassOnDriveItem(e)}>
+    <div
+      role='presentation'
+      className='file-item'
+      onContextMenu={(e) => onContextMenu(e)}
+      onClick={(e) => addActiveClassOnDriveItem(e)}
+      id={`${id}`}
+    >
       <div className='file-item-img'>
         <img
           src='https://drive-thirdparty.googleusercontent.com/16/type/application/vnd.google-apps.document'
@@ -48,9 +44,6 @@ export default function File({ name, owner, lastChange, size, id }: FileProps) {
 
       <div className='file-item-info file-item-size'>
         <span>{sizeString}</span>
-        <IconButton onContextMenu={(e) => hadleDelete(e)}>
-          <DeleteForeverIcon color='error' />
-        </IconButton>
       </div>
     </div>
   );

@@ -16,7 +16,6 @@ function Explorer() {
     if (e.target === null) return;
     const target = e.target as HTMLElement;
     const isLangButtons = target.classList.contains('setting-button-lang');
-    console.log(e.target);
     if (!isLangButtons) dispatch(changeSettingModal(false));
     const isFileItem = target.classList.contains('file-item');
     if (!isFileItem) removeActiveClassOnDriveItem();

@@ -13,9 +13,9 @@ import {
 import './ModalCreateFile.css';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MyFolder } from '../../types/types';
-import { addFolder } from '../../../../store/driveSlice';
-import { useAppDispatch } from '../../../../hooks';
+import { MyFolder } from '../../../types/types';
+import { addFolder } from '../../../../../store/driveSlice';
+import { useAppDispatch } from '../../../../../hooks';
 
 interface IModal {
   visible: boolean;

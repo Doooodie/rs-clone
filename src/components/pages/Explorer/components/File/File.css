@@ -4,6 +4,7 @@
   align-items: center;
   border-bottom: solid 1px #dadce0;
   grid-template-columns: 7fr 2fr 3fr 1fr;
+  padding: 0.5rem 0;
   color: #3c4043;
   font-size: 13px;
 }
