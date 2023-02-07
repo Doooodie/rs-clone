@@ -47,3 +47,18 @@ export type AllDrive = {
   important: ImportantDrive;
   storage: StorageDrive;
 };
+
+export type Coordinate = {
+  xCoordinate: number;
+  yCoordinate: number;
+};
+
+export type FileProps = {
+  name: string;
+  owner: string;
+  lastChange: number;
+  size: number;
+  id: number;
+  onContextMenu: (value: any) => void;
+  isFile: boolean;
+};

@@ -4,8 +4,8 @@ import { IconButton } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useTranslation } from 'react-i18next';
-import SearchField from '../UI/SearchField';
-import SettingModal from '../Modals/SettingModal/SettingModal';
+import SearchField from '../../components/UI/SearchField';
+import SettingModal from '../../components/Modals/SettingModal/SettingModal';
 import { changeSettingModal } from '../../../../store/modalSlice';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 

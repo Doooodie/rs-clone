@@ -1,8 +1,8 @@
 import { useAppDispatch } from '../../hooks';
 import { changeHeaderModal, changeAsideModal, changeSettingModal } from '../../store/modalSlice';
-import Aside from './components/Aside/Aside';
-import Drive from './components/Drive/Drive';
-import Header from './components/Header/Header';
+import Aside from './modules/Aside/Aside';
+import Drive from './modules/Drive/Drive';
+import Header from './modules/Header/Header';
 import './Explorer.css';
 import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 

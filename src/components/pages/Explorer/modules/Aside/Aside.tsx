@@ -5,7 +5,7 @@ import MyDescIcon from '../../../../../assets/SvgComponents/MyDescIcon';
 import StarIcon from '../../../../../assets/SvgComponents/StarIcon';
 import CartIcon from '../../../../../assets/SvgComponents/CartIcon';
 import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
-import ModalCreateFile from '../Modals/CreateModal/ModalCreateFile';
+import ModalCreateFile from '../../components/Modals/CreateModal/ModalCreateFile';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import { changeAsideModal } from '../../../../store/modalSlice';
 import { addFile, changeCurrentDrive } from '../../../../store/driveSlice';

@@ -9,12 +9,15 @@ interface IModal {
   handleDelete: () => void;
 }
 
-export default function ContextMenu({ visible, x, y, handleDelete}: IModal) {
-
+export default function ContextMenu({ visible, x, y, handleDelete }: IModal) {
   return (
     <div
       className='modal-list file-modal'
-      style={visible ? { opacity: 1, zIndex: 2000, top: `${y}px`, left: `${x}px` } : { opacity: 0, zIndex: -1, top: `${x}`, left: `${y}` }}
+      style={
+        visible
+          ? { opacity: 1, zIndex: 2000, top: `${y}px`, left: `${x}px` }
+          : { opacity: 0, zIndex: -1, top: `${x}`, left: `${y}` }
+      }
     >
       <Paper elevation={3} sx={{ width: '100%' }}>
         <button

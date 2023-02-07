@@ -1,22 +1,23 @@
-import { IconButton } from '@mui/material';
-import NorthIcon from '@mui/icons-material/North';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { addFile, addFileToTrash, removeFile, removeFileFromTrash } from '../../../../store/driveSlice';
-import { MyFile } from '../../types/types';
+import {
+  addFile,
+  addFileToTrash,
+  addFolderToTrash,
+  removeFile,
+  removeFileFromTrash,
+  removeFolder,
+  removeFolderFromTrash,
+} from '../../../../store/driveSlice';
+import { MyFile, Coordinate } from '../../types/types';
 import { ModalListClass, FileListClass } from '../../types/enums';
-import DriveHeader from '../DriveHeader/DriveHeader';
-import File from '../File/File';
-import FolderComponent from '../FolderComponent/FolderComponent';
+import ContextMenu from '../../components/Modals/ContextMenu/ContextMenu';
+import DriveItemsHeader from './components/DriveItemHeader/DriveItemHeader';
+import DriveItemFile from './components/DriveItem/DriveItemItem';
+import DriveHeader from './components/DriveHeader/DriveHeader';
 import './Drive.css';
-import ContextMenu from '../Modals/ContextMenu/ContextMenu';
-
-type Coordinate = {
-  xCoordinate: number,
-  yCoordinate: number,
-};
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -25,36 +26,46 @@ export default function Drive() {
   const currentDrive = useAppSelector((store) => store.files.currentDrive);
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
   const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
+
   // context menu
-  const [coordinate, setCoodinate] = useState<Coordinate>({xCoordinate: 0, yCoordinate: 0});
+
+  const [coordinate, setCoodinate] = useState<Coordinate>({ xCoordinate: 0, yCoordinate: 0 });
   const [contextVisible, setContextVisible] = useState(false);
   const [contextId, setContextId] = useState(0);
+  const [isFile, setIsFile] = useState(false);
 
   function hadleContexMenu(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
     e.preventDefault();
-    const id = e.currentTarget.id;
-    setContextId(Number(id))
+    const { id } = e.currentTarget;
+    setIsFile(e.currentTarget.getAttribute('itemtype') === 'file');
+    setContextId(Number(id));
     const xCoordinate = e.clientX;
     const yCoordinate = e.clientY;
-    setCoodinate({xCoordinate, yCoordinate});
+    setCoodinate({ xCoordinate, yCoordinate });
     setContextVisible(true);
   }
 
-  function handleDeleteFile(id: number) {
-    if (currentDrive === 'drive') {
-      dispatch(addFileToTrash(id));
-      dispatch(removeFile(id));
-    }
-    else {
-      dispatch(removeFileFromTrash(id));
+  function handleDeleteItem(id: number) {
+    if (isFile) {
+      if (currentDrive === 'drive') {
+        dispatch(addFileToTrash(id));
+        dispatch(removeFile(id));
+      } else {
+        dispatch(removeFileFromTrash(id));
+      }
+    } else if (currentDrive === 'drive') {
+      dispatch(addFolderToTrash(id));
+      dispatch(removeFolder(id));
+    } else {
+      dispatch(removeFolderFromTrash(id));
     }
   }
 
-    useEffect(() => {
-      const handleClick = () => setContextVisible(false);
-      window.addEventListener('click', handleClick);
-      return () => window.removeEventListener('click', handleClick);
-    }, []);
+  useEffect(() => {
+    const handleClick = () => setContextVisible(false);
+    window.addEventListener('click', handleClick);
+    return () => window.removeEventListener('click', handleClick);
+  }, []);
 
   // context menu end
 
@@ -96,25 +107,7 @@ export default function Drive() {
     <section className='drive'>
       <DriveHeader name={name} />
       <div className='file-list'>
-        <div className='file-list-item sticky'>
-          <div className='file-item-info file-item-name'>
-            <span>{t(`explorer.filename`)}</span>
-            <IconButton>
-              <NorthIcon fontSize='small' />
-            </IconButton>
-          </div>
-          <div className='file-list-info file-list-owner'>
-            <span>{t(`explorer.owner`)}</span>
-          </div>
-
-          <div className='file-item-info file-item-time'>
-            <span>{t(`explorer.modified`)}</span>
-          </div>
-
-          <div className='file-item-size file-item-size'>
-            <span>{t(`explorer.size`)}</span>
-          </div>
-        </div>
+        <DriveItemsHeader />
 
         <div
           className={drop ? FileListClass.active : FileListClass.default}
@@ -124,31 +117,34 @@ export default function Drive() {
           onDrop={(e) => onDropHandler(e)}
         >
           {folders.map((folder) => (
-            <FolderComponent
+            <DriveItemFile
               name={folder.name}
               owner={folder.owner}
               key={folder.id}
               size={folder.size}
               lastChange={folder.lastChange}
               id={folder.id}
+              onContextMenu={(e) => hadleContexMenu(e)}
+              isFile={false}
             />
           ))}
           {files.map((file) => (
-            <File
+            <DriveItemFile
               name={file.name}
               owner={file.owner}
               key={file.id}
               size={file.size}
               lastChange={file.lastChange}
               id={file.id}
-              onContextMenu={hadleContexMenu}
+              onContextMenu={(e) => hadleContexMenu(e)}
+              isFile
             />
           ))}
           <ContextMenu
-            visible = { contextVisible }
-            x = { coordinate.xCoordinate }
-            y = { coordinate.yCoordinate }
-            handleDelete = {() => handleDeleteFile(contextId)}
+            visible={contextVisible}
+            x={coordinate.xCoordinate}
+            y={coordinate.yCoordinate}
+            handleDelete={() => handleDeleteItem(contextId)}
           />
         </div>
       </div>
