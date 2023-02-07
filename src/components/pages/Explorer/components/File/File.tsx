@@ -7,6 +7,7 @@ import { removeFile } from '../../../../store/driveSlice';
 import convertNumberToDate from '../../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../../helpers/convertBytesToKbMd';
 import './File.css';
+import { addActiveClassOnDriveItem } from '../../helpers/handleFileItem';
 
 type FileProps = {
   name: string;
@@ -27,7 +28,7 @@ export default function File({ name, owner, lastChange, size, id }: FileProps) {
   }
 
   return (
-    <div className='file-item'>
+    <div role='presentation' className='file-item' onClick={(e) => addActiveClassOnDriveItem(e)}>
       <div className='file-item-img'>
         <img
           src='https://drive-thirdparty.googleusercontent.com/16/type/application/vnd.google-apps.document'

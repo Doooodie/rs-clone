@@ -6,8 +6,8 @@ import { useAppDispatch } from '../../../../hooks';
 import { removeFolder } from '../../../../store/driveSlice';
 import convertNumberToDate from '../../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../../helpers/convertBytesToKbMd';
-import './FolderComponent.css';
 import FolderIcon from '../../../../../assets/SvgComponents/FolderIcon';
+import { addActiveClassOnDriveItem } from '../../helpers/handleFileItem';
 
 type FolderComponentProps = {
   name: string;
@@ -35,7 +35,7 @@ export default function FolderComponent({
   }
 
   return (
-    <div className='file-item'>
+    <div role='presentation' className='file-item' onClick={(e) => addActiveClassOnDriveItem(e)}>
       <div className='file-item-img'>
         <FolderIcon />
         <span>{name}</span>

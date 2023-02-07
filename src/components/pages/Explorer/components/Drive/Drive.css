@@ -11,18 +11,17 @@
 
 .file-list-item {
   display: grid;
-  padding: 0.8rem 3rem 0.3rem 0.5rem;
+  padding: 0 10px;
   align-items: center;
-  border-bottom: solid 1px #dadce0;
   grid-template-columns: 7fr 2fr 3fr 1fr;
+  border-bottom: solid 1px #dadce0;
   color: #3c4043;
   font-weight: bold;
   font-size: 13px;
 }
 
 .file-list-wrapper {
-  width: 99%;
-  padding: 0 3rem 0 0.5rem;
+  width: 100%;
   max-height: calc(100vh - 65px - 48px - 58px);
   min-height: 50vh;
   border: 2px solid white;
