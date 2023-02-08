@@ -7,9 +7,10 @@ interface IModal {
   x: number;
   y: number;
   handleDelete: () => void;
+  handleModalOpen: () => void;
 }
 
-export default function ContextMenu({ visible, x, y, handleDelete }: IModal) {
+export default function ContextMenu({ visible, x, y, handleDelete, handleModalOpen }: IModal) {
   return (
     <div
       className='modal-list file-modal'
@@ -27,6 +28,14 @@ export default function ContextMenu({ visible, x, y, handleDelete }: IModal) {
         >
           <AddToDriveIcon htmlColor='#5f6368' />
           <span>Delete</span>
+        </button>
+        <button
+          type='button'
+          className='header-actions-item header-actions-item-main'
+          onClick={handleModalOpen}
+        >
+          <AddToDriveIcon htmlColor='#5f6368' />
+          <span>Rename</span>
         </button>
       </Paper>
     </div>

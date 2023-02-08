@@ -10,6 +10,7 @@ import {
   removeFileFromTrash,
   removeFolder,
   removeFolderFromTrash,
+  renameFolder,
 } from '../../../../store/driveSlice';
 import { MyFile, Coordinate } from '../../types/types';
 import { ModalListClass, FileListClass } from '../../types/enums';
@@ -18,6 +19,7 @@ import DriveItemsHeader from './components/DriveItemHeader/DriveItemHeader';
 import DriveItemFile from './components/DriveItem/DriveItemItem';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import './Drive.css';
+import MyDialog from '../../components/Modals/Dialog/Dialog';
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -27,8 +29,12 @@ export default function Drive() {
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
   const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
 
-  // context menu
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+  const [folderNewName, setFolderNewName] = useState('');
 
+  // context menu
   const [coordinate, setCoodinate] = useState<Coordinate>({ xCoordinate: 0, yCoordinate: 0 });
   const [contextVisible, setContextVisible] = useState(false);
   const [contextId, setContextId] = useState(0);
@@ -43,6 +49,14 @@ export default function Drive() {
     const yCoordinate = e.clientY;
     setCoodinate({ xCoordinate, yCoordinate });
     setContextVisible(true);
+  }
+
+  // rename folder
+
+  function handleRenameFolder() {
+    dispatch(renameFolder({ contextId, folderNewName }));
+    setFolderNewName('');
+    handleClose();
   }
 
   function handleDeleteItem(id: number) {
@@ -145,6 +159,7 @@ export default function Drive() {
             x={coordinate.xCoordinate}
             y={coordinate.yCoordinate}
             handleDelete={() => handleDeleteItem(contextId)}
+            handleModalOpen={() => handleOpen()}
           />
         </div>
       </div>
@@ -157,6 +172,17 @@ export default function Drive() {
           <h4>{t(`explorer.${name}`)}</h4>
         </div>
       </div>
+      <MyDialog
+        open={open}
+        onClose={handleClose}
+        title={t('explorer.rename')}
+        value={folderNewName}
+        onChange={(value) => setFolderNewName(value)}
+        apply={t('explorer.rename')}
+        onApply={() => handleRenameFolder()}
+        cancel={t('explorer.cancel')}
+        placeholder={t('explorer.newname')}
+      />
     </section>
   );
 }

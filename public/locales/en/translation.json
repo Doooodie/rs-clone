@@ -25,6 +25,8 @@
     "filename": "Name",
     "owner": "Name",
     "modified": "Last modified",
-    "size": "File size"
+    "size": "File size",
+    "rename": "Rename",
+    "newname": "New name"
   }
 }

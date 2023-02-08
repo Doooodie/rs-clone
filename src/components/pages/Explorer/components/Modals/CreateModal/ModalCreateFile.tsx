@@ -1,21 +1,14 @@
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Paper,
-  TextField,
-} from '@mui/material';
-import './ModalCreateFile.css';
+import { Paper } from '@mui/material';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MyFolder } from '../../../types/types';
 import { addFolder } from '../../../../../store/driveSlice';
 import { useAppDispatch } from '../../../../../hooks';
+import MyDialog from '../Dialog/Dialog';
+import './ModalCreateFile.css';
 
 interface IModal {
   visible: boolean;
@@ -23,9 +16,9 @@ interface IModal {
 
 export default function ModalCreateFile({ visible }: IModal) {
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState(t(`explorer.dirname`));
+  const dispatch = useAppDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -70,28 +63,17 @@ export default function ModalCreateFile({ visible }: IModal) {
           <span>{t('explorer.dirupload')}</span>
         </div>
       </Paper>
-
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{t('explorer.newdir')}</DialogTitle>
-        <DialogContent>
-          <TextField
-            placeholder={t('explorer.dirname') || ''}
-            sx={{ minWidth: '300px', padding: '0 20px' }}
-            autoFocus
-            margin='dense'
-            size='small'
-            type='text'
-            fullWidth
-            variant='outlined'
-            value={folderName}
-            onChange={(e) => setFolderName(e.target.value)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => handleCreatefolder()}>{t('explorer.create')}</Button>
-          <Button onClick={handleClose}>{t('explorer.cancel')}</Button>
-        </DialogActions>
-      </Dialog>
+      <MyDialog
+        open={open}
+        onClose={handleClose}
+        title={t('explorer.newdir')}
+        placeholder={t('explorer.dirname') || ''}
+        value={folderName || ''}
+        onChange={(value) => setFolderName(value)}
+        apply={t('explorer.create')}
+        onApply={() => handleCreatefolder()}
+        cancel={t('explorer.cancel')}
+      />
     </div>
   );
 }

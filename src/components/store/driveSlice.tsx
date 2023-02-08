@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AllDrive, MyFile, MyFolder } from '../pages/Explorer/types/types';
+import { AllDrive, MyFile, MyFolder, RenameFileType } from '../pages/Explorer/types/types';
 
 enum DrivesNames {
   drive = 'drive',
@@ -50,6 +50,15 @@ const driveSlice = createSlice({
     addFolder(state, action: PayloadAction<MyFolder>) {
       const currentState = state;
       currentState.allDrive.drive.folders.push(action.payload);
+    },
+    renameFolder(state, action: PayloadAction<RenameFileType>) {
+      const currentState = state;
+      const id = action.payload.contextId;
+      const name = action.payload.folderNewName;
+      currentState.allDrive.drive.folders.forEach((folder) => {
+        const currentFolder = folder;
+        if (currentFolder.id === id) currentFolder.name = name;
+      });
     },
     removeFile(state, action: PayloadAction<number>) {
       const currentState = state;
@@ -107,4 +116,5 @@ export const {
   changeCurrentDrive,
   removeFileFromTrash,
   removeFolderFromTrash,
+  renameFolder,
 } = driveSlice.actions;

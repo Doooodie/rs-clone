@@ -59,6 +59,11 @@ export type FileProps = {
   lastChange: number;
   size: number;
   id: number;
-  onContextMenu: (value: any) => void;
+  onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   isFile: boolean;
+};
+
+export type RenameFileType = {
+  contextId: number;
+  folderNewName: string;
 };
