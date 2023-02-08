@@ -4,9 +4,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import { Box } from '@mui/material';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../../../hooks';
+import { setQuery } from '../../../../store/filterSlice';
 
 export default function SearchField() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   return (
     <Box
       component='form'
@@ -29,6 +32,7 @@ export default function SearchField() {
           sx={{ color: 'black' }}
           placeholder={t('explorer.search') || 'Search in drive'}
           inputProps={{ 'aria-label': 'search google maps' }}
+          onChange={(e) => dispatch(setQuery(e.target.value))}
         />
       </div>
 

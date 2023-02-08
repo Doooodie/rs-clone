@@ -1,5 +1,5 @@
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
 import {
@@ -12,7 +12,7 @@ import {
   removeFolderFromTrash,
   renameFolder,
 } from '../../../../store/driveSlice';
-import { MyFile, Coordinate } from '../../types/types';
+import { MyFile, Coordinate, MyFolder } from '../../types/types';
 import { ModalListClass, FileListClass } from '../../types/enums';
 import ContextMenu from '../../components/Modals/ContextMenu/ContextMenu';
 import DriveItemsHeader from './components/DriveItemHeader/DriveItemHeader';
@@ -33,6 +33,17 @@ export default function Drive() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [folderNewName, setFolderNewName] = useState('');
+  const query = useAppSelector((store) => store.filter.query);
+
+  function filteredByQuery(value: string, array: MyFile[] | MyFolder[]) {
+    if (value.length > 0) {
+      return array.filter((item) => item.name.toLocaleUpperCase().includes(value.toUpperCase()));
+    }
+    return array;
+  }
+
+  const filteredFiles = useMemo(() => filteredByQuery(query, files), [files, query]);
+  const filteredFolders = useMemo(() => filteredByQuery(query, folders), [folders, query]);
 
   // context menu
   const [coordinate, setCoodinate] = useState<Coordinate>({ xCoordinate: 0, yCoordinate: 0 });
@@ -130,7 +141,7 @@ export default function Drive() {
           onDragOver={(e) => dragStartHandler(e)}
           onDrop={(e) => onDropHandler(e)}
         >
-          {folders.map((folder) => (
+          {filteredFolders.map((folder) => (
             <DriveItemFile
               name={folder.name}
               owner={folder.owner}
@@ -142,7 +153,7 @@ export default function Drive() {
               isFile={false}
             />
           ))}
-          {files.map((file) => (
+          {filteredFiles.map((file) => (
             <DriveItemFile
               name={file.name}
               owner={file.owner}
