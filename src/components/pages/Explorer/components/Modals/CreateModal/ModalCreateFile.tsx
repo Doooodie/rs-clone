@@ -2,7 +2,7 @@ import AddToDriveIcon from '@mui/icons-material/AddToDrive';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { Paper } from '@mui/material';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MyFolder } from '../../../types/types';
 import { addFolder } from '../../../../../store/driveSlice';
@@ -21,6 +21,7 @@ export default function ModalCreateFile({ visible }: IModal) {
   const dispatch = useAppDispatch();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const inputFile = useRef<HTMLInputElement | null>(null);
 
   function handleCreatefolder() {
     // todo translation folder name
@@ -40,6 +41,10 @@ export default function ModalCreateFile({ visible }: IModal) {
     handleClose();
   }
 
+  const onUploadClick = () => {
+    if (inputFile.current !== null) inputFile.current.click();
+  };
+
   return (
     <div
       className='modal-list'
@@ -54,10 +59,11 @@ export default function ModalCreateFile({ visible }: IModal) {
           <AddToDriveIcon htmlColor='#5f6368' />
           <span>{t('explorer.createdir')}</span>
         </button>
-        <div className='header-actions-item'>
+        <button type='button' className='header-actions-item' onClick={onUploadClick}>
           <UploadFileIcon htmlColor='#5f6368' />
           <span>{t('explorer.fileupload')}</span>
-        </div>
+          <input type='file' ref={inputFile} style={{ display: 'none' }} />
+        </button>
         <div className='header-actions-item'>
           <DriveFolderUploadIcon htmlColor='#5f6368' />
           <span>{t('explorer.dirupload')}</span>
