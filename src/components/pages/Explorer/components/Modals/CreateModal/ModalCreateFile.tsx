@@ -4,8 +4,8 @@ import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { Paper } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MyFolder } from '../../../types/types';
-import { addFolder } from '../../../../../store/driveSlice';
+import { MyFile, MyFolder } from '../../../types/types';
+import { addFile, addFolder } from '../../../../../store/driveSlice';
 import { useAppDispatch } from '../../../../../hooks';
 import MyDialog from '../Dialog/Dialog';
 import './ModalCreateFile.css';
@@ -45,9 +45,34 @@ export default function ModalCreateFile({ visible }: IModal) {
     if (inputFile.current !== null) inputFile.current.click();
   };
 
+  function addFileOnClick(file: File) {
+    const uploaderFile: MyFile = {
+      name: file.name,
+      // todo userID
+      owner: 'Me',
+      lastChange: file.lastModified,
+      size: file.size,
+      // todo Id
+      id: Math.random(),
+    };
+    // todo add file to server
+    dispatch(addFile(uploaderFile));
+  }
+
+  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
+    const uploaderFiles = e.target.files;
+    if (uploaderFiles) {
+      for (let i = 0; i < uploaderFiles.length; i += 1) {
+        const uploadFile = uploaderFiles[i];
+        addFileOnClick(uploadFile);
+      }
+    }
+  }
+
   return (
     <div
       className='modal-list'
+      id='modal-list-create-file'
       style={visible ? { opacity: 1, zIndex: 100 } : { opacity: 0, zIndex: -1 }}
     >
       <Paper elevation={3} sx={{ width: '100%' }}>
@@ -62,7 +87,13 @@ export default function ModalCreateFile({ visible }: IModal) {
         <button type='button' className='header-actions-item' onClick={onUploadClick}>
           <UploadFileIcon htmlColor='#5f6368' />
           <span>{t('explorer.fileupload')}</span>
-          <input type='file' ref={inputFile} style={{ display: 'none' }} />
+          <input
+            id='file'
+            type='file'
+            ref={inputFile}
+            style={{ display: 'none' }}
+            onChange={(e) => onChangeHandler(e)}
+          />
         </button>
         <div className='header-actions-item'>
           <DriveFolderUploadIcon htmlColor='#5f6368' />
