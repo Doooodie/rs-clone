@@ -20,6 +20,7 @@ import DriveItemFile from './components/DriveItem/DriveItemItem';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import './Drive.css';
 import MyDialog from '../../components/Modals/Dialog/Dialog';
+import DriveItemInfo from './components/DriveItemInfo/DriveItemInfo';
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -130,70 +131,73 @@ export default function Drive() {
 
   return (
     <section className='drive'>
-      <DriveHeader name={name} />
-      <div className='file-list'>
-        <DriveItemsHeader />
+      <div className='drive-items'>
+        <DriveHeader name={name} />
+        <div className='file-list'>
+          <DriveItemsHeader />
 
-        <div
-          className={drop ? FileListClass.active : FileListClass.default}
-          onDragStart={(e) => dragStartHandler(e)}
-          onDragLeave={(e) => dragLeaveHandler(e)}
-          onDragOver={(e) => dragStartHandler(e)}
-          onDrop={(e) => onDropHandler(e)}
-        >
-          {filteredFolders.map((folder) => (
-            <DriveItemFile
-              name={folder.name}
-              owner={folder.owner}
-              key={folder.id}
-              size={folder.size}
-              lastChange={folder.lastChange}
-              id={folder.id}
-              onContextMenu={(e) => hadleContexMenu(e)}
-              isFile={false}
+          <div
+            className={drop ? FileListClass.active : FileListClass.default}
+            onDragStart={(e) => dragStartHandler(e)}
+            onDragLeave={(e) => dragLeaveHandler(e)}
+            onDragOver={(e) => dragStartHandler(e)}
+            onDrop={(e) => onDropHandler(e)}
+          >
+            {filteredFolders.map((folder) => (
+              <DriveItemFile
+                name={folder.name}
+                owner={folder.owner}
+                key={folder.id}
+                size={folder.size}
+                lastChange={folder.lastChange}
+                id={folder.id}
+                onContextMenu={(e) => hadleContexMenu(e)}
+                isFile={false}
+              />
+            ))}
+            {filteredFiles.map((file) => (
+              <DriveItemFile
+                name={file.name}
+                owner={file.owner}
+                key={file.id}
+                size={file.size}
+                lastChange={file.lastChange}
+                id={file.id}
+                onContextMenu={(e) => hadleContexMenu(e)}
+                isFile
+              />
+            ))}
+            <ContextMenu
+              visible={contextVisible}
+              x={coordinate.xCoordinate}
+              y={coordinate.yCoordinate}
+              handleDelete={() => handleDeleteItem(contextId)}
+              handleModalOpen={() => handleOpen()}
             />
-          ))}
-          {filteredFiles.map((file) => (
-            <DriveItemFile
-              name={file.name}
-              owner={file.owner}
-              key={file.id}
-              size={file.size}
-              lastChange={file.lastChange}
-              id={file.id}
-              onContextMenu={(e) => hadleContexMenu(e)}
-              isFile
-            />
-          ))}
-          <ContextMenu
-            visible={contextVisible}
-            x={coordinate.xCoordinate}
-            y={coordinate.yCoordinate}
-            handleDelete={() => handleDeleteItem(contextId)}
-            handleModalOpen={() => handleOpen()}
-          />
-        </div>
-      </div>
-      <div className={drop ? ModalListClass.active : ModalListClass.default}>
-        <div className='modal-dropper-text'>
-          <div className='modal-cloudi-icon'>
-            <CloudUploadOutlinedIcon color='primary' />
           </div>
-          <div>{t(`explorer.dropfile`)}</div>
-          <h4>{t(`explorer.${name}`)}</h4>
         </div>
+        <div className={drop ? ModalListClass.active : ModalListClass.default}>
+          <div className='modal-dropper-text'>
+            <div className='modal-cloudi-icon'>
+              <CloudUploadOutlinedIcon color='primary' />
+            </div>
+            <div>{t(`explorer.dropfile`)}</div>
+            <h4>{t(`explorer.${name}`)}</h4>
+          </div>
+        </div>
+        <MyDialog
+          open={open}
+          onClose={handleClose}
+          title={t('explorer.rename')}
+          value={folderNewName}
+          onChange={(value) => setFolderNewName(value)}
+          apply={t('explorer.rename')}
+          onApply={() => handleRenameFolder()}
+          cancel={t('explorer.cancel')}
+          placeholder={t('explorer.newname')}
+        />
       </div>
-      <MyDialog
-        open={open}
-        onClose={handleClose}
-        title={t('explorer.rename')}
-        value={folderNewName}
-        onChange={(value) => setFolderNewName(value)}
-        apply={t('explorer.rename')}
-        onApply={() => handleRenameFolder()}
-        cancel={t('explorer.cancel')}
-        placeholder={t('explorer.newname')}
-      />
+      <DriveItemInfo />
     </section>
   );
 }

@@ -1,0 +1,11 @@
+.drive-item-info {
+  height: 100%;
+  width: 100px;
+  display: block;
+  border: 3px solid black;
+  transition: all 0.3s linear;
+}
+
+.drive-item-info-hidden {
+  width: 320px;
+}

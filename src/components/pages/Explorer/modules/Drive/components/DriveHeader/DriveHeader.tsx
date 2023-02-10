@@ -25,6 +25,10 @@ export default function DriveHeader({ name }: IDriveHeader) {
     dispatch(changeHeaderModal(!modalVisible));
   }
 
+  function handleInfo() {
+    const driveInfoBlock = document.getElementById('drive-item-info');
+    if (driveInfoBlock) driveInfoBlock.classList.toggle('drive-item-info-hidden');
+  }
   return (
     <div className='drive-header'>
       <div className={modalVisible ? `drive-header-menu visible` : 'drive-header-menu'}>
@@ -42,7 +46,7 @@ export default function DriveHeader({ name }: IDriveHeader) {
         <IconButton onClick={() => setIsBig(!isBig)}>
           {isBig ? <CalendarViewMonthIcon /> : <ViewListOutlinedIcon />}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={() => handleInfo()}>
           <InfoIcon />
         </IconButton>
       </div>
