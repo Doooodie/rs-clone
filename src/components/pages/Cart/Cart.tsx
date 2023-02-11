@@ -1,7 +1,5 @@
 import { useAppSelector } from '../../hooks';
 
-import './Cart.css';
-
 function Cart() {
   const products = useAppSelector((state) => state.cart.products);
 
