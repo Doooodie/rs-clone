@@ -1,5 +1,6 @@
-import React from 'react';
+import { StrictMode, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
+import Loading from './components/Loading';
 import App from './components/App';
 
 import './components/i18n';
@@ -7,9 +8,9 @@ import './components/i18n';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 root.render(
-  <React.StrictMode>
-    <React.Suspense fallback='loading'>
+  <StrictMode>
+    <Suspense fallback={<Loading />}>
       <App />
-    </React.Suspense>
-  </React.StrictMode>,
+    </Suspense>
+  </StrictMode>,
 );
