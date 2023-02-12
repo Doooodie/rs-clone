@@ -1,0 +1,9 @@
+.modal-list-setting {
+  position: absolute;
+  opacity: 0;
+  width: max-content;
+  transition: 0.4s ease-in;
+  top: 70%;
+  left: -160%;
+  z-index: -1;
+}

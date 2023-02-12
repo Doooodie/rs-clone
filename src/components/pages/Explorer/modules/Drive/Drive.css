@@ -1,0 +1,122 @@
+.drive {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transition: all 1.5s linear;
+  justify-content: space-between;
+}
+
+.drive-items {
+  height: 100%;
+  overflow: scroll;
+  width: 100%;
+}
+
+.drive-list-wraper {
+  display: flex;
+}
+
+.file-list {
+  width: 100%;
+  max-height: 100%;
+}
+
+.file-list-item {
+  display: grid;
+  padding: 0 10px;
+  align-items: center;
+  grid-template-columns: 6fr 2fr 4fr 1fr;
+  border-bottom: solid 1px #dadce0;
+  color: #3c4043;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.file-list-wrapper {
+  width: 100%;
+  max-height: calc(100vh - 65px - 48px - 40px);
+  min-height: 50vh;
+  border: 2px solid white;
+  overflow: scroll;
+}
+
+.file-list-wrapper-active {
+  border: solid 2px rgb(25 103 210);
+}
+
+.file-item-size {
+  display: flex;
+  align-items: center;
+}
+
+.modal-dropper {
+  position: absolute;
+  border-radius: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  transform: translateY(300%);
+  top: 80%;
+  width: 30%;
+  max-width: max-content;
+  height: 12vh;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(25 103 210);
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  box-shadow: 0 0 16px rgb(25 103 210);
+  transition: 0.3s ease-in;
+}
+
+.modal-dropper-active {
+  transform: translateY(0);
+}
+
+.modal-dropper-text {
+  position: relative;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.modal-dropper-text h4 {
+  margin: 0;
+  padding: 0;
+}
+
+.modal-cloudi-icon {
+  position: absolute;
+  top: -130%;
+  left: 50%;
+  transform: translateX(-50%) scale(350%);
+  animation-duration: 0.35s;
+  animation-name: slidein;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.file-item-active {
+  background: rgb(232 240 254);
+  color: rgb(25 103 210);
+}
+
+.file-item-active:hover {
+  background: rgb(232 240 254) !important;
+}
+
+@keyframes slidein {
+  from {
+    transform: translateX(-50%) translateY(-80%) scale(350%);
+  }
+
+  to {
+    transform: translateX(-50%) translateY(-20%) scale(350%);
+  }
+}
