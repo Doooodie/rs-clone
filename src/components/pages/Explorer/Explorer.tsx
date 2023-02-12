@@ -6,6 +6,7 @@ import Header from './modules/Header/Header';
 import './Explorer.css';
 import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 import { removeFileInfo } from '../../store/fileInfo';
+import { setSort } from '../../store/filterSlice';
 
 function Explorer() {
   const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ function Explorer() {
       removeActiveClassOnDriveItem();
       dispatch(removeFileInfo(null));
     }
+    dispatch(setSort(null));
   }
 
   return (

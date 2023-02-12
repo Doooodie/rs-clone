@@ -16,7 +16,7 @@ const DriveItemStyle = styled.div`
   border-bottom: solid 1px #dadce0;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
-  grid-template-columns: 7fr 2fr 3fr 1fr;
+  grid-template-columns: 6fr 2fr 4fr 1fr;
   color: #3c4043;
   font-size: 13px;
   &:hover {

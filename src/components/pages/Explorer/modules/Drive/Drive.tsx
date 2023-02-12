@@ -21,6 +21,7 @@ import DriveHeader from './components/DriveHeader/DriveHeader';
 import './Drive.css';
 import MyDialog from '../../components/Modals/Dialog/Dialog';
 import Details from './components/Details/Details';
+import sortFiles from '../../helpers/sortFiles';
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -34,17 +35,28 @@ export default function Drive() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [folderNewName, setFolderNewName] = useState('');
-  const query = useAppSelector((store) => store.filter.query);
+  const { query, sort, isReverse } = useAppSelector((store) => store.filter);
 
   function filteredByQuery(value: string, array: MyFile[] | MyFolder[]) {
     if (value.length > 0) {
-      return array.filter((item) => item.name.toLocaleUpperCase().includes(value.toUpperCase()));
+      return [
+        ...array.filter((item) => item.name.toLocaleUpperCase().includes(value.toUpperCase())),
+      ];
     }
-    return array;
+    return [...array];
   }
 
   const filteredFiles = useMemo(() => filteredByQuery(query, files), [files, query]);
   const filteredFolders = useMemo(() => filteredByQuery(query, folders), [folders, query]);
+
+  const filteredAndSortFiles = useMemo(
+    () => sortFiles(sort, filteredFiles, isReverse),
+    [sort, filteredFiles, isReverse],
+  );
+  const filteredAndSortFolders = useMemo(
+    () => sortFiles(sort, filteredFolders, isReverse),
+    [sort, filteredFolders, isReverse],
+  );
 
   // context menu
   const [coordinate, setCoodinate] = useState<Coordinate>({ xCoordinate: 0, yCoordinate: 0 });
@@ -144,7 +156,7 @@ export default function Drive() {
               onDragOver={(e) => dragStartHandler(e)}
               onDrop={(e) => onDropHandler(e)}
             >
-              {filteredFolders.map((folder) => (
+              {filteredAndSortFolders.map((folder) => (
                 <DriveItemFile
                   file={folder}
                   onContextMenu={(e) => hadleContexMenu(e)}
@@ -152,7 +164,7 @@ export default function Drive() {
                   key={folder.id}
                 />
               ))}
-              {filteredFiles.map((file) => (
+              {filteredAndSortFiles.map((file) => (
                 <DriveItemFile
                   file={file}
                   onContextMenu={(e) => hadleContexMenu(e)}
