@@ -15,6 +15,7 @@ import NoPage from './pages/NoPage/NoPage';
 import Home from './pages/Home/Home';
 import Cart from './pages/Cart/Cart';
 import Explorer from './pages/Explorer/Explorer';
+import Layout from './pages/Layout/Layout';
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
         <CssBaseline enableColorScheme />
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<Explorer />}>
+            <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
+              <Route path='drive' element={<Explorer />} />
               <Route path='cart' element={<Cart />} />
               <Route path='*' element={<NoPage />} />
             </Route>
