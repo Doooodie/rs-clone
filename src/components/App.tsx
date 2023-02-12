@@ -26,10 +26,10 @@ function App() {
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path='drive' element={<Explorer />} />
               <Route path='cart' element={<Cart />} />
               <Route path='*' element={<NoPage />} />
             </Route>
+            <Route path='/drive' element={<Explorer />} />
           </Routes>
         </BrowserRouter>
       </PersistGate>

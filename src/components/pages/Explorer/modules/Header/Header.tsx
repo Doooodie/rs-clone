@@ -19,7 +19,7 @@ export default function Header() {
     dispatch(changeSettingModal(!modalVisible));
   }
   return (
-    <header className='header'>
+    <header className='explorer-header'>
       <Link to='/'>
         <div className='header-logo'>
           <img
