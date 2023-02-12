@@ -135,39 +135,39 @@ export default function Drive() {
         <DriveHeader name={name} />
         <div className='drive-list-wraper'>
           <div className='file-list'>
-          <DriveItemsHeader />
+            <DriveItemsHeader />
 
-          <div
-            className={drop ? FileListClass.active : FileListClass.default}
-            onDragStart={(e) => dragStartHandler(e)}
-            onDragLeave={(e) => dragLeaveHandler(e)}
-            onDragOver={(e) => dragStartHandler(e)}
-            onDrop={(e) => onDropHandler(e)}
-          >
-            {filteredFolders.map((folder) => (
-              <DriveItemFile
-                file={folder}
-                onContextMenu={(e) => hadleContexMenu(e)}
-                isFile={false}
-                key={folder.id}
+            <div
+              className={drop ? FileListClass.active : FileListClass.default}
+              onDragStart={(e) => dragStartHandler(e)}
+              onDragLeave={(e) => dragLeaveHandler(e)}
+              onDragOver={(e) => dragStartHandler(e)}
+              onDrop={(e) => onDropHandler(e)}
+            >
+              {filteredFolders.map((folder) => (
+                <DriveItemFile
+                  file={folder}
+                  onContextMenu={(e) => hadleContexMenu(e)}
+                  isFile={false}
+                  key={folder.id}
+                />
+              ))}
+              {filteredFiles.map((file) => (
+                <DriveItemFile
+                  file={file}
+                  onContextMenu={(e) => hadleContexMenu(e)}
+                  isFile
+                  key={file.id}
+                />
+              ))}
+              <ContextMenu
+                visible={contextVisible}
+                x={coordinate.xCoordinate}
+                y={coordinate.yCoordinate}
+                handleDelete={() => handleDeleteItem(contextId)}
+                handleModalOpen={() => handleOpen()}
               />
-            ))}
-            {filteredFiles.map((file) => (
-              <DriveItemFile
-                file={file}
-                onContextMenu={(e) => hadleContexMenu(e)}
-                isFile={true}
-                key={file.id}
-              />
-            ))}
-            <ContextMenu
-              visible={contextVisible}
-              x={coordinate.xCoordinate}
-              y={coordinate.yCoordinate}
-              handleDelete={() => handleDeleteItem(contextId)}
-              handleModalOpen={() => handleOpen()}
-            />
-          </div>
+            </div>
           </div>
           <Details />
         </div>

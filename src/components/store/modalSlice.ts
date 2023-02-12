@@ -42,9 +42,5 @@ const modalSlice = createSlice({
 });
 
 export default modalSlice.reducer;
-export const {
-  changeHeaderModal,
-  changeAsideModal,
-  changeSettingModal,
-  changeFileInfoModal
-} = modalSlice.actions;
+export const { changeHeaderModal, changeAsideModal, changeSettingModal, changeFileInfoModal } =
+  modalSlice.actions;

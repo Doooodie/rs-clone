@@ -31,11 +31,7 @@ const DriveItemName = styled('div')({
   gap: '1rem',
 });
 
-export default function DriveItem({
-  file,
-  onContextMenu,
-  isFile,
-}: FileProps) {
+export default function DriveItem({ file, onContextMenu, isFile }: FileProps) {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const { convertedSize, convertedName } = convertBytesToKbMb(file.size);

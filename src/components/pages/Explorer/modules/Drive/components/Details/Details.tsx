@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../../../../../hooks';
 import { changeFileInfoModal } from '../../../../../../store/modalSlice';
 
 export default function Details() {
-
   const file = useAppSelector((store) => store.fileInfo.file);
   const dispatch = useAppDispatch();
   const detailsVisible = useAppSelector((store) => store.modal.fileInfo);
@@ -23,25 +22,14 @@ export default function Details() {
       <div className='details-header'>
         <div className='details-header-name'>
           <FolderIcon htmlColor='var(--gray)' />
-          <h3 className='details-header-title'>
-            {
-              file
-              ? file.name
-              : `My Drive`
-            }
-          </h3>
+          <h3 className='details-header-title'>{file ? file.name : `My Drive`}</h3>
         </div>
         <IconButton onClick={(e) => handleInfoOpen(e)}>
           <CloseIcon />
         </IconButton>
       </div>
       <h2 className='details-subtitle'>Details</h2>
-      {
-        file
-        ? <DetailsContent file={file}/>
-        : <DefaultDetails />
-      }
-      
+      {file ? <DetailsContent file={file} /> : <DefaultDetails />}
     </aside>
   );
 }

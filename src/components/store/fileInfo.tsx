@@ -20,7 +20,7 @@ const fileInfoSlice = createSlice({
     removeFileInfo(state, action: PayloadAction<null>) {
       const currentState = state;
       currentState.file = action.payload;
-    }
+    },
   },
 });
 
