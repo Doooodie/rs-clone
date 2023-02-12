@@ -11,7 +11,7 @@ function NoPage() {
       sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 'auto' }}
     >
       <Typography component='h1' variant='h5' gutterBottom>
-        {t('no-page-error')} 😔
+        {t('layout.no-page-error')} 😔
       </Typography>
     </Container>
   );

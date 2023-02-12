@@ -29,12 +29,12 @@ function Header() {
               color='inherit'
               sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-              {t('product-name')}
+              {t('layout.product-name')}
             </Link>
             {auth && <Search />}
             <Box sx={{ flexGrow: 1 }} />
             <TemporaryDrawer auth={auth} handleChange={handleChange} />
-            {auth ? <UserMenu /> : <Button color='inherit'>{t('login')}</Button>}
+            {auth ? <UserMenu /> : <Button color='inherit'>{t('layout.login')}</Button>}
           </Toolbar>
         </Container>
       </AppBar>

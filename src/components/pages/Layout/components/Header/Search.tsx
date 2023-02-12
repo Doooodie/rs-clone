@@ -44,7 +44,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Search() {
   const { t } = useTranslation();
-  const placeholder = t('search-placeholder');
+  const placeholder = t('layout.search-placeholder');
 
   return (
     <SearchContainer>

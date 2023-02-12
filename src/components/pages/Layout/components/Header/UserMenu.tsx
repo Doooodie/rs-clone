@@ -18,7 +18,7 @@ function UserMenu() {
 
   return (
     <Box>
-      <Tooltip title={t('user-menu')}>
+      <Tooltip title={t('layout.user-menu')}>
         <IconButton onClick={handleMenu}>
           <Avatar sx={stringAvatar('Kostya Yurkevich').sx}>
             {stringAvatar('Kostya Yurkevich').children}
@@ -41,10 +41,10 @@ function UserMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem component={RouterLink} onClick={handleClose} to='/cart'>
-          {t('explorer-link')}
+        <MenuItem component={RouterLink} onClick={handleClose} to='/drive'>
+          {t('layout.explorer-link')}
         </MenuItem>
-        <MenuItem onClick={handleClose}>{t('logout')}</MenuItem>
+        <MenuItem onClick={handleClose}>{t('layout.logout')}</MenuItem>
       </Menu>
     </Box>
   );

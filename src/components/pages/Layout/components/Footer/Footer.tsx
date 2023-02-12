@@ -14,7 +14,7 @@ function Footer() {
   const { t } = useTranslation();
   const appTheme = useTheme();
   const isLightTheme = appTheme.palette.mode === 'light';
-  const invertAmount = isLightTheme ? '0' : 100;
+  const invertAmount = isLightTheme ? 0 : 100;
 
   return (
     <Box
@@ -50,7 +50,7 @@ function Footer() {
           </Grid>
           <Grid item>
             <Item>
-              <Typography component='span'>{t('with-love')}</Typography>{' '}
+              <Typography component='span'>{t('layout.with-love')}</Typography>{' '}
               <Link
                 href='https://github.com/Doooodie'
                 target='_blank'

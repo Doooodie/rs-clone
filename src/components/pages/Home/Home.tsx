@@ -8,7 +8,7 @@ function Home() {
   return (
     <Container component='main' maxWidth='xl'>
       <Typography variant='body1' gutterBottom>
-        {t('product-name')}
+        {t('layout.product-name')}
       </Typography>
     </Container>
   );

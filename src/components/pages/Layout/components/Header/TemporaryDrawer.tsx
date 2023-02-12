@@ -48,7 +48,7 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
 
   return (
     <>
-      <Tooltip title={t('app-settings')}>
+      <Tooltip title={t('layout.app-settings')}>
         <IconButton color='inherit' size='large' onClick={() => setIsDrawerOpen(true)}>
           <Settings />
         </IconButton>
@@ -65,14 +65,14 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
           <List>
             <ListItem divider>
               <Box sx={{ flexGrow: 1 }}>
-                <Typography>{t('app-settings')}</Typography>
+                <Typography>{t('layout.app-settings')}</Typography>
               </Box>
               <IconButton onClick={() => setIsDrawerOpen(false)}>
                 <Close />
               </IconButton>
             </ListItem>
             <ListItem dense>
-              <ListItemText>{t('language')}</ListItemText>
+              <ListItemText>{t('layout.language')}</ListItemText>
             </ListItem>
             <ListItem dense>
               <ButtonGroup variant='outlined' fullWidth>
@@ -88,7 +88,7 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
               </ButtonGroup>
             </ListItem>
             <ListItem dense>
-              <ListItemText>{t('theme')}</ListItemText>
+              <ListItemText>{t('layout.theme')}</ListItemText>
             </ListItem>
             <ListItem dense>
               <ButtonGroup variant='outlined' fullWidth>
@@ -97,14 +97,14 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
                   onClick={toggleColorMode}
                   disabled={theme.palette.mode === 'light'}
                 >
-                  {t('theme-light')}
+                  {t('layout.theme-light')}
                 </Button>
                 <Button
                   startIcon={<DarkModeOutlined />}
                   onClick={toggleColorMode}
                   disabled={theme.palette.mode === 'dark'}
                 >
-                  {t('theme-dark')}
+                  {t('layout.theme-dark')}
                 </Button>
               </ButtonGroup>
             </ListItem>
