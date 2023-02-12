@@ -1,0 +1,48 @@
+.drive-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid #dadce0;
+}
+
+.drive-header-menu {
+  position: relative;
+}
+
+.visible .modal-list {
+  opacity: 1;
+  z-index: 10;
+}
+
+.drive-header-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  padding: 0.4rem;
+  background: none;
+  font-size: 18px;
+  color: rgb(60 64 67);
+  border-radius: 8px;
+  transition: 0.25s linear;
+}
+
+.drive-header-menu-button:hover {
+  background-color: rgba(60 60 60 / 10%);
+}
+
+.visible .drive-header-menu-button {
+  background-color: rgb(232 240 254);
+  color: rgb(25 103 210);
+}
+
+.visible .drive-header-menu-button:hover {
+  background-color: rgb(232 240 254);
+  color: rgb(25 103 210);
+}
+
+.drive-header-menu-button span {
+  margin-right: 5px;
+}
