@@ -12,8 +12,12 @@
   width: 100%;
 }
 
-.files-list {
-  padding-right: 6rem;
+.drive-list-wraper {
+  display: flex;
+}
+
+.file-list {
+  width: 100%;
   max-height: 100%;
 }
 
@@ -30,7 +34,7 @@
 
 .file-list-wrapper {
   width: 100%;
-  max-height: calc(100vh - 65px - 48px - 58px);
+  max-height: calc(100vh - 65px - 48px - 40px);
   min-height: 50vh;
   border: 2px solid white;
   overflow: scroll;
@@ -96,6 +100,15 @@
   animation-name: slidein;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+}
+
+.file-item-active {
+  background: rgb(232 240 254);
+  color: rgb(25 103 210);
+}
+
+.file-item-active:hover {
+  background: rgb(232 240 254) !important;
 }
 
 @keyframes slidein {

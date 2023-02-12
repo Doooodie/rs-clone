@@ -20,7 +20,7 @@ import DriveItemFile from './components/DriveItem/DriveItemItem';
 import DriveHeader from './components/DriveHeader/DriveHeader';
 import './Drive.css';
 import MyDialog from '../../components/Modals/Dialog/Dialog';
-import DriveItemInfo from './components/DriveItemInfo/DriveItemInfo';
+import Details from './components/Details/Details';
 
 export default function Drive() {
   const dispatch = useAppDispatch();
@@ -133,7 +133,8 @@ export default function Drive() {
     <section className='drive'>
       <div className='drive-items'>
         <DriveHeader name={name} />
-        <div className='file-list'>
+        <div className='drive-list-wraper'>
+          <div className='file-list'>
           <DriveItemsHeader />
 
           <div
@@ -145,26 +146,18 @@ export default function Drive() {
           >
             {filteredFolders.map((folder) => (
               <DriveItemFile
-                name={folder.name}
-                owner={folder.owner}
-                key={folder.id}
-                size={folder.size}
-                lastChange={folder.lastChange}
-                id={folder.id}
+                file={folder}
                 onContextMenu={(e) => hadleContexMenu(e)}
                 isFile={false}
+                key={folder.id}
               />
             ))}
             {filteredFiles.map((file) => (
               <DriveItemFile
-                name={file.name}
-                owner={file.owner}
-                key={file.id}
-                size={file.size}
-                lastChange={file.lastChange}
-                id={file.id}
+                file={file}
                 onContextMenu={(e) => hadleContexMenu(e)}
-                isFile
+                isFile={true}
+                key={file.id}
               />
             ))}
             <ContextMenu
@@ -175,6 +168,8 @@ export default function Drive() {
               handleModalOpen={() => handleOpen()}
             />
           </div>
+          </div>
+          <Details />
         </div>
         <div className={drop ? ModalListClass.active : ModalListClass.default}>
           <div className='modal-dropper-text'>
@@ -197,7 +192,6 @@ export default function Drive() {
           placeholder={t('explorer.newname')}
         />
       </div>
-      <DriveItemInfo />
     </section>
   );
 }

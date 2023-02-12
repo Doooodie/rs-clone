@@ -6,6 +6,8 @@ import convertNumberToDate from '../../../../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../../../../helpers/convertBytesToKbMd';
 import { addActiveClassOnDriveItem } from '../../../../helpers/handleFileItem';
 import { FileProps } from '../../../../types/types';
+import { useAppDispatch } from '../../../../../../hooks';
+import { setFileInfo } from '../../../../../../store/fileInfo';
 
 const DriveItemStyle = styled.div`
   display: grid;
@@ -30,37 +32,40 @@ const DriveItemName = styled('div')({
 });
 
 export default function DriveItem({
-  name,
-  owner,
-  lastChange,
-  size,
-  id,
+  file,
   onContextMenu,
   isFile,
 }: FileProps) {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const { convertedSize, convertedName } = convertBytesToKbMb(size);
+  const { convertedSize, convertedName } = convertBytesToKbMb(file.size);
   const sizeString = `${convertedSize}${t(`explorer.${convertedName}`)}`;
+
+  function handleFile(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    addActiveClassOnDriveItem(e);
+    dispatch(setFileInfo(file));
+  }
 
   return (
     <DriveItemStyle
+      className='file-item'
       itemType={isFile ? 'file' : 'folder'}
       role='presentation'
       onContextMenu={(e) => onContextMenu(e)}
-      onClick={(e) => addActiveClassOnDriveItem(e)}
-      id={`${id}`}
+      onClick={(e) => handleFile(e)}
+      id={`${file.id}`}
     >
       <DriveItemName>
         {isFile ? <ArticleIcon /> : <FolderIcon />}
-        <span>{name}</span>
+        <span>{file.name}</span>
       </DriveItemName>
 
       <div className='file-item-info file-item-owner'>
-        <span>{owner}</span>
+        <span>{file.owner}</span>
       </div>
 
       <div className='file-item-info file-item-time'>
-        <span>{convertNumberToDate(lastChange)}</span>
+        <span>{convertNumberToDate(file.lastChange)}</span>
       </div>
 
       <div className='file-item-info file-item-size'>

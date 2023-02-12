@@ -1,4 +1,5 @@
 import AddToDriveIcon from '@mui/icons-material/AddToDrive';
+import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import { Paper } from '@mui/material';
 import './ContextMenu.css';
 
@@ -34,7 +35,7 @@ export default function ContextMenu({ visible, x, y, handleDelete, handleModalOp
           className='header-actions-item header-actions-item-main'
           onClick={handleModalOpen}
         >
-          <AddToDriveIcon htmlColor='#5f6368' />
+          <DriveFileRenameOutlineIcon htmlColor='#5f6368' />
           <span>Rename</span>
         </button>
       </Paper>

@@ -54,11 +54,7 @@ export type Coordinate = {
 };
 
 export type FileProps = {
-  name: string;
-  owner: string;
-  lastChange: number;
-  size: number;
-  id: number;
+  file: MyFile;
   onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   isFile: boolean;
 };

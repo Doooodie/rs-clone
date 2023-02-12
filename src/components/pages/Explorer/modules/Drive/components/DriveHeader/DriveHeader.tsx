@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ViewListOutlinedIcon from '@mui/icons-material/ViewListOutlined';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../../../hooks';
-import { changeHeaderModal } from '../../../../../../store/modalSlice';
+import { changeFileInfoModal, changeHeaderModal } from '../../../../../../store/modalSlice';
 import MenuArrowDownIcon from '../../../../../../../assets/SvgComponents/MenuArrowDown';
 import ModalCreateFile from '../../../../components/Modals/CreateModal/ModalCreateFile';
 import './DriveHeader.css';
@@ -18,6 +18,7 @@ export default function DriveHeader({ name }: IDriveHeader) {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const modalVisible = useAppSelector((store) => store.modal.headerModal);
+  const fileInfoVisible = useAppSelector((store) => store.modal.fileInfo);
   const [isBig, setIsBig] = useState(false);
 
   function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>) {
@@ -25,9 +26,9 @@ export default function DriveHeader({ name }: IDriveHeader) {
     dispatch(changeHeaderModal(!modalVisible));
   }
 
-  function handleInfo() {
-    const driveInfoBlock = document.getElementById('drive-item-info');
-    if (driveInfoBlock) driveInfoBlock.classList.toggle('drive-item-info-hidden');
+  function handleInfoOpen(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    dispatch(changeFileInfoModal(!fileInfoVisible));
   }
   return (
     <div className='drive-header'>
@@ -46,8 +47,8 @@ export default function DriveHeader({ name }: IDriveHeader) {
         <IconButton onClick={() => setIsBig(!isBig)}>
           {isBig ? <CalendarViewMonthIcon /> : <ViewListOutlinedIcon />}
         </IconButton>
-        <IconButton onClick={() => handleInfo()}>
-          <InfoIcon />
+        <IconButton onClick={(e) => handleInfoOpen(e)}>
+          <InfoIcon color={fileInfoVisible ? 'primary' : 'inherit'} />
         </IconButton>
       </div>
     </div>
