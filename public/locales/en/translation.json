@@ -1,5 +1,20 @@
 {
-  "learn": "Learn React",
+  "layout": {
+    "product-name": "Badoone Drive",
+    "explorer-link": "My drive",
+    "logout": "Logout",
+    "login": "Login",
+    "search-placeholder": "Search…",
+    "app-settings": "App settings",
+    "user-menu": "User menu",
+    "language": "Language",
+    "theme": "Theme",
+    "theme-light": "Light",
+    "theme-dark": "Dark",
+    "with-love": "With ❤️ from",
+    "no-page-error": "The page you are looking for does not exist"
+  },
+
   "explorer": {
     "driver": "Drive",
     "search": "Search in Drive",

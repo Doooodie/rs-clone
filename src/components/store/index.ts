@@ -10,14 +10,12 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import cartReducer from './cartSlice';
 import modalReducer from './modalSlice';
 import filesReducer from './driveSlice';
 import filterReducer from './filterSlice';
 import fileInfoReducer from './fileInfo';
 
 const rootReducer = combineReducers({
-  cart: cartReducer,
   modal: modalReducer,
   files: filesReducer,
   filter: filterReducer,

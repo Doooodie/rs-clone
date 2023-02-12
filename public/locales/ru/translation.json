@@ -1,5 +1,20 @@
 {
-  "learn": "Учим React",
+  "layout": {
+    "product-name": "Badoone Диск",
+    "explorer-link": "Мой диск",
+    "logout": "Выйти",
+    "login": "Войти",
+    "search-placeholder": "Поиск…",
+    "app-settings": "Настройки приложения",
+    "user-menu": "Меню пользователя",
+    "language": "Язык",
+    "theme": "Тема",
+    "theme-light": "Светлая",
+    "theme-dark": "Тёмная",
+    "with-love": "C ❤️ от",
+    "no-page-error": "Страницы, которую ты ищешь, не существует"
+  },
+
   "explorer": {
     "driver": "Диск",
     "search": "Поиск на Диске",

@@ -1,12 +1,19 @@
-import './NoPage.css';
+import { Container, Typography } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 function NoPage() {
+  const { t } = useTranslation();
+
   return (
-    <main className='main'>
-      <div className='container no-page-container'>
-        <h1 className='no-page-header'>The page you are looking for does not exist 😔</h1>
-      </div>
-    </main>
+    <Container
+      component='main'
+      maxWidth='xl'
+      sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mt: 'auto' }}
+    >
+      <Typography component='h1' variant='h5' gutterBottom>
+        {t('layout.no-page-error')} 😔
+      </Typography>
+    </Container>
   );
 }
 
