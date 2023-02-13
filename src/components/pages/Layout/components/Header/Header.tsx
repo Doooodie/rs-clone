@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Box, Toolbar, Link, Button, Container } from '@mui/material';
+import { AppBar, Box, Toolbar, Link, Button, Container, Divider } from '@mui/material';
 
 import ElevationScroll from './ElevationScroll';
 import Search from './Search';
@@ -23,7 +23,7 @@ function Header() {
     <ElevationScroll>
       <AppBar position='sticky' color='inherit'>
         <Container maxWidth='xl'>
-          <Toolbar disableGutters>
+          <Toolbar disableGutters id='back-to-top-anchor'>
             <Link
               variant='h6'
               component={RouterLink}
@@ -40,6 +40,7 @@ function Header() {
             {auth ? <UserMenu /> : <Button color='inherit'>{t('layout.login')}</Button>}
           </Toolbar>
         </Container>
+        <Divider />
       </AppBar>
     </ElevationScroll>
   );
