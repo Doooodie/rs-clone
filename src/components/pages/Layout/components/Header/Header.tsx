@@ -21,7 +21,7 @@ function Header() {
 
   return (
     <ElevationScroll>
-      <AppBar position='sticky' color='inherit' variant='outlined'>
+      <AppBar position='sticky' color='inherit'>
         <Container maxWidth='xl'>
           <Toolbar disableGutters>
             <Link
