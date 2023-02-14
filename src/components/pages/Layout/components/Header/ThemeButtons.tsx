@@ -12,26 +12,30 @@ function ThemeButtons() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
-  const { toggleColorMode } = colorMode;
+  const { toggleColorMode } = useContext(ColorModeContext);
 
-  const handleClick = () => {
+  const handleLightMode = () => {
     toggleColorMode();
-    dispatch(setTheme(theme.palette.mode));
+    dispatch(setTheme('light'));
+  };
+
+  const handleDarkMode = () => {
+    toggleColorMode();
+    dispatch(setTheme('dark'));
   };
 
   return (
     <ButtonGroup variant='outlined' fullWidth>
       <Button
         startIcon={<WbSunny />}
-        onClick={handleClick}
+        onClick={handleLightMode}
         disabled={theme.palette.mode === 'light'}
       >
         {t('layout.theme-light')}
       </Button>
       <Button
         startIcon={<DarkModeOutlined />}
-        onClick={handleClick}
+        onClick={handleDarkMode}
         disabled={theme.palette.mode === 'dark'}
       >
         {t('layout.theme-dark')}
