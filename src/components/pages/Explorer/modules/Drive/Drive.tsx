@@ -12,7 +12,7 @@ import {
   removeFolderFromTrash,
   renameFolder,
 } from '../../../../store/driveSlice';
-import { MyFile, Coordinate, MyFolder } from '../../types/types';
+import { MyFile, Coordinate, MyFolder, AllDrive } from '../../types/types';
 import { ModalListClass, FileListClass } from '../../types/enums';
 import ContextMenu from '../../components/Modals/ContextMenu/ContextMenu';
 import DriveItemsHeader from './components/DriveItemHeader/DriveItemHeader';
@@ -27,7 +27,7 @@ export default function Drive() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [drop, setDrop] = useState(false);
-  const currentDrive = useAppSelector((store) => store.files.currentDrive);
+  const currentDrive = useAppSelector((store) => store.files.currentDrive) as keyof AllDrive;
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
   const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
 
