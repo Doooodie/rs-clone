@@ -9,6 +9,7 @@ import { changeFileInfoModal } from '../../../../../../store/modalSlice';
 import MenuArrowDownIcon from '../../../../../../../assets/SvgComponents/MenuArrowDown';
 import ModalCreateFile from '../../../../components/Modals/CreateModal/ModalCreateFile';
 import './DriveHeader.css';
+import { Box } from '@mui/system';
 
 interface IDriveHeader {
   name: string;
@@ -20,12 +21,6 @@ export default function DriveHeader({ name }: IDriveHeader) {
   const fileInfoVisible = useAppSelector((store) => store.modal.fileInfo);
   const [modalVisible, setModalVisible] = useState(false);
   const [isBig, setIsBig] = useState(false);
-
-  useEffect(() => {
-    const modalClose = () => setModalVisible(false);
-    window.addEventListener('click', modalClose);
-    return () => window.removeEventListener('click', modalClose);
-  }, [])
 
   useEffect(() => {
     const modalClose = () => setModalVisible(false);
@@ -55,14 +50,14 @@ export default function DriveHeader({ name }: IDriveHeader) {
         </button>
         <ModalCreateFile visible={modalVisible} />
       </div>
-      <div className='setting'>
+      <Box>
         <IconButton onClick={() => setIsBig(!isBig)}>
           {isBig ? <CalendarViewMonthIcon /> : <ViewListOutlinedIcon />}
         </IconButton>
         <IconButton onClick={(e) => handleInfoOpen(e)}>
           <InfoIcon color={fileInfoVisible ? 'primary' : 'inherit'} />
         </IconButton>
-      </div>
+      </Box>
     </div>
   );
 }
