@@ -1,20 +1,17 @@
 import { useAppDispatch } from '../../hooks';
-import { changeHeaderModal, changeAsideModal, changeSettingModal } from '../../store/modalSlice';
+import { changeSettingModal } from '../../store/modalSlice';
 import Aside from './modules/Aside/Aside';
 import Drive from './modules/Drive/Drive';
 import MyHeader from './modules/Header/Header';
-import './Explorer.css';
 import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 import { removeFileInfo } from '../../store/fileInfo';
 import { setSort } from '../../store/filterSlice';
+import './Explorer.css';
 
 function Explorer() {
   const dispatch = useAppDispatch();
 
   function hiddenModal(e: React.MouseEvent<HTMLDivElement>) {
-    dispatch(changeHeaderModal(false));
-    dispatch(changeAsideModal(false));
-
     if (e.target === null) return;
     const target = e.target as HTMLElement;
     const isLangButtons = target.classList.contains('setting-button-lang');

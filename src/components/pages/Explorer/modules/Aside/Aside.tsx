@@ -1,9 +1,8 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import GooglePlusIcon from '../../../../../assets/SvgComponents/GooglePlusIcon';
 import ModalCreateFile from '../../components/Modals/CreateModal/ModalCreateFile';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { changeAsideModal } from '../../../../store/modalSlice';
 import { addFile, changeCurrentDrive } from '../../../../store/driveSlice';
 import AsideButton from './Components/AsideButton';
 import { ButtonClassNames } from '../../types/enums';
@@ -13,14 +12,16 @@ const names = ['drive', 'important', 'trash'];
 
 export default function Aside() {
   const dispatch = useAppDispatch();
-  const modalVisible = useAppSelector((store) => store.modal.asideModal);
   const { t } = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
   const currentDriveName = useAppSelector((store) => store.files.currentDrive);
-
-  function handleModalOpen(e: MouseEvent) {
-    e.stopPropagation();
-    dispatch(changeAsideModal(!modalVisible));
-  }
+  const MAX_STORAGE_SIZE = 15;
+  const CURRENT_STORAGE_SIZE = 1;
+  const MAX_STORAGE_SIZE_STRING = `${String(MAX_STORAGE_SIZE)}${t('explorer.gb')}`;
+  const CURRENT_STORAGE_SIZE_STRING = `${String(CURRENT_STORAGE_SIZE)}${t('explorer.gb')}`;
+  const USE = t('explorer.use');
+  const OF = t('explorer.of');
+  const usedDriveString = `${USE} ${CURRENT_STORAGE_SIZE_STRING} ${OF} ${MAX_STORAGE_SIZE_STRING}`;
 
   function handleAddFile() {
     dispatch(
@@ -34,18 +35,21 @@ export default function Aside() {
     );
   }
 
-  const MAX_STORAGE_SIZE = 15;
-  const CURRENT_STORAGE_SIZE = 1;
-  const MAX_STORAGE_SIZE_STRING = `${String(MAX_STORAGE_SIZE)}${t('explorer.gb')}`;
-  const CURRENT_STORAGE_SIZE_STRING = `${String(CURRENT_STORAGE_SIZE)}${t('explorer.gb')}`;
-  const USE = t('explorer.use');
-  const OF = t('explorer.of');
-  const usedDriveString = `${USE} ${CURRENT_STORAGE_SIZE_STRING} ${OF} ${MAX_STORAGE_SIZE_STRING}`;
+  function modalOpen(e: MouseEvent) {
+    e.stopPropagation();
+    setModalVisible(true);
+  }
+
+  useEffect(() => {
+    const modalClose = () => setModalVisible(false);
+    window.addEventListener('click', modalClose);
+    return () => window.removeEventListener('click', modalClose);
+  }, []);
 
   return (
     <div className='aside'>
       <div className='aside-create'>
-        <button type='button' className='aside-button' onClick={(e) => handleModalOpen(e)}>
+        <button type='button' className='aside-button' onClick={(e) => modalOpen(e)}>
           <GooglePlusIcon />
           <span>{t('explorer.create')}</span>
         </button>
@@ -63,6 +67,7 @@ export default function Aside() {
                 }
               name={name}
               onClick={() => dispatch(changeCurrentDrive(name))}
+              key={name}
             />
           })
         }
