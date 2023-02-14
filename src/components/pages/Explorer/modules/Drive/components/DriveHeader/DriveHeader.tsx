@@ -1,4 +1,4 @@
-import { IconButton } from '@mui/material';
+import Box, { IconButton } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,6 @@ import { changeFileInfoModal } from '../../../../../../store/modalSlice';
 import MenuArrowDownIcon from '../../../../../../../assets/SvgComponents/MenuArrowDown';
 import ModalCreateFile from '../../../../components/Modals/CreateModal/ModalCreateFile';
 import './DriveHeader.css';
-import { Box } from '@mui/system';
 
 interface IDriveHeader {
   name: string;
@@ -26,7 +25,7 @@ export default function DriveHeader({ name }: IDriveHeader) {
     const modalClose = () => setModalVisible(false);
     window.addEventListener('click', modalClose);
     return () => window.removeEventListener('click', modalClose);
-  }, [])
+  }, []);
 
   function handleModalOpen(e: React.MouseEvent<HTMLButtonElement>) {
     e.stopPropagation();

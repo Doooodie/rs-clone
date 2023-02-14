@@ -44,12 +44,12 @@ export default function Drive() {
       <div className='drive-items'>
         <DriveHeader name={name} />
         <div className='drive-list-wraper'>
-            <DriveList
-              folders={filteredAndSortFolders}
-              files={filteredAndSortFiles}
-              drop={drop}
-              setDrop={(value) => setDrop(value)}
-            />
+          <DriveList
+            folders={filteredAndSortFolders}
+            files={filteredAndSortFiles}
+            drop={drop}
+            setDrop={(value) => setDrop(value)}
+          />
           <Details />
         </div>
         <div className={drop ? ModalListClass.active : ModalListClass.default}>

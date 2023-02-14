@@ -28,5 +28,4 @@ const modalSlice = createSlice({
 });
 
 export default modalSlice.reducer;
-export const { changeSettingModal, changeFileInfoModal } =
-  modalSlice.actions;
+export const { changeSettingModal, changeFileInfoModal } = modalSlice.actions;

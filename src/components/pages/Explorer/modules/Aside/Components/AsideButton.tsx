@@ -7,28 +7,23 @@ type AsideButtonProps = {
   className: string;
   name: string;
   onClick: () => void;
-}
+};
 
 export default function AsideButton({ className, name, onClick }: AsideButtonProps) {
-
   const { t } = useTranslation();
-  
+
   return (
-    <button
-        type='button'
-        className={className}
-        onClick={onClick}
-        >
-        <span className='icon'>
+    <button type='button' className={className} onClick={onClick}>
+      <span className='icon'>
         {
           {
-            'drive': <MyDescIcon />,
-            'important': <StarIcon />,
-            'trash': <CartIcon />,
+            drive: <MyDescIcon />,
+            important: <StarIcon />,
+            trash: <CartIcon />,
           }[name]
-      }
-        </span>
-        <span>{t(`explorer.${name}`)}</span>
+        }
+      </span>
+      <span>{t(`explorer.${name}`)}</span>
     </button>
-  )
+  );
 }

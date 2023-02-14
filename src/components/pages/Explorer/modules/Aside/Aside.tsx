@@ -57,20 +57,16 @@ export default function Aside() {
       </div>
 
       <div className='aside-list'>
-        {
-          names.map((name) => {
-            return <AsideButton 
-              className = 
-                { currentDriveName === name 
-                ?  ButtonClassNames.active
-                : ButtonClassNames.default
-                }
-              name={name}
-              onClick={() => dispatch(changeCurrentDrive(name))}
-              key={name}
-            />
-          })
-        }
+        {names.map((name) => (
+          <AsideButton
+            className={
+              currentDriveName === name ? ButtonClassNames.active : ButtonClassNames.default
+            }
+            name={name}
+            onClick={() => dispatch(changeCurrentDrive(name))}
+            key={name}
+          />
+        ))}
       </div>
 
       <div className='storage-info'>
