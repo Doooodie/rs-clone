@@ -15,6 +15,19 @@
     "no-page-error": "The page you are looking for does not exist"
   },
 
+  "landing": {
+    "about-heading": "Easy and secure access to your content",
+    "about-body": "Store, share, and collaborate on files and folders from your mobile device, tablet, or computer",
+    "warning-heading": "Built-in protections against malware, spam, and ransomware",
+    "warning-body": "Drive can provide encrypted and secure access to your files. Files shared with you can be proactively scanned and removed when malware, spam, ransomware, or phishing is detected. And Drive is cloud-native, which eliminates the need for local files and can minimize risk to your devices.",
+    "coop-heading": "People-first collaboration apps to supercharge teamwork",
+    "coop-body": "Drive integrates with Docs, Sheets, and Slides, cloud-native collaboration apps that enable your team to create content and collaborate more effectively in real time.",
+    "integration-heading": "Integration with the tools and apps your team is already using",
+    "integration-body": "Drive integrates with and complements your team’s existing technology. Collaborate in Microsoft Office files without the need to convert file formats, and edit and store over 100 additional file types, including PDFs, CAD files, images, and more.",
+    "search-heading": "Google’s Search and AI technology helps your team move faster",
+    "search-body": "Google’s powerful search capabilities are embedded in Drive and offer speed, reliability, and collaboration. And features like Drive search chips help your team find files fast by quickly surfacing more relevant results."
+  },
+
   "explorer": {
     "driver": "Drive",
     "search": "Search in Drive",

@@ -14,6 +14,7 @@ function Header() {
 
   const location = useLocation();
   const isInDrive = location.pathname.includes('drive');
+  const linkStyle = isInDrive ? { display: { xs: 'none', sm: 'block' } } : null;
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setAuth(event.target.checked);
@@ -23,14 +24,14 @@ function Header() {
     <ElevationScroll>
       <AppBar position='sticky' color='inherit'>
         <Container maxWidth='xl'>
-          <Toolbar disableGutters id='back-to-top-anchor'>
+          <Toolbar disableGutters>
             <Link
               variant='h6'
               component={RouterLink}
               to='/'
               underline='hover'
               color='inherit'
-              sx={{ display: { xs: 'none', sm: 'block' } }}
+              sx={linkStyle}
             >
               {t('layout.product-name')}
             </Link>
@@ -41,6 +42,7 @@ function Header() {
           </Toolbar>
         </Container>
         <Divider />
+        <Toolbar id='back-to-top-anchor' sx={{ display: 'none' }} />
       </AppBar>
     </ElevationScroll>
   );
