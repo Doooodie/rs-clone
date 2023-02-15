@@ -2,6 +2,8 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../../../hooks';
+import { setQuery } from '../../../../store/filterSlice';
 
 const SearchContainer = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -14,7 +16,7 @@ const SearchContainer = styled('div')(({ theme }) => ({
   marginLeft: 0,
   width: '100%',
   [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(3),
+    marginLeft: theme.spacing(13),
     width: 'auto',
   },
 }));
@@ -37,13 +39,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '50ch',
     },
   },
 }));
 
 function Search() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const placeholder = t('layout.search-placeholder');
 
   return (
@@ -51,7 +54,11 @@ function Search() {
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
-      <StyledInputBase placeholder={placeholder} inputProps={{ 'aria-label': 'search' }} />
+      <StyledInputBase
+        placeholder={placeholder}
+        inputProps={{ 'aria-label': 'search' }}
+        onChange={(e) => dispatch(setQuery(e.target.value))}
+      />
     </SearchContainer>
   );
 }

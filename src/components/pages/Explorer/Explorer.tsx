@@ -26,7 +26,6 @@ function Explorer() {
 
   return (
     <div role='presentation' id='explorer' className='explorer' onClick={(e) => hiddenModal(e)}>
-      <MyHeader />
       <main className='main'>
         <Aside />
         <Drive />

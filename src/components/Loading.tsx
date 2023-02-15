@@ -1,16 +1,10 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 function Loading() {
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-      }}
-    >
-      <CircularProgress sx={{ m: 'auto' }} />
-    </Box>
+    <Backdrop open>
+      <CircularProgress sx={{ color: 'white' }} />
+    </Backdrop>
   );
 }
 

@@ -14,6 +14,7 @@ import modalReducer from './modalSlice';
 import filesReducer from './driveSlice';
 import filterReducer from './filterSlice';
 import fileInfoReducer from './fileInfo';
+import appThemeReducer from './appThemeSlice';
 
 import { api } from '../../api/api';
 
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   fileInfo: fileInfoReducer,
   [api.reducerPath]: api.reducer,
+  appTheme: appThemeReducer,
 });
 
 const persistConfig = {

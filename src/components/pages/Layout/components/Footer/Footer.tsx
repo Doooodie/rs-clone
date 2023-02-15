@@ -13,8 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
 function Footer() {
   const { t } = useTranslation();
   const appTheme = useTheme();
-  const isLightTheme = appTheme.palette.mode === 'light';
-  const invertAmount = isLightTheme ? 0 : 100;
+  const invertAmount = appTheme.palette.mode === 'light' ? 0 : 100;
 
   return (
     <Box
@@ -31,8 +30,8 @@ function Footer() {
           container
           spacing={{ xs: 2, md: 3 }}
           columns={{ xs: 4, sm: 8, md: 12 }}
-          justifyContent='space-between'
           alignItems='center'
+          justifyContent='center'
         >
           <Grid item>
             <Item>
@@ -48,6 +47,7 @@ function Footer() {
               </Link>
             </Item>
           </Grid>
+          <Grid item sx={{ flexGrow: { sx: 0, sm: 1 } }} />
           <Grid item>
             <Item>
               <Typography component='span'>{t('layout.with-love')}</Typography>{' '}
