@@ -12,12 +12,13 @@ export const api = createApi({
   reducerPath: 'files-api',
   tagTypes: ['files-api'],
   baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com/' }),
+  /* eslint-disable consistent-return */
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === REHYDRATE) {
       return action.payload[reducerPath];
     }
-    return undefined;
   },
+  /* eslint-enable consistent-return */
   endpoints: (builder) => ({
     addPost: builder.mutation<IPost, Partial<IPost>>({
       query: (body) => ({
