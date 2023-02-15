@@ -9,7 +9,7 @@
   border-left: 1px solid var(--light-gray);
   min-height: calc(100vh - 65px - 48px);
   max-height: calc(100vh - 65px - 48px);
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 }
 

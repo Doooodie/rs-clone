@@ -1,28 +1,27 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import GooglePlusIcon from '../../../../../assets/SvgComponents/GooglePlusIcon';
-import MyDescIcon from '../../../../../assets/SvgComponents/MyDescIcon';
-import StarIcon from '../../../../../assets/SvgComponents/StarIcon';
-import CartIcon from '../../../../../assets/SvgComponents/CartIcon';
-import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
 import ModalCreateFile from '../../components/Modals/CreateModal/ModalCreateFile';
 import { useAppDispatch, useAppSelector } from '../../../../hooks';
-import { changeAsideModal } from '../../../../store/modalSlice';
 import { addFile, changeCurrentDrive } from '../../../../store/driveSlice';
-import { DrivesNames, ButtonClassNames } from '../../types/enums';
-import { AllDrive } from '../../types/types';
+import AsideButton from './Components/AsideButton';
+import { ButtonClassNames } from '../../types/enums';
 import './Aside.css';
+
+const names = ['drive', 'important', 'trash'];
 
 export default function Aside() {
   const dispatch = useAppDispatch();
-  const modalVisible = useAppSelector((store) => store.modal.asideModal);
   const { t } = useTranslation();
+  const [modalVisible, setModalVisible] = useState(false);
   const currentDriveName = useAppSelector((store) => store.files.currentDrive);
-
-  function handleModalOpen(e: MouseEvent) {
-    e.stopPropagation();
-    dispatch(changeAsideModal(!modalVisible));
-  }
+  const MAX_STORAGE_SIZE = 15;
+  const CURRENT_STORAGE_SIZE = 1;
+  const MAX_STORAGE_SIZE_STRING = `${String(MAX_STORAGE_SIZE)}${t('explorer.gb')}`;
+  const CURRENT_STORAGE_SIZE_STRING = `${String(CURRENT_STORAGE_SIZE)}${t('explorer.gb')}`;
+  const USE = t('explorer.use');
+  const OF = t('explorer.of');
+  const usedDriveString = `${USE} ${CURRENT_STORAGE_SIZE_STRING} ${OF} ${MAX_STORAGE_SIZE_STRING}`;
 
   function handleAddFile() {
     dispatch(
@@ -36,27 +35,21 @@ export default function Aside() {
     );
   }
 
-  function isActive(buttonName: string) {
-    return buttonName === currentDriveName;
+  function modalOpen(e: MouseEvent) {
+    e.stopPropagation();
+    setModalVisible(true);
   }
 
-  function handleSwitchDrivePandel(id: keyof AllDrive) {
-    dispatch(changeCurrentDrive(id));
-  }
-
-  const MAX_STORAGE_SIZE = 15;
-  const CURRENT_STORAGE_SIZE = 1;
-
-  const MAX_STORAGE_SIZE_STRING = `${String(MAX_STORAGE_SIZE)}${t('explorer.gb')}`;
-  const CURRENT_STORAGE_SIZE_STRING = `${String(CURRENT_STORAGE_SIZE)}${t('explorer.gb')}`;
-  const USE = t('explorer.use');
-  const OF = t('explorer.of');
-  const usedDriveString = `${USE} ${CURRENT_STORAGE_SIZE_STRING} ${OF} ${MAX_STORAGE_SIZE_STRING}`;
+  useEffect(() => {
+    const modalClose = () => setModalVisible(false);
+    window.addEventListener('click', modalClose);
+    return () => window.removeEventListener('click', modalClose);
+  }, []);
 
   return (
     <div className='aside'>
       <div className='aside-create'>
-        <button type='button' className='aside-button' onClick={(e) => handleModalOpen(e)}>
+        <button type='button' className='aside-button' onClick={(e) => modalOpen(e)}>
           <GooglePlusIcon />
           <span>{t('explorer.create')}</span>
         </button>
@@ -64,65 +57,23 @@ export default function Aside() {
       </div>
 
       <div className='aside-list'>
-        <button
-          type='button'
-          className={
-            isActive(DrivesNames.drive) ? ButtonClassNames.active : ButtonClassNames.default
-          }
-          onClick={() => handleSwitchDrivePandel(DrivesNames.drive)}
-        >
-          <span className='icon'>
-            <MyDescIcon />
-          </span>
-          <span>{t('explorer.mydrive')}</span>
-        </button>
-
-        <button
-          type='button'
-          className={
-            isActive(DrivesNames.important) ? ButtonClassNames.active : ButtonClassNames.default
-          }
-          onClick={() => handleSwitchDrivePandel(DrivesNames.important)}
-        >
-          <span className='icon'>
-            <StarIcon />
-          </span>
-          <span>{t('explorer.important')}</span>
-        </button>
-
-        <button
-          type='button'
-          className={
-            isActive(DrivesNames.trash) ? ButtonClassNames.active : ButtonClassNames.default
-          }
-          onClick={() => handleSwitchDrivePandel(DrivesNames.trash)}
-        >
-          <span className='icon'>
-            <CartIcon />
-          </span>
-          <span>{t('explorer.cart')}</span>
-        </button>
+        {names.map((name) => (
+          <AsideButton
+            className={
+              currentDriveName === name ? ButtonClassNames.active : ButtonClassNames.default
+            }
+            name={name}
+            onClick={() => dispatch(changeCurrentDrive(name))}
+            key={name}
+          />
+        ))}
       </div>
-      <button
-        type='button'
-        className={
-          isActive(DrivesNames.storage) ? ButtonClassNames.active : ButtonClassNames.default
-        }
-        onClick={() => handleSwitchDrivePandel(DrivesNames.storage)}
-      >
-        <span className='icon'>
-          <SkyIcon />
-        </span>
-        <span>{t('explorer.storage')}</span>
-      </button>
 
       <div className='storage-info'>
         <div className='progress-bar'>
           <div style={{ width: '10%' }} className='progress-value' />
         </div>
-
         <span className='storage-text'>{usedDriveString}</span>
-
         <button type='button' className='byu-memory' onClick={() => handleAddFile()}>
           <span>{t('explorer.byumore')}</span>
         </button>

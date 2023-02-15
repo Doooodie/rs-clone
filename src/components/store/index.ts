@@ -16,11 +16,14 @@ import filterReducer from './filterSlice';
 import fileInfoReducer from './fileInfo';
 import appThemeReducer from './appThemeSlice';
 
+import { api } from '../../api/api';
+
 const rootReducer = combineReducers({
   modal: modalReducer,
   files: filesReducer,
   filter: filterReducer,
   fileInfo: fileInfoReducer,
+  [api.reducerPath]: api.reducer,
   appTheme: appThemeReducer,
 });
 
@@ -39,7 +42,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(api.middleware),
 });
 
 export default store;
