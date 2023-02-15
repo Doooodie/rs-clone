@@ -2,7 +2,6 @@ import { useAppDispatch } from '../../hooks';
 import { changeHeaderModal, changeAsideModal, changeSettingModal } from '../../store/modalSlice';
 import Aside from './modules/Aside/Aside';
 import Drive from './modules/Drive/Drive';
-import MyHeader from './modules/Header/Header';
 import './Explorer.css';
 import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 import { removeFileInfo } from '../../store/fileInfo';
@@ -29,7 +28,6 @@ function Explorer() {
 
   return (
     <div role='presentation' id='explorer' className='explorer' onClick={(e) => hiddenModal(e)}>
-      <MyHeader />
       <main className='main'>
         <Aside />
         <Drive />

@@ -14,12 +14,14 @@ import modalReducer from './modalSlice';
 import filesReducer from './driveSlice';
 import filterReducer from './filterSlice';
 import fileInfoReducer from './fileInfo';
+import appThemeReducer from './appThemeSlice';
 
 const rootReducer = combineReducers({
   modal: modalReducer,
   files: filesReducer,
   filter: filterReducer,
   fileInfo: fileInfoReducer,
+  appTheme: appThemeReducer,
 });
 
 const persistConfig = {

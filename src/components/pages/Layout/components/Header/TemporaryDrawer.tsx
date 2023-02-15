@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, useContext, createContext } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   SwipeableDrawer,
@@ -14,16 +14,8 @@ import {
   FormControlLabel,
   Switch,
 } from '@mui/material';
-import {
-  Settings,
-  WbSunny,
-  DarkModeOutlined,
-  Close,
-  // TODO: add SettingsBrightnessOutlined for system theme
-} from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
-
-export const ColorModeContext = createContext({ toggleColorMode: () => {} });
+import { Settings, Close } from '@mui/icons-material';
+import ThemeButtons from './ThemeButtons';
 
 interface ITemporaryDrawer {
   auth: boolean;
@@ -42,9 +34,6 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
   };
 
   const loginSwitch = <Switch checked={auth} onChange={handleChange} aria-label='login switch' />;
-  const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
-  const { toggleColorMode } = colorMode;
 
   return (
     <>
@@ -91,22 +80,7 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
               <ListItemText>{t('layout.theme')}</ListItemText>
             </ListItem>
             <ListItem dense>
-              <ButtonGroup variant='outlined' fullWidth>
-                <Button
-                  startIcon={<WbSunny />}
-                  onClick={toggleColorMode}
-                  disabled={theme.palette.mode === 'light'}
-                >
-                  {t('layout.theme-light')}
-                </Button>
-                <Button
-                  startIcon={<DarkModeOutlined />}
-                  onClick={toggleColorMode}
-                  disabled={theme.palette.mode === 'dark'}
-                >
-                  {t('layout.theme-dark')}
-                </Button>
-              </ButtonGroup>
+              <ThemeButtons />
             </ListItem>
             <ListItem dense>
               <ListItemText>Login/Logout</ListItemText>
