@@ -1,4 +1,4 @@
-import Box, { IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import CalendarViewMonthIcon from '@mui/icons-material/CalendarViewMonth';
 import { useTranslation } from 'react-i18next';
