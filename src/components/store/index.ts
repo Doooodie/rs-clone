@@ -15,6 +15,8 @@ import filesReducer from './driveSlice';
 import filterReducer from './filterSlice';
 import fileInfoReducer from './fileInfo';
 
+import { filesApi } from '../../api/api';
+
 const rootReducer = combineReducers({
   modal: modalReducer,
   files: filesReducer,
@@ -45,7 +47,7 @@ const middlewareHandler = (getDefaultMiddleware: any) => {
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => middlewareHandler(getDefaultMiddleware)
+  middleware: (getDefaultMiddleware) => middlewareHandler(getDefaultMiddleware),
 });
 
 export default store;
@@ -54,6 +56,3 @@ export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-
-import { filesApi } from './../pages/Explorer/api/api';
-

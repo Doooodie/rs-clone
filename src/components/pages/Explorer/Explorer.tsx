@@ -7,8 +7,11 @@ import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 import { removeFileInfo } from '../../store/fileInfo';
 import { setSort } from '../../store/filterSlice';
 import './Explorer.css';
+import { useGetPostQuery } from '../../../api/api';
 
 function Explorer() {
+  const { data } = useGetPostQuery('33');
+  console.log(`${data}`);
   const dispatch = useAppDispatch();
 
   function hiddenModal(e: React.MouseEvent<HTMLDivElement>) {
