@@ -42,7 +42,6 @@ function Header() {
           </Toolbar>
         </Container>
         <Divider />
-        <Toolbar id='back-to-top-anchor' sx={{ display: 'none' }} />
       </AppBar>
     </ElevationScroll>
   );

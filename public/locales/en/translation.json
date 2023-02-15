@@ -16,6 +16,9 @@
   },
 
   "landing": {
+    "open-drive": "Go To Drive",
+    "register": "Sign Up",
+    "useful-functions": "See what you can do with Badoone Drive",
     "about-heading": "Easy and secure access to your content",
     "about-body": "Store, share, and collaborate on files and folders from your mobile device, tablet, or computer",
     "warning-heading": "Built-in protections against malware, spam, and ransomware",
