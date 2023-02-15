@@ -16,7 +16,7 @@ export const api = createApi({
     if (action.type === REHYDRATE) {
       return action.payload[reducerPath];
     }
-    return Promise.resolve();
+    return undefined;
   },
   endpoints: (builder) => ({
     addPost: builder.mutation<IPost, Partial<IPost>>({
