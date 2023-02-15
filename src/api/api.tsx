@@ -15,7 +15,7 @@ export const api = createApi({
   /* eslint-disable consistent-return */
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === REHYDRATE) {
-      return action.payload[reducerPath];
+      return action.payload?.[reducerPath];
     }
   },
   /* eslint-enable consistent-return */
