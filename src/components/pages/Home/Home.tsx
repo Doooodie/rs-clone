@@ -13,6 +13,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'mui-image';
 import { Element as ScrollElement, Link as ScrollLink } from 'react-scroll';
+import Carousel from 'react-material-ui-carousel';
 
 import aboutImg from '../../../assets/images/landing-about.jpg';
 import warningImg from '../../../assets/images/landing-warning.jpg';
@@ -29,6 +30,7 @@ function Home() {
       <Grid
         container
         alignItems='center'
+        justifyContent='center'
         rowSpacing={{ xs: 4, sm: 8, md: 12 }}
         columnSpacing={{ xs: 4, sm: 8, md: 12 }}
       >
@@ -150,6 +152,79 @@ function Home() {
           <Paper elevation={3} sx={{ p: 2, borderRadius: 4 }}>
             <Image src={searchImg} style={{ borderRadius: 8 }} />
           </Paper>
+        </Grid>
+
+        <Grid item xs={12} order={11}>
+          <Stack
+            bgcolor={
+              theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900]
+            }
+            spacing={10}
+            sx={{ py: 10, borderRadius: 4 }}
+            alignItems='center'
+          >
+            <Container maxWidth='md'>
+              <Typography variant='h3' component='h2' align='center'>
+                {t('landing.teams')}
+              </Typography>
+            </Container>
+            <Container maxWidth='md'>
+              <Paper elevation={8} sx={{ borderRadius: 4 }}>
+                <Carousel
+                  animation='slide'
+                  duration={500}
+                  autoPlay={false}
+                  navButtonsAlwaysVisible={useMediaQuery(theme.breakpoints.up('sm'))}
+                  navButtonsProps={{ style: { padding: 20, margin: '0 20px' } }}
+                  height={500}
+                >
+                  <Container maxWidth='sm'>
+                    <Stack spacing={4} sx={{ py: 10 }}>
+                      <Typography variant='h4' component='h3' align='center'>
+                        SalesForce
+                      </Typography>
+                      <Typography variant='h5' component='h4' align='center'>
+                        {`"${t('landing.teams-salesforce')}"`}
+                      </Typography>
+                    </Stack>
+                  </Container>
+
+                  <Container maxWidth='sm'>
+                    <Stack spacing={4} sx={{ py: 10 }}>
+                      <Typography variant='h4' component='h3' align='center'>
+                        Cardinal Group
+                      </Typography>
+                      <Typography variant='h5' component='h4' align='center'>
+                        {`"${t('landing.teams-cardinal')}"`}
+                      </Typography>
+                    </Stack>
+                  </Container>
+
+                  <Container maxWidth='sm'>
+                    <Stack spacing={4} sx={{ py: 10 }}>
+                      <Typography variant='h4' component='h3' align='center'>
+                        Ibotta
+                      </Typography>
+                      <Typography variant='h5' component='h4' align='center'>
+                        {`"${t('landing.teams-ibotta')}"`}
+                      </Typography>
+                    </Stack>
+                  </Container>
+
+                  <Container maxWidth='sm'>
+                    <Stack spacing={4} sx={{ py: 10 }}>
+                      <Typography variant='h4' component='h3' align='center'>
+                        ATB Financial
+                      </Typography>
+                      <Typography variant='h5' component='h4' align='center'>
+                        {`"${t('landing.teams-atb')}"`}
+                      </Typography>
+                    </Stack>
+                  </Container>
+                </Carousel>
+              </Paper>
+            </Container>
+          </Stack>
         </Grid>
       </Grid>
     </Container>

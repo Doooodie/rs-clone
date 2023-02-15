@@ -28,7 +28,12 @@
     "integration-heading": "Integration with the tools and apps your team is already using",
     "integration-body": "Drive integrates with and complements your team’s existing technology. Collaborate in Microsoft Office files without the need to convert file formats, and edit and store over 100 additional file types, including PDFs, CAD files, images, and more.",
     "search-heading": "Google’s Search and AI technology helps your team move faster",
-    "search-body": "Google’s powerful search capabilities are embedded in Drive and offer speed, reliability, and collaboration. And features like Drive search chips help your team find files fast by quickly surfacing more relevant results."
+    "search-body": "Google’s powerful search capabilities are embedded in Drive and offer speed, reliability, and collaboration. And features like Drive search chips help your team find files fast by quickly surfacing more relevant results.",
+    "teams": "Thousands of teams are already using Drive to revolutionize the way they work",
+    "teams-salesforce": "I never worry about finding a document. Everything’s in Drive, I can access it anywhere, and that’s been revolutionary.",
+    "teams-cardinal": "Most of our team members were already familiar with Drive and found it very intuitive and easy to use, so change management was minimal and we were quickly up and running.",
+    "teams-ibotta": "Real-time collaboration with Google Docs and Drive is a must-have...if we ever tried to move employees off it, it would be a torches and pitchforks situation—complete chaos.",
+    "teams-atb": "Google is revolutionizing collaboration and individual productivity through AI. Employees can focus more on creating value for our customers and less on mundane tasks."
   },
 
   "explorer": {
