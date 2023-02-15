@@ -9,8 +9,8 @@ interface IPost {
 }
 
 export const api = createApi({
-  reducerPath: 'files-api',
-  tagTypes: ['files-api'],
+  reducerPath: 'api',
+  tagTypes: ['api'],
   baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com/' }),
   /* eslint-disable consistent-return */
   extractRehydrationInfo(action, { reducerPath }) {
