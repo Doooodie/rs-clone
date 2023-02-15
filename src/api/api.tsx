@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { REHYDRATE } from 'redux-persist';
 
 interface IPost {
   userId: number;
@@ -7,10 +8,16 @@ interface IPost {
   body: string;
 }
 
-export const filesApi = createApi({
+export const api = createApi({
   reducerPath: 'files-api',
   tagTypes: ['files-api'],
   baseQuery: fetchBaseQuery({ baseUrl: 'https://jsonplaceholder.typicode.com/' }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === REHYDRATE) {
+      return action.payload[reducerPath];
+    }
+    return Promise.resolve();
+  },
   endpoints: (builder) => ({
     addPost: builder.mutation<IPost, Partial<IPost>>({
       query: (body) => ({
@@ -28,4 +35,4 @@ export const filesApi = createApi({
   }),
 });
 
-export const { useAddPostMutation, useGetPostQuery } = filesApi;
+export const { useAddPostMutation, useGetPostQuery } = api;

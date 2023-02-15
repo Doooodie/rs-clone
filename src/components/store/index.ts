@@ -15,14 +15,14 @@ import filesReducer from './driveSlice';
 import filterReducer from './filterSlice';
 import fileInfoReducer from './fileInfo';
 
-import { filesApi } from '../../api/api';
+import { api } from '../../api/api';
 
 const rootReducer = combineReducers({
   modal: modalReducer,
   files: filesReducer,
   filter: filterReducer,
   fileInfo: fileInfoReducer,
-  [filesApi.reducerPath]: filesApi.reducer,
+  [api.reducerPath]: api.reducer,
 });
 
 const persistConfig = {
@@ -33,21 +33,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const middlewareHandler = (getDefaultMiddleware: any) => {
-  const middlewareList = [
-    ...getDefaultMiddleware({
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
-    filesApi.middleware,
-  ];
-  return middlewareList;
-};
-
-const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => middlewareHandler(getDefaultMiddleware),
+    }).concat(api.middleware),
 });
 
 export default store;
