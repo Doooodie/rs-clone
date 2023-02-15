@@ -2,7 +2,6 @@ import { useAppDispatch } from '../../hooks';
 import { changeSettingModal } from '../../store/modalSlice';
 import Aside from './modules/Aside/Aside';
 import Drive from './modules/Drive/Drive';
-import MyHeader from './modules/Header/Header';
 import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 import { removeFileInfo } from '../../store/fileInfo';
 import { setSort } from '../../store/filterSlice';
