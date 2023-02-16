@@ -63,19 +63,19 @@ export default function DetailsContent({ file }: DriveItemInfoContentProps) {
       </DetailsPreviewStyled>
       <ul>
         <li>
-          <p>Type</p>
+          <p>{t(`explorer.type`)}</p>
           <span>{file.name}</span>
         </li>
         <li>
-          <p>Size</p>
+          <p>{t(`explorer.size`)}</p>
           <span>{sizeString}</span>
         </li>
         <li>
-          <p>Owner</p>
+          <p>{t(`explorer.owner`)}</p>
           <span>{file.owner}</span>
         </li>
         <li>
-          <p>Created</p>
+          <p>{t(`explorer.created`)}</p>
           <span>{convertNumberToDate(file.lastChange)}</span>
         </li>
       </ul>

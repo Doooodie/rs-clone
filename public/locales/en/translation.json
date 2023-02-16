@@ -63,6 +63,10 @@
     "modified": "Last modified",
     "size": "File size",
     "rename": "Rename",
-    "newname": "New name"
+    "newname": "New name",
+    "details": "Details",
+    "created": "Created",
+    "type": "Type",
+    "select": "Select an item to see the details"
   }
 }

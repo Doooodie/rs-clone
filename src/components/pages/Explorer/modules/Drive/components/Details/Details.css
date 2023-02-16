@@ -7,8 +7,8 @@
   transition: all 0.15s linear;
   color: #3c4043;
   border-left: 1px solid var(--light-gray);
-  min-height: calc(100vh - 65px - 48px);
-  max-height: calc(100vh - 65px - 48px);
+  min-height: calc(100vh - 64px - 48px - 114px);
+  max-height: calc(100vh - 64px - 48px - 114px);
   overflow-y: auto;
   overflow-x: hidden;
 }

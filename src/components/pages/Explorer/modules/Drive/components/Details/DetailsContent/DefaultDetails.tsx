@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 const imgSource = 'https://ssl.gstatic.com/docs/doclist/images/empty_state_details.png';
@@ -20,10 +21,11 @@ const DefaultDetailsStyle = styled.div`
 `;
 
 export default function DefaultDetails() {
+  const { t } = useTranslation();
   return (
     <DefaultDetailsStyle>
       <img src={imgSource} alt='planet' />
-      <p>Select an item to see the details</p>
+      <p>{t('explorer.select')}</p>
     </DefaultDetailsStyle>
   );
 }
