@@ -61,6 +61,7 @@
     "start": "craco start",
     "build": "craco build",
     "lint": "eslint --fix --ignore-path .gitignore .",
+    "railway": "npx http-server ./build",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
