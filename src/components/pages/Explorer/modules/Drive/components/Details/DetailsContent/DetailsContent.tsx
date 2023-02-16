@@ -29,6 +29,14 @@ const DetailsContentStyled = styled.div`
       color: var(--gray);
     }
   }
+
+  @media (max-width: 768px) {
+    ul {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }
 `;
 
 const DetailsPreviewStyled = styled.div`

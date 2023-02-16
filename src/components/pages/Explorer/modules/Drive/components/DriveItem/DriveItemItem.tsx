@@ -56,15 +56,15 @@ export default function DriveItem({ file, onContextMenu, isFile }: FileProps) {
         <span>{file.name}</span>
       </DriveItemName>
 
-      <div className='file-item-info file-item-owner'>
+      <div className='file-item-info'>
         <span>{file.owner}</span>
       </div>
 
-      <div className='file-item-info file-item-time'>
+      <div className='file-item-info'>
         <span>{convertNumberToDate(file.lastChange)}</span>
       </div>
 
-      <div className='file-item-info file-item-size'>
+      <div className='file-item-info'>
         <span>{sizeString}</span>
       </div>
     </DriveItemStyle>

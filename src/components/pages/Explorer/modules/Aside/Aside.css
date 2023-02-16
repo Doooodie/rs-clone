@@ -6,6 +6,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  transition: all 0.3s linear;
 }
 
 .aside-create {
@@ -141,7 +142,7 @@
 
 .byu-memory {
   font-weight: bold;
-  width: 200px;
+  width: 90%;
   padding: 0.5rem 0;
   font-size: 14px;
   background: none;
