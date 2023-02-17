@@ -88,9 +88,10 @@ function Home() {
               to='warning-anchor'
               smooth
               delay={500}
-              offset={100}
+              offset={useMediaQuery(theme.breakpoints.up('md')) ? 100 : 30}
               style={{
                 alignSelf: 'center',
+                textAlign: 'center',
                 display: 'inline-grid',
                 color: `${theme.palette.text.secondary}`,
                 cursor: 'pointer',
