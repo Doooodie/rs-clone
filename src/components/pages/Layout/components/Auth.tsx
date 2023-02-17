@@ -44,6 +44,16 @@ function Auth() {
     reset();
   };
 
+  const toggleSignUp = () => {
+    reset();
+    setSearchParams({ auth: 'signup' });
+  };
+
+  const toggleSignIn = () => {
+    reset();
+    setSearchParams({ auth: 'signin' });
+  };
+
   /* eslint-disable react/jsx-props-no-spreading */
   return (
     <Dialog open={!!authQuery} onClose={closeAuth}>
@@ -174,11 +184,7 @@ function Auth() {
                   component={Link}
                   variant='body2'
                   sx={{ cursor: 'pointer' }}
-                  onClick={() =>
-                    isSignIn
-                      ? setSearchParams({ auth: 'signup' })
-                      : setSearchParams({ auth: 'signin' })
-                  }
+                  onClick={isSignIn ? toggleSignUp : toggleSignIn}
                 >
                   {isSignIn ? t('auth.sign-up-link') : t('auth.sign-in-link')}
                 </Typography>
