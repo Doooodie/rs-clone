@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import {
   Avatar,
   Button,
@@ -20,6 +21,7 @@ interface IFormInputs {
 }
 
 function Auth() {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const authQuery = searchParams.get('auth') || '';
   const isSignIn = authQuery === 'signin';
@@ -29,7 +31,7 @@ function Auth() {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<IFormInputs>({ mode: 'onBlur' });
 
   const closeAuth = () => {
@@ -38,13 +40,13 @@ function Auth() {
   };
 
   const submitAuth: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    console.log(JSON.stringify(data));
+    console.log(data);
     reset();
   };
 
   /* eslint-disable react/jsx-props-no-spreading */
   return (
-    <Dialog open={!!authQuery} onClose={closeAuth} aria-labelledby='responsive-dialog-title'>
+    <Dialog open={!!authQuery} onClose={closeAuth}>
       <DialogContent>
         <Box
           sx={{
@@ -57,7 +59,7 @@ function Auth() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component='h2' variant='h5'>
-            {isSignIn ? 'Sign in' : 'Sign up'}
+            {isSignIn ? t('auth.sign-in') : t('auth.sign-up')}
           </Typography>
           <Box
             component='form'
@@ -74,15 +76,15 @@ function Auth() {
                   required: true,
                   pattern: {
                     value: /[A-Za-z]/,
-                    message: 'Name can only contain latin letters',
+                    message: t('auth.name-pattern-error'),
                   },
                   minLength: {
                     value: 3,
-                    message: 'Name cannot be under 3 symbols',
+                    message: t('auth.name-min-length-error'),
                   },
                   maxLength: {
                     value: 10,
-                    message: 'Name can be up to 10 symbols',
+                    message: t('auth.name-max-length-error'),
                   },
                 }}
                 render={({ field }) => (
@@ -90,7 +92,7 @@ function Auth() {
                     margin='normal'
                     fullWidth
                     required
-                    label='Name'
+                    label={t('auth.name-label')}
                     autoComplete='name'
                     {...field}
                     error={!!errors.name}
@@ -108,7 +110,7 @@ function Auth() {
                 required: true,
                 pattern: {
                   value: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-                  message: 'Please provide a correct email adress',
+                  message: t('auth.email-pattern-error'),
                 },
               }}
               render={({ field }) => (
@@ -117,7 +119,7 @@ function Auth() {
                   fullWidth
                   required
                   type='email'
-                  label='Email Address'
+                  label={t('auth.email-label')}
                   autoComplete='email'
                   {...field}
                   error={!!errors.email}
@@ -134,12 +136,11 @@ function Auth() {
                 required: true,
                 pattern: {
                   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                  message:
-                    'Password should contain at least one uppercase letter, one lowercase letter and one number',
+                  message: t('auth.password-pattern-error'),
                 },
                 minLength: {
                   value: 8,
-                  message: 'Password cannot be under 8 symbols',
+                  message: t('auth.password-min-length-error'),
                 },
               }}
               render={({ field }) => (
@@ -147,7 +148,7 @@ function Auth() {
                   margin='normal'
                   fullWidth
                   required
-                  label='Password'
+                  label={t('auth.password-label')}
                   type='password'
                   autoComplete='current-password'
                   {...field}
@@ -157,8 +158,14 @@ function Auth() {
               )}
             />
 
-            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
-              {isSignIn ? 'Sign in' : 'Sign up'}
+            <Button
+              type='submit'
+              fullWidth
+              disabled={!isValid}
+              variant='contained'
+              sx={{ mt: 3, mb: 2 }}
+            >
+              {isSignIn ? t('auth.sign-in') : t('auth.sign-up')}
             </Button>
 
             <Grid container justifyContent='flex-end'>
@@ -173,7 +180,7 @@ function Auth() {
                       : setSearchParams({ auth: 'signin' })
                   }
                 >
-                  {isSignIn ? 'Dont have an account? Sign Up' : 'Already have an account? Sign in'}
+                  {isSignIn ? t('auth.sign-up-link') : t('auth.sign-in-link')}
                 </Typography>
               </Grid>
             </Grid>

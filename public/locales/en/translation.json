@@ -15,6 +15,22 @@
     "no-page-error": "The page you are looking for does not exist"
   },
 
+  "auth": {
+    "sign-in": "Sign in",
+    "sign-up": "Sign up",
+    "sign-in-link": "Already have an account? Sign in",
+    "sign-up-link": "Don't have an account? Sign Up",
+    "name-label": "Name",
+    "name-pattern-error": "Name can only contain latin letters",
+    "name-min-length-error": "Name cannot be under 3 symbols",
+    "name-max-length-error": "Name can be up to 10 symbols",
+    "email-label": "Email Address",
+    "email-pattern-error": "Please provide a corrent email address",
+    "password-label": "Password",
+    "password-pattern-error": "Password should contain at least one uppercase letter, one lowercase letter and one number",
+    "password-min-length-error": "Password cannot be under 8 symbols"
+  },
+
   "landing": {
     "open-drive": "Go To Drive",
     "register": "Sign Up",
