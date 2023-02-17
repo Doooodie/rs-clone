@@ -6,7 +6,7 @@ import convertNumberToDate from '../../../../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../../../../helpers/convertBytesToKbMd';
 import { addActiveClassOnDriveItem } from '../../../../helpers/handleFileItem';
 import { FileProps } from '../../../../types/types';
-import { useAppDispatch } from '../../../../../../hooks';
+import { useAppDispatch } from '../../../../../../hooks/hooks';
 import { setFileInfo } from '../../../../../../store/fileInfo';
 
 const DriveItemStyle = styled.div`

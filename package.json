@@ -60,7 +60,8 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "lint": "eslint --fix --ignore-path .gitignore .",
+    "lint": "eslint --ignore-path .gitignore .",
+    "fix": "eslint --fix --ignore-path .gitignore .",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

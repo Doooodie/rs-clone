@@ -6,7 +6,7 @@ import StarIcon from '../../../../../assets/SvgComponents/StarIcon';
 import CartIcon from '../../../../../assets/SvgComponents/CartIcon';
 import SkyIcon from '../../../../../assets/SvgComponents/SkyIcon';
 import ModalCreateFile from '../../components/Modals/CreateModal/ModalCreateFile';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import { changeAsideModal } from '../../../../store/modalSlice';
 import { addFile, changeCurrentDrive } from '../../../../store/driveSlice';
 import { DrivesNames, ButtonClassNames } from '../../types/enums';

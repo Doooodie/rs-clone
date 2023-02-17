@@ -19,11 +19,12 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
+  const upperName = name.toUpperCase();
   return {
     sx: {
       bgcolor: stringToColor(name),
     },
-    children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
+    children: `${upperName.split(' ')[0][0]}${upperName.split(' ')[0][1]}`,
   };
 }
 

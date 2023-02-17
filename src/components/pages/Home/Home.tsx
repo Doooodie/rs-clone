@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import {
   Container,
   Grid,
@@ -24,6 +25,7 @@ import searchImg from '../../../assets/images/landing-search.jpg';
 function Home() {
   const { t } = useTranslation();
   const theme = useTheme();
+  const [, setSearchParams] = useSearchParams();
 
   return (
     <Container component='main' maxWidth='xl' sx={{ mt: 10, mb: 10 }}>
@@ -52,6 +54,8 @@ function Home() {
               {t('landing.about-body')}
             </Typography>
             <Button
+              component={RouterLink}
+              to='/drive'
               variant='contained'
               size='large'
               fullWidth={useMediaQuery(theme.breakpoints.up('md'))}
@@ -60,6 +64,7 @@ function Home() {
               {t('landing.open-drive')}
             </Button>
             <Button
+              onClick={() => setSearchParams({ auth: 'signup' })}
               variant='outlined'
               size='large'
               fullWidth={useMediaQuery(theme.breakpoints.up('md'))}

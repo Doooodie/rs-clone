@@ -1,7 +1,7 @@
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch, useAppSelector } from '../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/hooks';
 import {
   addFile,
   addFileToTrash,

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
 import { ButtonGroup, Button } from '@mui/material';
 import { WbSunny, DarkModeOutlined } from '@mui/icons-material';
-import { useAppDispatch } from '../../../../hooks';
+import { useAppDispatch } from '../../../../hooks/hooks';
 import { setTheme } from '../../../../store/appThemeSlice';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });

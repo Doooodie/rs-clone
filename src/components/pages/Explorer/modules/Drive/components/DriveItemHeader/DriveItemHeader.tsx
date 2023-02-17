@@ -3,7 +3,7 @@ import NorthIcon from '@mui/icons-material/North';
 import SouthIcon from '@mui/icons-material/South';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
 import { changeReverse, setSort } from '../../../../../../store/filterSlice';
 
 const DriveItemHeaderName = styled.div`

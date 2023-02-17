@@ -1,4 +1,4 @@
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../hooks/hooks';
 import { changeHeaderModal, changeAsideModal, changeSettingModal } from '../../store/modalSlice';
 import Aside from './modules/Aside/Aside';
 import Drive from './modules/Drive/Drive';

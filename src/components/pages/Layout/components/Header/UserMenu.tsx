@@ -20,9 +20,7 @@ function UserMenu() {
     <Box>
       <Tooltip title={t('layout.user-menu')}>
         <IconButton onClick={handleMenu}>
-          <Avatar sx={stringAvatar('Kostya Yurkevich').sx}>
-            {stringAvatar('Kostya Yurkevich').children}
-          </Avatar>
+          <Avatar sx={stringAvatar('Doodie').sx}>{stringAvatar('Doodie').children}</Avatar>
         </IconButton>
       </Tooltip>
       <Menu

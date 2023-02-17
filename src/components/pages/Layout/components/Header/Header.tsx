@@ -1,5 +1,5 @@
 import { useState, ChangeEvent } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AppBar, Box, Toolbar, Link, Button, Container, Divider } from '@mui/material';
 
@@ -11,6 +11,7 @@ import UserMenu from './UserMenu';
 function Header() {
   const { t } = useTranslation();
   const [auth, setAuth] = useState(true);
+  const [, setSearchParams] = useSearchParams();
 
   const location = useLocation();
   const isInDrive = location.pathname.includes('drive');
@@ -38,7 +39,13 @@ function Header() {
             {isInDrive && <Search />}
             <Box sx={{ flexGrow: 1 }} />
             <TemporaryDrawer auth={auth} handleChange={handleChange} />
-            {auth ? <UserMenu /> : <Button color='inherit'>{t('layout.login')}</Button>}
+            {auth ? (
+              <UserMenu />
+            ) : (
+              <Button color='inherit' onClick={() => setSearchParams({ auth: 'signin' })}>
+                {t('layout.login')}
+              </Button>
+            )}
           </Toolbar>
         </Container>
         <Divider />

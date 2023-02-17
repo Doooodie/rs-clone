@@ -9,12 +9,13 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+import { ColorModeContext } from './components/Header/ThemeButtons';
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
+import { setTheme } from '../../store/appThemeSlice';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ScrollTop from './components/ScrollTop';
-import { ColorModeContext } from './components/Header/ThemeButtons';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { setTheme } from '../../store/appThemeSlice';
+import Auth from './components/Auth';
 
 function Layout() {
   const dispatch = useAppDispatch();
@@ -66,6 +67,7 @@ function Layout() {
               <KeyboardArrowUpIcon />
             </Fab>
           </ScrollTop>
+          <Auth />
         </Box>
       </ThemeProvider>
     </ColorModeContext.Provider>

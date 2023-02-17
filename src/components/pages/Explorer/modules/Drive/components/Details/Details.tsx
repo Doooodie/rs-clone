@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FolderIcon from '@mui/icons-material/Folder';
 import DefaultDetails from './DetailsContent/DefaultDetails';
 import DetailsContent from './DetailsContent/DetailsContent';
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
 import { changeFileInfoModal } from '../../../../../../store/modalSlice';
 
 export default function Details() {
