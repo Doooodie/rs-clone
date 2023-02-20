@@ -1,9 +1,9 @@
-import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import {
   Avatar,
-  Button,
   TextField,
   Link,
   Grid,
@@ -11,21 +11,32 @@ import {
   Typography,
   Dialog,
   DialogContent,
+  Snackbar,
+  Alert,
 } from '@mui/material';
+import LoadingButton from '@mui/lab/LoadingButton';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useSignUpMutation, useSignInMutation } from '../../../store/api/authApi';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { setCredentials } from '../../../store/slices/authSlice';
 
 interface IFormInputs {
-  name?: string;
+  name: string;
   email: string;
   password: string;
 }
 
 function Auth() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const authQuery = searchParams.get('auth') || '';
   const isSignIn = authQuery === 'signin';
   const isSignUp = authQuery === 'signup';
+  const [signIn, { isLoading: isSignInLoading }] = useSignInMutation();
+  const [signUp, { isLoading: isSignUpLoading }] = useSignUpMutation();
+  const [isSnackOpen, setSnackOpen] = useState(false);
 
   const {
     control,
@@ -34,14 +45,32 @@ function Auth() {
     formState: { errors, isValid },
   } = useForm<IFormInputs>({ mode: 'onBlur' });
 
+  const closeSnack = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') return;
+    setSnackOpen(false);
+  };
+
   const closeAuth = () => {
     setSearchParams({});
     reset();
   };
 
-  const submitAuth: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    console.log(data);
-    reset();
+  const submitAuth: SubmitHandler<IFormInputs> = async (data: IFormInputs) => {
+    try {
+      if (isSignIn) {
+        const token = await signIn(data).unwrap();
+        dispatch(setCredentials({ name: data.name, token }));
+        navigate('/drive');
+      } else {
+        const token = await signUp(data).unwrap();
+        dispatch(setCredentials({ name: data.name, token }));
+        navigate('/');
+      }
+    } catch (err) {
+      setSnackOpen(true);
+    } finally {
+      reset();
+    }
   };
 
   const toggleSignUp = () => {
@@ -77,40 +106,38 @@ function Auth() {
             noValidate={isSignUp}
             sx={{ mt: 3 }}
           >
-            {isSignUp && (
-              <Controller
-                name='name'
-                control={control}
-                defaultValue=''
-                rules={{
-                  required: true,
-                  pattern: {
-                    value: /[A-Za-z]/,
-                    message: t('auth.name-pattern-error'),
-                  },
-                  minLength: {
-                    value: 3,
-                    message: t('auth.name-min-length-error'),
-                  },
-                  maxLength: {
-                    value: 10,
-                    message: t('auth.name-max-length-error'),
-                  },
-                }}
-                render={({ field }) => (
-                  <TextField
-                    margin='normal'
-                    fullWidth
-                    required
-                    label={t('auth.name-label')}
-                    autoComplete='name'
-                    {...field}
-                    error={!!errors.name}
-                    helperText={errors.name ? errors.name?.message : ''}
-                  />
-                )}
-              />
-            )}
+            <Controller
+              name='name'
+              control={control}
+              defaultValue=''
+              rules={{
+                required: true,
+                pattern: {
+                  value: /[A-Za-z]/,
+                  message: t('auth.name-pattern-error'),
+                },
+                minLength: {
+                  value: 3,
+                  message: t('auth.name-min-length-error'),
+                },
+                maxLength: {
+                  value: 10,
+                  message: t('auth.name-max-length-error'),
+                },
+              }}
+              render={({ field }) => (
+                <TextField
+                  margin='normal'
+                  fullWidth
+                  required
+                  label={t('auth.name-label')}
+                  autoComplete='name'
+                  {...field}
+                  error={!!errors.name}
+                  helperText={errors.name ? errors.name?.message : ''}
+                />
+              )}
+            />
 
             <Controller
               name='email'
@@ -168,15 +195,16 @@ function Auth() {
               )}
             />
 
-            <Button
+            <LoadingButton
               type='submit'
               fullWidth
+              loading={isSignInLoading || isSignUpLoading}
               disabled={!isValid}
               variant='contained'
               sx={{ mt: 3, mb: 2 }}
             >
-              {isSignIn ? t('auth.sign-in') : t('auth.sign-up')}
-            </Button>
+              <span>{isSignIn ? t('auth.sign-in') : t('auth.sign-up')}</span>
+            </LoadingButton>
 
             <Grid container justifyContent='flex-end'>
               <Grid item>
@@ -193,8 +221,21 @@ function Auth() {
           </Box>
         </Box>
       </DialogContent>
+
+      <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={closeSnack}>
+        <Alert
+          onClose={closeSnack}
+          elevation={6}
+          variant='filled'
+          severity='error'
+          sx={{ width: '100%' }}
+        >
+          {t('auth.async-error')}
+        </Alert>
+      </Snackbar>
     </Dialog>
   );
+  /* eslint-enable react/jsx-props-no-spreading */
 }
 
 export default Auth;

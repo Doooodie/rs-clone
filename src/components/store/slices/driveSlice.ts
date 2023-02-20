@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { AllDrive, MyFile, MyFolder, RenameFileType } from '../pages/Explorer/types/types';
+import { AllDrive, MyFile, MyFolder, RenameFileType } from '../../pages/Explorer/types/types';
 
 enum DrivesNames {
   drive = 'drive',

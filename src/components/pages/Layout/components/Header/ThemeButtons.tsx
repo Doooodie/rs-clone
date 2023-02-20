@@ -4,7 +4,7 @@ import { useTheme } from '@mui/material/styles';
 import { ButtonGroup, Button } from '@mui/material';
 import { WbSunny, DarkModeOutlined } from '@mui/icons-material';
 import { useAppDispatch } from '../../../../hooks/hooks';
-import { setTheme } from '../../../../store/appThemeSlice';
+import { setTheme } from '../../../../store/slices/appThemeSlice';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 

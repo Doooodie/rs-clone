@@ -15,6 +15,7 @@ import {
   Switch,
 } from '@mui/material';
 import { Settings, Close } from '@mui/icons-material';
+// import { useCheckAuthQuery } from '../../../../store/api/authApi';
 import ThemeButtons from './ThemeButtons';
 
 interface ITemporaryDrawer {
@@ -23,6 +24,7 @@ interface ITemporaryDrawer {
 }
 
 function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
+  // const { data } = useCheckAuthQuery();
   const { t, i18n } = useTranslation();
 
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);

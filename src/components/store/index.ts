@@ -10,11 +10,16 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import modalReducer from './modalSlice';
-import filesReducer from './driveSlice';
-import filterReducer from './filterSlice';
-import fileInfoReducer from './fileInfo';
-import appThemeReducer from './appThemeSlice';
+
+import modalReducer from './slices/modalSlice';
+import filesReducer from './slices/driveSlice';
+import filterReducer from './slices/filterSlice';
+import fileInfoReducer from './slices/fileInfo';
+import appThemeReducer from './slices/appThemeSlice';
+import authReducer from './slices/authSlice';
+/* eslint-disable import/no-cycle */
+import { authApi } from './api/authApi';
+/* eslint-enable import/no-cycle */
 
 const rootReducer = combineReducers({
   modal: modalReducer,
@@ -22,6 +27,8 @@ const rootReducer = combineReducers({
   filter: filterReducer,
   fileInfo: fileInfoReducer,
   appTheme: appThemeReducer,
+  auth: authReducer,
+  [authApi.reducerPath]: authApi.reducer,
 });
 
 const persistConfig = {
@@ -39,7 +46,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(authApi.middleware),
 });
 
 export default store;

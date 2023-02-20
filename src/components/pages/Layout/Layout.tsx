@@ -11,7 +11,7 @@ import '@fontsource/roboto/700.css';
 
 import { ColorModeContext } from './components/Header/ThemeButtons';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
-import { setTheme } from '../../store/appThemeSlice';
+import { setTheme } from '../../store/slices/appThemeSlice';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import ScrollTop from './components/ScrollTop';

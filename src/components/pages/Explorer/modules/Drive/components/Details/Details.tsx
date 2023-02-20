@@ -5,7 +5,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import DefaultDetails from './DetailsContent/DefaultDetails';
 import DetailsContent from './DetailsContent/DetailsContent';
 import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
-import { changeFileInfoModal } from '../../../../../../store/modalSlice';
+import { changeFileInfoModal } from '../../../../../../store/slices/modalSlice';
 
 export default function Details() {
   const file = useAppSelector((store) => store.fileInfo.file);

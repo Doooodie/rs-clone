@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import ViewListOutlinedIcon from '@mui/icons-material/ViewListOutlined';
 import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
-import { changeFileInfoModal, changeHeaderModal } from '../../../../../../store/modalSlice';
+import { changeFileInfoModal, changeHeaderModal } from '../../../../../../store/slices/modalSlice';
 import MenuArrowDownIcon from '../../../../../../../assets/SvgComponents/MenuArrowDown';
 import ModalCreateFile from '../../../../components/Modals/CreateModal/ModalCreateFile';
 import './DriveHeader.css';

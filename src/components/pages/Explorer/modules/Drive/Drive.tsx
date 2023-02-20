@@ -11,7 +11,7 @@ import {
   removeFolder,
   removeFolderFromTrash,
   renameFolder,
-} from '../../../../store/driveSlice';
+} from '../../../../store/slices/driveSlice';
 import { MyFile, Coordinate, MyFolder } from '../../types/types';
 import { ModalListClass, FileListClass } from '../../types/enums';
 import ContextMenu from '../../components/Modals/ContextMenu/ContextMenu';

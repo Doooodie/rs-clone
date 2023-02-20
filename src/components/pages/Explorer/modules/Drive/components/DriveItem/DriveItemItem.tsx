@@ -7,7 +7,7 @@ import convertBytesToKbMb from '../../../../helpers/convertBytesToKbMd';
 import { addActiveClassOnDriveItem } from '../../../../helpers/handleFileItem';
 import { FileProps } from '../../../../types/types';
 import { useAppDispatch } from '../../../../../../hooks/hooks';
-import { setFileInfo } from '../../../../../../store/fileInfo';
+import { setFileInfo } from '../../../../../../store/slices/fileInfo';
 
 const DriveItemStyle = styled.div`
   display: grid;

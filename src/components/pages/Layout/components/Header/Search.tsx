@@ -3,7 +3,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '../../../../hooks/hooks';
-import { setQuery } from '../../../../store/filterSlice';
+import { setQuery } from '../../../../store/slices/filterSlice';
 
 const SearchContainer = styled('div')(({ theme }) => ({
   position: 'relative',
