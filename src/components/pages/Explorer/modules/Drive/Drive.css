@@ -8,7 +8,7 @@
 
 .drive-items {
   height: 100%;
-  overflow: scroll;
+  overflow: auto;
   width: 100%;
 }
 
@@ -37,7 +37,7 @@
   max-height: calc(100vh - 65px - 48px - 40px);
   min-height: 50vh;
   border: 2px solid white;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .file-list-wrapper-active {

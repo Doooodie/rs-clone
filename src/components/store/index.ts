@@ -17,6 +17,7 @@ import filterReducer from './slices/filterSlice';
 import fileInfoReducer from './slices/fileInfo';
 import appThemeReducer from './slices/appThemeSlice';
 import authReducer from './slices/authSlice';
+import { api } from '../../api/api';
 /* eslint-disable import/no-cycle */
 import { authApi } from './api/authApi';
 /* eslint-enable import/no-cycle */
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
   fileInfo: fileInfoReducer,
   appTheme: appThemeReducer,
   auth: authReducer,
+  [api.reducerPath]: api.reducer,
   [authApi.reducerPath]: authApi.reducer,
 });
 
@@ -46,7 +48,9 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
+    })
+      .concat(api.middleware)
+      .concat(authApi.middleware),
 });
 
 export default store;

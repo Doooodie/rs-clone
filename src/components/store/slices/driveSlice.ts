@@ -1,22 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AllDrive, MyFile, MyFolder, RenameFileType } from '../../pages/Explorer/types/types';
 
-enum DrivesNames {
-  drive = 'drive',
-  trash = 'trash',
-  important = 'important',
-  storage = 'storage',
-}
-
 type DriveInitialState = {
   allDrive: AllDrive;
-  currentDrive: keyof AllDrive;
+  currentDrive: string;
 };
 
 const initialState: DriveInitialState = {
   allDrive: {
     drive: {
-      name: 'mydrive',
+      name: 'drive',
       files: [],
       folders: [],
     },
@@ -26,17 +19,12 @@ const initialState: DriveInitialState = {
       folders: [],
     },
     trash: {
-      name: 'cart',
-      files: [],
-      folders: [],
-    },
-    storage: {
-      name: 'storage',
+      name: 'trash',
       files: [],
       folders: [],
     },
   },
-  currentDrive: DrivesNames.drive,
+  currentDrive: 'drive',
 };
 
 const driveSlice = createSlice({
@@ -98,7 +86,7 @@ const driveSlice = createSlice({
         (folder) => folder.id !== action.payload,
       );
     },
-    changeCurrentDrive(state, action: PayloadAction<keyof AllDrive>) {
+    changeCurrentDrive(state, action: PayloadAction<string>) {
       const currentState = state;
       currentState.currentDrive = action.payload;
     },

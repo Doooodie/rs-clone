@@ -35,17 +35,10 @@ export type ImportantDrive = {
   folders: MyFile[];
 };
 
-export type StorageDrive = {
-  name: string;
-  files: MyFile[];
-  folders: MyFile[];
-};
-
 export type AllDrive = {
   drive: MainDrive;
   trash: TrashDrive;
   important: ImportantDrive;
-  storage: StorageDrive;
 };
 
 export type Coordinate = {
