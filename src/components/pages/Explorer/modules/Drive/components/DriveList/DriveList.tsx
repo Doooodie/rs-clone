@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { FileListClass } from '../../../../types/enums';
 import DriveItemHeader from '../DriveItemHeader/DriveItemHeader';
 import { AllDrive, Coordinate, MyFile } from '../../../../types/types';
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
 import {
   addFile,
   addFileToTrash,
@@ -13,7 +13,7 @@ import {
   removeFolder,
   removeFolderFromTrash,
   renameFolder,
-} from '../../../../../../store/driveSlice';
+} from '../../../../../../store/slices/driveSlice';
 import DriveItem from '../DriveItem/DriveItemItem';
 import ContextMenu from '../../../../components/Modals/ContextMenu/ContextMenu';
 import MyDialog from '../../../../components/Modals/Dialog/Dialog';
