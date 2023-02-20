@@ -15,6 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'mui-image';
 import { Element as ScrollElement, Link as ScrollLink } from 'react-scroll';
 import Carousel from 'react-material-ui-carousel';
+import { useAppSelector } from '../../hooks/hooks';
 
 import aboutImg from '../../../assets/images/landing-about.jpg';
 import warningImg from '../../../assets/images/landing-warning.jpg';
@@ -26,6 +27,9 @@ function Home() {
   const { t } = useTranslation();
   const theme = useTheme();
   const [, setSearchParams] = useSearchParams();
+  const authToken = useAppSelector((store) => store.auth.token);
+  const auth = !!authToken;
+  const screenUpMedium = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Container component='main' maxWidth='xl' sx={{ mt: 10, mb: 10 }}>
@@ -58,21 +62,23 @@ function Home() {
               to='/drive'
               variant='contained'
               size='large'
-              fullWidth={useMediaQuery(theme.breakpoints.up('md'))}
+              fullWidth={screenUpMedium}
               sx={{ minWidth: 300 }}
             >
               {t('landing.open-drive')}
             </Button>
-            <Button
-              onClick={() => setSearchParams({ auth: 'signup' })}
-              variant='outlined'
-              size='large'
-              fullWidth={useMediaQuery(theme.breakpoints.up('md'))}
-              sx={{ minWidth: 300 }}
-              style={{ marginTop: theme.spacing(2) }}
-            >
-              {t('landing.register')}
-            </Button>
+            {!auth && (
+              <Button
+                onClick={() => setSearchParams({ auth: 'signup' })}
+                variant='outlined'
+                size='large'
+                fullWidth={screenUpMedium}
+                sx={{ minWidth: 300 }}
+                style={{ marginTop: theme.spacing(2) }}
+              >
+                {t('landing.register')}
+              </Button>
+            )}
           </Stack>
         </Grid>
         <Grid item xs={12} md={7}>
@@ -88,7 +94,7 @@ function Home() {
               to='warning-anchor'
               smooth
               delay={500}
-              offset={useMediaQuery(theme.breakpoints.up('md')) ? 100 : 30}
+              offset={screenUpMedium ? 100 : 30}
               style={{
                 alignSelf: 'center',
                 textAlign: 'center',

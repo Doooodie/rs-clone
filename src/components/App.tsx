@@ -7,6 +7,7 @@ import Layout from './pages/Layout/Layout';
 import NoPage from './pages/NoPage/NoPage';
 import Home from './pages/Home/Home';
 import Explorer from './pages/Explorer/Explorer';
+import PrivateRoutes from './utils/PrivateRoutes';
 
 function App() {
   return (
@@ -16,7 +17,9 @@ function App() {
           <Routes>
             <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path='/drive' element={<Explorer />} />
+              <Route element={<PrivateRoutes />}>
+                <Route path='/drive' element={<Explorer />} />
+              </Route>
               <Route path='*' element={<NoPage />} />
             </Route>
           </Routes>

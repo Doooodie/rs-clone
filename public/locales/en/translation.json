@@ -29,7 +29,8 @@
     "password-label": "Password",
     "password-pattern-error": "Password should contain at least one uppercase letter, one lowercase letter and one number",
     "password-min-length-error": "Password cannot be under 8 symbols",
-    "async-error": "An error occured"
+    "async-error": "An error occured",
+    "async-success": "Successfully signed in"
   },
 
   "landing": {

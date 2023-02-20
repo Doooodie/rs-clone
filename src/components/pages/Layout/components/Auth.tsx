@@ -36,7 +36,8 @@ function Auth() {
   const isSignUp = authQuery === 'signup';
   const [signIn, { isLoading: isSignInLoading }] = useSignInMutation();
   const [signUp, { isLoading: isSignUpLoading }] = useSignUpMutation();
-  const [isSnackOpen, setSnackOpen] = useState(false);
+  const [isErrorOpen, setErrorOpen] = useState(false);
+  const [isSuccessOpen, setSuccessOpen] = useState(false);
 
   const {
     control,
@@ -45,9 +46,14 @@ function Auth() {
     formState: { errors, isValid },
   } = useForm<IFormInputs>({ mode: 'onBlur' });
 
-  const closeSnack = (event?: React.SyntheticEvent | Event, reason?: string) => {
+  const closeError = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') return;
-    setSnackOpen(false);
+    setErrorOpen(false);
+  };
+
+  const closeSuccess = (event?: React.SyntheticEvent | Event, reason?: string) => {
+    if (reason === 'clickaway') return;
+    setSuccessOpen(false);
   };
 
   const closeAuth = () => {
@@ -60,14 +66,23 @@ function Auth() {
       if (isSignIn) {
         const token = await signIn(data).unwrap();
         dispatch(setCredentials({ name: data.name, token }));
-        navigate('/drive');
+        const navTimeout = setTimeout(() => {
+          navigate('/drive');
+          clearTimeout(navTimeout);
+        }, 3000);
       } else {
         const token = await signUp(data).unwrap();
         dispatch(setCredentials({ name: data.name, token }));
         navigate('/');
+        const navTimeout = setTimeout(() => {
+          navigate('/drive');
+          clearTimeout(navTimeout);
+        }, 3000);
       }
+
+      setSuccessOpen(true);
     } catch (err) {
-      setSnackOpen(true);
+      setErrorOpen(true);
     } finally {
       reset();
     }
@@ -222,15 +237,15 @@ function Auth() {
         </Box>
       </DialogContent>
 
-      <Snackbar open={isSnackOpen} autoHideDuration={5000} onClose={closeSnack}>
-        <Alert
-          onClose={closeSnack}
-          elevation={6}
-          variant='filled'
-          severity='error'
-          sx={{ width: '100%' }}
-        >
+      <Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={closeError}>
+        <Alert onClose={closeError} elevation={6} variant='filled' severity='error'>
           {t('auth.async-error')}
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={isSuccessOpen} autoHideDuration={3000} onClose={closeSuccess}>
+        <Alert onClose={closeSuccess} elevation={6} variant='filled' severity='success'>
+          {t('auth.async-success')}
         </Alert>
       </Snackbar>
     </Dialog>

@@ -19,13 +19,8 @@ const authSlice = createSlice({
       currentState.name = action.payload.name;
       currentState.token = action.payload.token;
     },
-    clearCredentials(state) {
-      const currentState = state;
-      currentState.name = '';
-      currentState.token = '';
-    },
   },
 });
 
-export const { setCredentials, clearCredentials } = authSlice.actions;
+export const { setCredentials } = authSlice.actions;
 export default authSlice.reducer;

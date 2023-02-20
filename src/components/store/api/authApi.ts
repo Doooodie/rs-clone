@@ -33,9 +33,6 @@ export const authApi = createApi({
     return null;
   },
   endpoints: (builder) => ({
-    checkAuth: builder.query<string, string>({
-      query: () => `auth`,
-    }),
     signUp: builder.mutation<string, Credentials>({
       query: (body) => ({
         url: `registration`,
@@ -53,4 +50,4 @@ export const authApi = createApi({
   }),
 });
 
-export const { useCheckAuthQuery, useSignUpMutation, useSignInMutation } = authApi;
+export const { useSignUpMutation, useSignInMutation } = authApi;
