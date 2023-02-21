@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler, Controller } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { useSnackbar } from 'notistack';
 import {
   Avatar,
   TextField,
@@ -11,14 +11,13 @@ import {
   Typography,
   Dialog,
   DialogContent,
-  Snackbar,
-  Alert,
 } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useSignUpMutation, useSignInMutation } from '../../../store/api/authApi';
 import { useAppDispatch } from '../../../hooks/hooks';
 import { setCredentials } from '../../../store/slices/authSlice';
+import { isFetchBaseQueryError, isErrorWithMessage } from '../../../services/helpers';
 
 interface IFormInputs {
   name: string;
@@ -29,6 +28,7 @@ interface IFormInputs {
 function Auth() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const authQuery = searchParams.get('auth') || '';
@@ -36,8 +36,6 @@ function Auth() {
   const isSignUp = authQuery === 'signup';
   const [signIn, { isLoading: isSignInLoading }] = useSignInMutation();
   const [signUp, { isLoading: isSignUpLoading }] = useSignUpMutation();
-  const [isErrorOpen, setErrorOpen] = useState(false);
-  const [isSuccessOpen, setSuccessOpen] = useState(false);
 
   const {
     control,
@@ -45,16 +43,6 @@ function Auth() {
     reset,
     formState: { errors, isValid },
   } = useForm<IFormInputs>({ mode: 'onBlur' });
-
-  const closeError = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') return;
-    setErrorOpen(false);
-  };
-
-  const closeSuccess = (event?: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') return;
-    setSuccessOpen(false);
-  };
 
   const closeAuth = () => {
     setSearchParams({});
@@ -79,10 +67,20 @@ function Auth() {
           clearTimeout(navTimeout);
         }, 3000);
       }
-
-      setSuccessOpen(true);
+      enqueueSnackbar(t('auth.async-success'), { variant: 'success' });
     } catch (err) {
-      setErrorOpen(true);
+      if (isFetchBaseQueryError(err)) {
+        let errMsg = '';
+        if ('error' in err) {
+          errMsg = err.error;
+        } else {
+          const errData = err.data as { message: string };
+          errMsg = errData.message;
+        }
+        enqueueSnackbar(`${t('auth.async-error')}: ${errMsg}`, { variant: 'error' });
+      } else if (isErrorWithMessage(err)) {
+        enqueueSnackbar(`${t('auth.async-error')}: ${err.message}`, { variant: 'error' });
+      }
     } finally {
       reset();
     }
@@ -236,18 +234,6 @@ function Auth() {
           </Box>
         </Box>
       </DialogContent>
-
-      <Snackbar open={isErrorOpen} autoHideDuration={5000} onClose={closeError}>
-        <Alert onClose={closeError} elevation={6} variant='filled' severity='error'>
-          {t('auth.async-error')}
-        </Alert>
-      </Snackbar>
-
-      <Snackbar open={isSuccessOpen} autoHideDuration={3000} onClose={closeSuccess}>
-        <Alert onClose={closeSuccess} elevation={6} variant='filled' severity='success'>
-          {t('auth.async-success')}
-        </Alert>
-      </Snackbar>
     </Dialog>
   );
   /* eslint-enable react/jsx-props-no-spreading */
