@@ -16,8 +16,8 @@ import Image from 'mui-image';
 import { Element as ScrollElement, Link as ScrollLink } from 'react-scroll';
 import Carousel from 'react-material-ui-carousel';
 import { useAppSelector } from '../../hooks/hooks';
+import MuiGlobe from './MuiGlobe';
 
-import aboutImg from '../../../assets/images/landing-about.jpg';
 import warningImg from '../../../assets/images/landing-warning.jpg';
 import coopImg from '../../../assets/images/landing-coop.jpg';
 import integrationImg from '../../../assets/images/landing-integration.jpg';
@@ -82,9 +82,7 @@ function Home() {
           </Stack>
         </Grid>
         <Grid item xs={12} md={7}>
-          <Paper elevation={3} sx={{ p: 2, borderRadius: 4 }}>
-            <Image src={aboutImg} style={{ borderRadius: 8 }} />
-          </Paper>
+          <MuiGlobe />
         </Grid>
 
         <Grid item xs={12}>
