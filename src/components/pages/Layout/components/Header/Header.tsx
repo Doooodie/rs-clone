@@ -1,5 +1,4 @@
-import { useState, ChangeEvent } from 'react';
-import { Link as RouterLink, useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { AppBar, Box, Toolbar, Link, Button, Container, Divider } from '@mui/material';
 
@@ -7,18 +6,17 @@ import ElevationScroll from './ElevationScroll';
 import Search from './Search';
 import TemporaryDrawer from './TemporaryDrawer';
 import UserMenu from './UserMenu';
+import { useAppSelector } from '../../../../hooks/hooks';
 
 function Header() {
   const { t } = useTranslation();
-  const [auth, setAuth] = useState(true);
+  const authToken = useAppSelector((store) => store.auth.token);
+  const auth = !!authToken;
+  const [, setSearchParams] = useSearchParams();
 
   const location = useLocation();
   const isInDrive = location.pathname.includes('drive');
   const linkStyle = isInDrive ? { display: { xs: 'none', sm: 'block' } } : null;
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
 
   return (
     <ElevationScroll>
@@ -37,8 +35,14 @@ function Header() {
             </Link>
             {isInDrive && <Search />}
             <Box sx={{ flexGrow: 1 }} />
-            <TemporaryDrawer auth={auth} handleChange={handleChange} />
-            {auth ? <UserMenu /> : <Button color='inherit'>{t('layout.login')}</Button>}
+            <TemporaryDrawer />
+            {auth ? (
+              <UserMenu />
+            ) : (
+              <Button color='inherit' onClick={() => setSearchParams({ auth: 'signin' })}>
+                {t('layout.login')}
+              </Button>
+            )}
           </Toolbar>
         </Container>
         <Divider />

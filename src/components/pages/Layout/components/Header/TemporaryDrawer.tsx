@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   SwipeableDrawer,
@@ -11,20 +11,12 @@ import {
   Tooltip,
   Typography,
   ListItemText,
-  FormControlLabel,
-  Switch,
 } from '@mui/material';
 import { Settings, Close } from '@mui/icons-material';
 import ThemeButtons from './ThemeButtons';
 
-interface ITemporaryDrawer {
-  auth: boolean;
-  handleChange(event: ChangeEvent<HTMLInputElement>): void;
-}
-
-function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
+function TemporaryDrawer() {
   const { t, i18n } = useTranslation();
-
   const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -32,8 +24,6 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
     en: { nativeName: 'English' },
     ru: { nativeName: 'Русский' },
   };
-
-  const loginSwitch = <Switch checked={auth} onChange={handleChange} aria-label='login switch' />;
 
   return (
     <>
@@ -81,12 +71,6 @@ function TemporaryDrawer({ auth, handleChange }: ITemporaryDrawer) {
             </ListItem>
             <ListItem dense>
               <ThemeButtons />
-            </ListItem>
-            <ListItem dense>
-              <ListItemText>Login/Logout</ListItemText>
-            </ListItem>
-            <ListItem dense>
-              <FormControlLabel control={loginSwitch} label={auth ? 'Logout' : 'Login'} />
             </ListItem>
           </List>
         </Box>

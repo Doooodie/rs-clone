@@ -10,21 +10,27 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import modalReducer from './modalSlice';
-import filesReducer from './driveSlice';
-import filterReducer from './filterSlice';
-import fileInfoReducer from './fileInfo';
-import appThemeReducer from './appThemeSlice';
 
+import modalReducer from './slices/modalSlice';
+import filesReducer from './slices/driveSlice';
+import filterReducer from './slices/filterSlice';
+import fileInfoReducer from './slices/fileInfo';
+import appThemeReducer from './slices/appThemeSlice';
+import authReducer from './slices/authSlice';
 import { api } from '../../api/api';
+/* eslint-disable import/no-cycle */
+import { authApi } from './api/authApi';
+/* eslint-enable import/no-cycle */
 
 const rootReducer = combineReducers({
   modal: modalReducer,
   files: filesReducer,
   filter: filterReducer,
   fileInfo: fileInfoReducer,
-  [api.reducerPath]: api.reducer,
   appTheme: appThemeReducer,
+  auth: authReducer,
+  [api.reducerPath]: api.reducer,
+  [authApi.reducerPath]: authApi.reducer,
 });
 
 const persistConfig = {
@@ -42,7 +48,9 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(api.middleware),
+    })
+      .concat(api.middleware)
+      .concat(authApi.middleware),
 });
 
 export default store;

@@ -1,11 +1,10 @@
-import { useAppDispatch } from '../../hooks';
-import { changeSettingModal } from '../../store/modalSlice';
+import { useAppDispatch } from '../../hooks/hooks';
+import { changeSettingModal } from '../../store/slices/modalSlice';
 import Aside from './modules/Aside/Aside';
 import Drive from './modules/Drive/Drive';
 import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
-import { removeFileInfo } from '../../store/fileInfo';
-import { setSort } from '../../store/filterSlice';
-import './Explorer.css';
+import { removeFileInfo } from '../../store/slices/fileInfo';
+import { setSort } from '../../store/slices/filterSlice';
 
 function Explorer() {
   const dispatch = useAppDispatch();

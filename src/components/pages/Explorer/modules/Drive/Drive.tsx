@@ -1,7 +1,7 @@
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppSelector } from '../../../../hooks';
+import { useAppSelector } from '../../../../hooks/hooks';
 import { MyFile, MyFolder, AllDrive } from '../../types/types';
 import { ModalListClass } from '../../types/enums';
 import DriveHeader from './components/DriveHeader/DriveHeader';

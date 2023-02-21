@@ -5,8 +5,8 @@ import { Paper } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MyFile, MyFolder } from '../../../types/types';
-import { addFile, addFolder } from '../../../../../store/driveSlice';
-import { useAppDispatch } from '../../../../../hooks';
+import { addFile, addFolder } from '../../../../../store/slices/driveSlice';
+import { useAppDispatch } from '../../../../../hooks/hooks';
 import MyDialog from '../Dialog/Dialog';
 import './ModalCreateFile.css';
 

@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import {
   Container,
   Grid,
@@ -14,8 +15,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'mui-image';
 import { Element as ScrollElement, Link as ScrollLink } from 'react-scroll';
 import Carousel from 'react-material-ui-carousel';
+import { useAppSelector } from '../../hooks/hooks';
+import MuiGlobe from './MuiGlobe';
 
-import aboutImg from '../../../assets/images/landing-about.jpg';
 import warningImg from '../../../assets/images/landing-warning.jpg';
 import coopImg from '../../../assets/images/landing-coop.jpg';
 import integrationImg from '../../../assets/images/landing-integration.jpg';
@@ -24,6 +26,10 @@ import searchImg from '../../../assets/images/landing-search.jpg';
 function Home() {
   const { t } = useTranslation();
   const theme = useTheme();
+  const [, setSearchParams] = useSearchParams();
+  const authToken = useAppSelector((store) => store.auth.token);
+  const auth = !!authToken;
+  const screenUpMedium = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Container component='main' maxWidth='xl' sx={{ mt: 10, mb: 10 }}>
@@ -52,28 +58,31 @@ function Home() {
               {t('landing.about-body')}
             </Typography>
             <Button
+              component={RouterLink}
+              to='/drive'
               variant='contained'
               size='large'
-              fullWidth={useMediaQuery(theme.breakpoints.up('md'))}
+              fullWidth={screenUpMedium}
               sx={{ minWidth: 300 }}
             >
               {t('landing.open-drive')}
             </Button>
-            <Button
-              variant='outlined'
-              size='large'
-              fullWidth={useMediaQuery(theme.breakpoints.up('md'))}
-              sx={{ minWidth: 300 }}
-              style={{ marginTop: theme.spacing(2) }}
-            >
-              {t('landing.register')}
-            </Button>
+            {!auth && (
+              <Button
+                onClick={() => setSearchParams({ auth: 'signup' })}
+                variant='outlined'
+                size='large'
+                fullWidth={screenUpMedium}
+                sx={{ minWidth: 300 }}
+                style={{ marginTop: theme.spacing(2) }}
+              >
+                {t('landing.register')}
+              </Button>
+            )}
           </Stack>
         </Grid>
         <Grid item xs={12} md={7}>
-          <Paper elevation={3} sx={{ p: 2, borderRadius: 4 }}>
-            <Image src={aboutImg} style={{ borderRadius: 8 }} />
-          </Paper>
+          <MuiGlobe />
         </Grid>
 
         <Grid item xs={12}>
@@ -83,9 +92,10 @@ function Home() {
               to='warning-anchor'
               smooth
               delay={500}
-              offset={100}
+              offset={screenUpMedium ? 100 : 30}
               style={{
                 alignSelf: 'center',
+                textAlign: 'center',
                 display: 'inline-grid',
                 color: `${theme.palette.text.secondary}`,
                 cursor: 'pointer',
