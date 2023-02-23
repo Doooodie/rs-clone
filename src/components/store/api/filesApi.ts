@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { REHYDRATE } from 'redux-persist';
-/* eslint-disable import/no-cycle */
+/* eslint-disable-next-line import/no-cycle */
 import { RootState } from '../index';
-/* eslint-enable import/no-cycle */
 import { FileApi } from '../../pages/Explorer/types/types';
 
 const isProd = process.env.NODE_ENV === 'production';

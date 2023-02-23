@@ -1,13 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { REHYDRATE } from 'redux-persist';
-/* eslint-disable import/no-cycle */
+/* eslint-disable-next-line import/no-cycle */
 import { RootState } from '../index';
-/* eslint-enable import/no-cycle */
 
 type Credentials = {
   name: string;
   email: string;
   password: string;
+};
+
+type Result = {
+  token: string;
 };
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -33,14 +36,14 @@ export const authApi = createApi({
     return null;
   },
   endpoints: (builder) => ({
-    signUp: builder.mutation<string, Credentials>({
+    signUp: builder.mutation<Result, Credentials>({
       query: (body) => ({
         url: `registration`,
         method: 'POST',
         body,
       }),
     }),
-    signIn: builder.mutation<string, Credentials>({
+    signIn: builder.mutation<Result, Credentials>({
       query: (body) => ({
         url: `login`,
         method: 'POST',
