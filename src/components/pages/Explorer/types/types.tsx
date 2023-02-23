@@ -56,3 +56,12 @@ export type RenameFileType = {
   contextId: number;
   folderNewName: string;
 };
+
+export type FileApi = {
+  name: string;
+  size: number;
+  info?: string;
+  filePath: string;
+  type: string;
+};
+

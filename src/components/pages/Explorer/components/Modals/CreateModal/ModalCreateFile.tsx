@@ -4,11 +4,12 @@ import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import { Paper } from '@mui/material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MyFile, MyFolder } from '../../../types/types';
-import { addFile, addFolder } from '../../../../../store/slices/driveSlice';
+import { FileApi, MyFile } from '../../../types/types';
+import { addFile } from '../../../../../store/slices/driveSlice';
 import { useAppDispatch } from '../../../../../hooks/hooks';
 import MyDialog from '../Dialog/Dialog';
 import './ModalCreateFile.css';
+import { useCreateFileMutation } from '../../../../../store/api/filesApi';
 
 interface IModal {
   visible: boolean;
@@ -22,22 +23,18 @@ export default function ModalCreateFile({ visible }: IModal) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const inputFile = useRef<HTMLInputElement | null>(null);
+  const [createFile] = useCreateFileMutation();
 
   function handleCreatefolder() {
-    // todo translation folder name
-    // todo id and parent id
-    const currentDate = Number(new Date());
-    const newFolder: MyFolder = {
-      id: Math.random(),
+    // const currentDate = Number(new Date());
+    const newFolder: FileApi = {
       name: folderName || 'Untitled folder',
-      owner: 'Me',
-      lastChange: currentDate,
       size: 0,
-      files: [],
-      children: [],
-      parent: Math.random(),
+      info: '',
+      filePath: '',
+      type: 'dir',
     };
-    dispatch(addFolder(newFolder));
+    createFile(newFolder);
     handleClose();
   }
 
