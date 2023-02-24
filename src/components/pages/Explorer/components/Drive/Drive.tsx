@@ -40,28 +40,26 @@ export default function Drive() {
   );
 
   return (
-    <section className='drive'>
-      <div className='drive-items'>
-        <DriveHeader name={name} />
-        <div className='drive-list-wraper'>
-          <DriveList
-            folders={filteredAndSortFolders}
-            files={filteredAndSortFiles}
-            drop={drop}
-            setDrop={(value) => setDrop(value)}
-          />
-          <Details />
-        </div>
-        <div className={drop ? ModalListClass.active : ModalListClass.default}>
-          <div className='modal-dropper-text'>
-            <div className='modal-cloudi-icon'>
-              <CloudUploadOutlinedIcon color='primary' />
-            </div>
-            <div>{t(`explorer.dropfile`)}</div>
-            <h4>{t(`explorer.${name}`)}</h4>
+    <>
+      <DriveHeader name={name} />
+      <div className='drive-list-wraper'>
+        <DriveList
+          folders={filteredAndSortFolders}
+          files={filteredAndSortFiles}
+          drop={drop}
+          setDrop={(value) => setDrop(value)}
+        />
+        <Details />
+      </div>
+      <div className={drop ? ModalListClass.active : ModalListClass.default}>
+        <div className='modal-dropper-text'>
+          <div className='modal-cloudi-icon'>
+            <CloudUploadOutlinedIcon color='primary' />
           </div>
+          <div>{t(`explorer.dropfile`)}</div>
+          <h4>{t(`explorer.${name}`)}</h4>
         </div>
       </div>
-    </section>
+    </>
   );
 }

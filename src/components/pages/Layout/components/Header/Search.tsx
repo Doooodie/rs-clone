@@ -56,7 +56,7 @@ function Search() {
       </SearchIconWrapper>
       <StyledInputBase
         placeholder={placeholder}
-        inputProps={{ 'aria-label': 'search' }}
+        type='search'
         onChange={(e) => dispatch(setQuery(e.target.value))}
       />
     </SearchContainer>

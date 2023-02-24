@@ -81,6 +81,7 @@
     "modified": "Last modified",
     "size": "File size",
     "rename": "Rename",
+    "remove": "Remove",
     "newname": "New name"
   }
 }

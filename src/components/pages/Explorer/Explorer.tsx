@@ -1,15 +1,15 @@
+import { Container } from '@mui/material';
 import { useAppDispatch } from '../../hooks/hooks';
 import { changeSettingModal } from '../../store/slices/modalSlice';
-import Aside from './modules/Aside/Aside';
-import Drive from './modules/Drive/Drive';
-import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
 import { removeFileInfo } from '../../store/slices/fileInfo';
 import { setSort } from '../../store/slices/filterSlice';
+import { removeActiveClassOnDriveItem } from './helpers/handleFileItem';
+import Drive from './components/Drive/Drive';
 
 function Explorer() {
   const dispatch = useAppDispatch();
 
-  function hiddenModal(e: React.MouseEvent<HTMLDivElement>) {
+  function hiddenModal(e: React.MouseEvent<HTMLElement>) {
     if (e.target === null) return;
     const target = e.target as HTMLElement;
     const isLangButtons = target.classList.contains('setting-button-lang');
@@ -23,12 +23,9 @@ function Explorer() {
   }
 
   return (
-    <div role='presentation' id='explorer' className='explorer' onClick={(e) => hiddenModal(e)}>
-      <main className='main'>
-        <Aside />
-        <Drive />
-      </main>
-    </div>
+    <Container component='main' maxWidth='xl' onClick={(e) => hiddenModal(e)}>
+      <Drive />
+    </Container>
   );
 }
 

@@ -36,7 +36,7 @@ export default function MyDialog({
       <DialogContent>
         <TextField
           placeholder={placeholder}
-          sx={{ minWidth: '300px', padding: '0 20px' }}
+          sx={{ minWidth: 300 }}
           autoFocus
           margin='dense'
           size='small'

@@ -8,6 +8,7 @@
     "@mui/lab": "^5.0.0-alpha.120",
     "@mui/material": "^5.11.7",
     "@mui/styled-engine-sc": "^5.11.0",
+    "@mui/x-data-grid": "^5.17.25",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

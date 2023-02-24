@@ -1,29 +1,32 @@
-import AddToDriveIcon from '@mui/icons-material/AddToDrive';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
-import { Paper } from '@mui/material';
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
+import { CreateNewFolderOutlined, UploadFile, DriveFolderUpload } from '@mui/icons-material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useAppDispatch } from '../../../../../hooks/hooks';
 import { FileApi, MyFile } from '../../../types/types';
 import { addFile } from '../../../../../store/slices/driveSlice';
-import { useAppDispatch } from '../../../../../hooks/hooks';
-import MyDialog from '../Dialog/Dialog';
-import './ModalCreateFile.css';
 import { useCreateFileMutation } from '../../../../../store/api/filesApi';
+import MyDialog from '../Dialog/Dialog';
 
 interface IModal {
-  visible: boolean;
+  anchorEl: null | HTMLElement;
+  open: boolean;
+  handleClose: () => void;
 }
 
-export default function ModalCreateFile({ visible }: IModal) {
+export default function ModalCreateFile({ anchorEl, open, handleClose }: IModal) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
   const [folderName, setFolderName] = useState(t(`explorer.dirname`));
+  const [dialogOpen, setDialogOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
   const inputFile = useRef<HTMLInputElement | null>(null);
   const [createFile] = useCreateFileMutation();
+
+  const handleDialogOpen = () => setDialogOpen(true);
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+    handleClose();
+  };
 
   function handleCreatefolder() {
     // const currentDate = Number(new Date());
@@ -35,11 +38,12 @@ export default function ModalCreateFile({ visible }: IModal) {
       type: 'dir',
     };
     createFile(newFolder);
-    handleClose();
+    handleDialogClose();
   }
 
   const onUploadClick = () => {
     if (inputFile.current !== null) inputFile.current.click();
+    handleClose();
   };
 
   function addFileOnClick(file: File) {
@@ -67,39 +71,38 @@ export default function ModalCreateFile({ visible }: IModal) {
   }
 
   return (
-    <div
-      className='modal-list'
-      id='modal-list-create-file'
-      style={visible ? { opacity: 1, zIndex: 100 } : { opacity: 0, zIndex: -1 }}
-    >
-      <Paper elevation={3} sx={{ width: '100%' }}>
-        <button
-          type='button'
-          className='header-actions-item header-actions-item-main'
-          onClick={handleOpen}
-        >
-          <AddToDriveIcon htmlColor='#5f6368' />
-          <span>{t('explorer.createdir')}</span>
-        </button>
-        <button type='button' className='header-actions-item' onClick={onUploadClick}>
-          <UploadFileIcon htmlColor='#5f6368' />
-          <span>{t('explorer.fileupload')}</span>
+    <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <MenuList>
+        <MenuItem onClick={handleDialogOpen}>
+          <ListItemIcon>
+            <CreateNewFolderOutlined />
+          </ListItemIcon>
+          <ListItemText>{t('explorer.createdir')}</ListItemText>
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={onUploadClick}>
+          <ListItemIcon>
+            <UploadFile />
+          </ListItemIcon>
+          <ListItemText>{t('explorer.fileupload')}</ListItemText>
           <input
             id='file'
             type='file'
             ref={inputFile}
-            style={{ display: 'none' }}
+            hidden
             onChange={(e) => onChangeHandler(e)}
           />
-        </button>
-        <div className='header-actions-item'>
-          <DriveFolderUploadIcon htmlColor='#5f6368' />
-          <span>{t('explorer.dirupload')}</span>
-        </div>
-      </Paper>
+        </MenuItem>
+        <MenuItem onClick={handleClose}>
+          <ListItemIcon>
+            <DriveFolderUpload />
+          </ListItemIcon>
+          <ListItemText>{t('explorer.dirupload')}</ListItemText>
+        </MenuItem>
+      </MenuList>
       <MyDialog
-        open={open}
-        onClose={handleClose}
+        open={dialogOpen}
+        onClose={handleDialogClose}
         title={t('explorer.newdir')}
         placeholder={t('explorer.dirname') || ''}
         value={folderName || ''}
@@ -108,6 +111,6 @@ export default function ModalCreateFile({ visible }: IModal) {
         onApply={() => handleCreatefolder()}
         cancel={t('explorer.cancel')}
       />
-    </div>
+    </Menu>
   );
 }

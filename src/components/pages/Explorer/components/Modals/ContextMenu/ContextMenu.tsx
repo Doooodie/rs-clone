@@ -1,44 +1,45 @@
-import AddToDriveIcon from '@mui/icons-material/AddToDrive';
-import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import { Paper } from '@mui/material';
-import './ContextMenu.css';
+import { DeleteOutline, DriveFileRenameOutline } from '@mui/icons-material';
+import { ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
+import { t } from 'i18next';
+import { Coordinate } from '../../../types/types';
 
 interface IModal {
-  visible: boolean;
-  x: number;
-  y: number;
+  coordinate: Coordinate | null;
+  handleCloseContextMenu: () => void;
   handleDelete: () => void;
   handleModalOpen: () => void;
 }
 
-export default function ContextMenu({ visible, x, y, handleDelete, handleModalOpen }: IModal) {
+export default function ContextMenu({
+  coordinate,
+  handleCloseContextMenu,
+  handleDelete,
+  handleModalOpen,
+}: IModal) {
   return (
-    <div
-      className='modal-list file-modal'
-      style={
-        visible
-          ? { opacity: 1, zIndex: 2000, top: `${y}px`, left: `${x}px` }
-          : { opacity: 0, zIndex: -1, top: `${x}`, left: `${y}` }
+    <Menu
+      open={coordinate !== null}
+      onClose={handleCloseContextMenu}
+      anchorReference='anchorPosition'
+      anchorPosition={
+        coordinate !== null ? { top: coordinate.mouseY, left: coordinate.mouseX } : undefined
       }
     >
-      <Paper elevation={3} sx={{ width: '100%' }}>
-        <button
-          type='button'
-          className='header-actions-item header-actions-item-main'
-          onClick={handleDelete}
-        >
-          <AddToDriveIcon htmlColor='#5f6368' />
-          <span>Delete</span>
-        </button>
-        <button
-          type='button'
-          className='header-actions-item header-actions-item-main'
-          onClick={handleModalOpen}
-        >
-          <DriveFileRenameOutlineIcon htmlColor='#5f6368' />
-          <span>Rename</span>
-        </button>
-      </Paper>
-    </div>
+      <MenuList>
+        <MenuItem onClick={handleModalOpen}>
+          <ListItemIcon>
+            <DriveFileRenameOutline />
+          </ListItemIcon>
+          <ListItemText>{t('explorer.rename')}</ListItemText>
+        </MenuItem>
+
+        <MenuItem onClick={handleDelete}>
+          <ListItemIcon>
+            <DeleteOutline />
+          </ListItemIcon>
+          <ListItemText>{t('explorer.remove')}</ListItemText>
+        </MenuItem>
+      </MenuList>
+    </Menu>
   );
 }

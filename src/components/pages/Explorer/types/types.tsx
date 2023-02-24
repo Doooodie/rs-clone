@@ -42,8 +42,8 @@ export type AllDrive = {
 };
 
 export type Coordinate = {
-  xCoordinate: number;
-  yCoordinate: number;
+  mouseX: number;
+  mouseY: number;
 };
 
 export type FileProps = {
@@ -64,4 +64,3 @@ export type FileApi = {
   filePath: string;
   type: string;
 };
-

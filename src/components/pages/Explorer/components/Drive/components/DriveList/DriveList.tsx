@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FileListClass } from '../../../../types/enums';
 import DriveItemHeader from '../DriveItemHeader/DriveItemHeader';
@@ -15,8 +15,8 @@ import {
   renameFolder,
 } from '../../../../../../store/slices/driveSlice';
 import DriveItem from '../DriveItem/DriveItemItem';
-import ContextMenu from '../../../../components/Modals/ContextMenu/ContextMenu';
-import MyDialog from '../../../../components/Modals/Dialog/Dialog';
+import ContextMenu from '../../../Modals/ContextMenu/ContextMenu';
+import MyDialog from '../../../Modals/Dialog/Dialog';
 
 type DriveListProps = {
   files: MyFile[];
@@ -33,20 +33,20 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
   const currentDrive = useAppSelector((store) => store.files.currentDrive) as keyof AllDrive;
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [coordinate, setCoordinate] = useState<Coordinate | null>(null);
+
+  const handleCloseContextMenu = () => {
+    setCoordinate(null);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+    handleCloseContextMenu();
+  };
   const handleClose = () => setOpen(false);
 
   // drag and drop
-
-  const [coordinate, setCoodinate] = useState<Coordinate>({ xCoordinate: 0, yCoordinate: 0 });
-  const [contextVisible, setContextVisible] = useState(false);
   const [contextId, setContextId] = useState(0);
-
-  useEffect(() => {
-    const handleClick = () => setContextVisible(false);
-    window.addEventListener('click', handleClick);
-    return () => window.removeEventListener('click', handleClick);
-  }, []);
 
   const dragStartHandler = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -90,15 +90,19 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
 
   // context menu
 
-  function hadleContexMenu(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+  function hadleContextMenu(e: React.MouseEvent) {
     e.preventDefault();
+    setCoordinate(
+      coordinate === null
+        ? {
+            mouseX: e.clientX + 2,
+            mouseY: e.clientY - 6,
+          }
+        : null,
+    );
     const { id } = e.currentTarget;
     setIsFile(e.currentTarget.getAttribute('itemtype') === 'file');
     setContextId(Number(id));
-    const xCoordinate = e.clientX;
-    const yCoordinate = e.clientY;
-    setCoodinate({ xCoordinate, yCoordinate });
-    setContextVisible(true);
   }
 
   function handleDeleteItem(id: number) {
@@ -115,6 +119,7 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
     } else {
       dispatch(removeFolderFromTrash(id));
     }
+    handleCloseContextMenu();
   }
 
   return (
@@ -130,18 +135,17 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
         {folders.map((folder) => (
           <DriveItem
             file={folder}
-            onContextMenu={(e) => hadleContexMenu(e)}
+            onContextMenu={(e) => hadleContextMenu(e)}
             isFile={false}
             key={folder.id}
           />
         ))}
         {files.map((file) => (
-          <DriveItem file={file} onContextMenu={(e) => hadleContexMenu(e)} isFile key={file.id} />
+          <DriveItem file={file} onContextMenu={(e) => hadleContextMenu(e)} isFile key={file.id} />
         ))}
         <ContextMenu
-          visible={contextVisible}
-          x={coordinate.xCoordinate}
-          y={coordinate.yCoordinate}
+          coordinate={coordinate}
+          handleCloseContextMenu={handleCloseContextMenu}
           handleDelete={() => handleDeleteItem(contextId)}
           handleModalOpen={handleOpen}
         />
