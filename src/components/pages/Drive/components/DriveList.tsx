@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
+import { Box } from '@mui/material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { AllDrive, Coordinate, MyFile } from '../types/types';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
@@ -132,11 +133,10 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
 
   return (
     /* eslint-disable-next-line react/jsx-props-no-spreading */
-    <div {...getRootProps()}>
+    <Box {...getRootProps()} sx={{ flexGrow: 1, mt: 2 }}>
       <DataGrid
         rows={rows}
         columns={columns}
-        autoHeight
         hideFooter
         disableColumnMenu
         componentsProps={{
@@ -164,6 +164,6 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
         placeholder={t('explorer.newname')}
       />
       <ModalDropper open={isDragActive} />
-    </div>
+    </Box>
   );
 }

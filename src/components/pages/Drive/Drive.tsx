@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Container } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { changeSettingModal } from '../../store/slices/modalSlice';
 import { removeFileInfo } from '../../store/slices/fileInfo';
@@ -54,7 +54,12 @@ function Drive() {
   }
 
   return (
-    <Container component='main' maxWidth='xl' onClick={(e) => hiddenModal(e)}>
+    <Container
+      component='main'
+      maxWidth='xl'
+      onClick={(e) => hiddenModal(e)}
+      sx={{ my: 2, display: 'flex', flexDirection: 'column', height: 'calc(100vh - 220px)' }}
+    >
       <DriveHeader name={name} />
       <DriveList
         folders={filteredAndSortFolders}
