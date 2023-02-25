@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AppBar, Box, Divider, Button, IconButton, Toolbar } from '@mui/material';
-import { InfoOutlined, ArrowDropDown } from '@mui/icons-material';
+import { AppBar, Box, Divider, Button, Toolbar } from '@mui/material';
+import { ArrowDropDown } from '@mui/icons-material';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import { changeFileInfoModal } from '../../../store/slices/modalSlice';
+import { useAppDispatch } from '../../../hooks/hooks';
 import { addFile } from '../../../store/slices/driveSlice';
 import ModalCreateFile from './Modals/ModalCreateFile';
 
@@ -15,14 +14,8 @@ interface IDriveHeader {
 export default function DriveHeader({ name }: IDriveHeader) {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
-  const fileInfoVisible = useAppSelector((store) => store.modal.fileInfo);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  function handleInfoOpen(e: React.MouseEvent<HTMLButtonElement>) {
-    e.stopPropagation();
-    dispatch(changeFileInfoModal(!fileInfoVisible));
-  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -55,9 +48,6 @@ export default function DriveHeader({ name }: IDriveHeader) {
         <Button variant='outlined' onClick={() => handleAddFile()}>
           {t('explorer.byumore')}
         </Button>
-        <IconButton onClick={(e) => handleInfoOpen(e)}>
-          <InfoOutlined />
-        </IconButton>
       </Toolbar>
       <Divider />
     </AppBar>
