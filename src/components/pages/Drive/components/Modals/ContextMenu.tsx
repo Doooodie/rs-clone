@@ -1,7 +1,7 @@
 import { DeleteOutline, DriveFileRenameOutline } from '@mui/icons-material';
 import { ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import { t } from 'i18next';
-import { Coordinate } from '../../../types/types';
+import { Coordinate } from '../../types/types';
 
 interface IModal {
   coordinate: Coordinate | null;

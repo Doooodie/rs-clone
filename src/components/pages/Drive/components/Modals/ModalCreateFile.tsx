@@ -2,11 +2,11 @@ import { Divider, ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@
 import { CreateNewFolderOutlined, UploadFile, DriveFolderUpload } from '@mui/icons-material';
 import { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useAppDispatch } from '../../../../../hooks/hooks';
-import { FileApi, MyFile } from '../../../types/types';
-import { addFile } from '../../../../../store/slices/driveSlice';
-import { useCreateFileMutation } from '../../../../../store/api/filesApi';
-import MyDialog from '../Dialog/Dialog';
+import { useAppDispatch } from '../../../../hooks/hooks';
+import { FileApi, MyFile } from '../../types/types';
+import { addFile } from '../../../../store/slices/driveSlice';
+import { useCreateFileMutation } from '../../../../store/api/filesApi';
+import MyDialog from './Dialog';
 
 interface IModal {
   anchorEl: null | HTMLElement;

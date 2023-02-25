@@ -6,7 +6,7 @@ import store, { persistor } from './store';
 import Layout from './pages/Layout/Layout';
 import NoPage from './pages/NoPage/NoPage';
 import Home from './pages/Home/Home';
-import Explorer from './pages/Explorer/Explorer';
+import Drive from './pages/Drive/Drive';
 import PrivateRoutes from './utils/PrivateRoutes';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
             <Route path='/' element={<Layout />}>
               <Route index element={<Home />} />
               <Route element={<PrivateRoutes />}>
-                <Route path='/drive' element={<Explorer />} />
+                <Route path='/drive' element={<Drive />} />
               </Route>
               <Route path='*' element={<NoPage />} />
             </Route>

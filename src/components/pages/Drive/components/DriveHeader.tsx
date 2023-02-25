@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { AppBar, Box, Divider, Button, IconButton, Toolbar } from '@mui/material';
 import { InfoOutlined, ArrowDropDown } from '@mui/icons-material';
 
-import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
-import { changeFileInfoModal } from '../../../../../../store/slices/modalSlice';
-import { addFile } from '../../../../../../store/slices/driveSlice';
-import ModalCreateFile from '../../../Modals/CreateModal/ModalCreateFile';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { changeFileInfoModal } from '../../../store/slices/modalSlice';
+import { addFile } from '../../../store/slices/driveSlice';
+import ModalCreateFile from './Modals/ModalCreateFile';
 
 interface IDriveHeader {
   name: string;
@@ -41,7 +41,7 @@ export default function DriveHeader({ name }: IDriveHeader) {
   }
 
   return (
-    <AppBar position='static' color='transparent' component='div'>
+    <AppBar position='static' color='transparent' component='div' elevation={0}>
       <Toolbar disableGutters variant='dense'>
         <Button
           onClick={(e) => setAnchorEl(e.currentTarget)}

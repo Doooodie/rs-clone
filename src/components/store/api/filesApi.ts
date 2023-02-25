@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { REHYDRATE } from 'redux-persist';
 /* eslint-disable-next-line import/no-cycle */
 import { RootState } from '../index';
-import { FileApi } from '../../pages/Explorer/types/types';
+import { FileApi } from '../../pages/Drive/types/types';
 
 const isProd = process.env.NODE_ENV === 'production';
 const url = isProd ? 'https://badoone-drive-backend.up.railway.app' : 'http://127.0.0.1:5000';

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MyFile } from '../../pages/Explorer/types/types';
+import { MyFile } from '../../pages/Drive/types/types';
 
 type FileInfoInitialState = {
   file: null | MyFile;
