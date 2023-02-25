@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Container, Stack } from '@mui/material';
+import { Container } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { changeSettingModal } from '../../store/slices/modalSlice';
 import { removeFileInfo } from '../../store/slices/fileInfo';
