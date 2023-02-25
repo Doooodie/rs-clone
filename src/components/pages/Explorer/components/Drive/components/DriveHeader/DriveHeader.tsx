@@ -7,7 +7,6 @@ import { useAppDispatch, useAppSelector } from '../../../../../../hooks/hooks';
 import { changeFileInfoModal } from '../../../../../../store/slices/modalSlice';
 import { addFile } from '../../../../../../store/slices/driveSlice';
 import ModalCreateFile from '../../../Modals/CreateModal/ModalCreateFile';
-import ElevationScroll from '../../../../../Layout/components/Header/ElevationScroll';
 
 interface IDriveHeader {
   name: string;
@@ -42,27 +41,25 @@ export default function DriveHeader({ name }: IDriveHeader) {
   }
 
   return (
-    <ElevationScroll>
-      <AppBar position='sticky' color='inherit' component='div'>
-        <Toolbar disableGutters variant='dense'>
-          <Button
-            onClick={(e) => setAnchorEl(e.currentTarget)}
-            endIcon={<ArrowDropDown />}
-            color='inherit'
-          >
-            {t(`explorer.${name}`)}
-          </Button>
-          <ModalCreateFile anchorEl={anchorEl} open={open} handleClose={handleClose} />
-          <Box sx={{ flexGrow: 1 }} />
-          <Button variant='outlined' onClick={() => handleAddFile()}>
-            {t('explorer.byumore')}
-          </Button>
-          <IconButton onClick={(e) => handleInfoOpen(e)}>
-            <InfoOutlined />
-          </IconButton>
-        </Toolbar>
-        <Divider />
-      </AppBar>
-    </ElevationScroll>
+    <AppBar position='static' color='transparent' component='div'>
+      <Toolbar disableGutters variant='dense'>
+        <Button
+          onClick={(e) => setAnchorEl(e.currentTarget)}
+          endIcon={<ArrowDropDown />}
+          color='inherit'
+        >
+          {t(`explorer.${name}`)}
+        </Button>
+        <ModalCreateFile anchorEl={anchorEl} open={open} handleClose={handleClose} />
+        <Box sx={{ flexGrow: 1 }} />
+        <Button variant='outlined' onClick={() => handleAddFile()}>
+          {t('explorer.byumore')}
+        </Button>
+        <IconButton onClick={(e) => handleInfoOpen(e)}>
+          <InfoOutlined />
+        </IconButton>
+      </Toolbar>
+      <Divider />
+    </AppBar>
   );
 }
