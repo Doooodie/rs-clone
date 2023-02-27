@@ -32,7 +32,7 @@ export default function DriveList({ files }: DriveListProps) {
   const currentDrive = useAppSelector((store) => store.files.currentDrive) as keyof AllDrive;
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 5 },
+    { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 2 },
     {
       field: 'lastChange',
       type: 'date',
