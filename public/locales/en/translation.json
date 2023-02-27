@@ -1,4 +1,6 @@
 {
+  "intlDateTime": "{{val, datetime}}",
+
   "layout": {
     "product-name": "Badoone Drive",
     "explorer-link": "My drive",
@@ -81,6 +83,7 @@
     "modified": "Last modified",
     "size": "File size",
     "rename": "Rename",
+    "remove": "Remove",
     "newname": "New name"
   }
 }

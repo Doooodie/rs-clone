@@ -59,7 +59,7 @@ function Footer() {
               >
                 Doodie
               </Link>
-              <Typography component='span'> & </Typography>
+              <Typography component='span'>, </Typography>
               <Link
                 href='https://github.com/LineCoran'
                 target='_blank'
@@ -67,6 +67,15 @@ function Footer() {
                 underline='hover'
               >
                 LineCoran
+              </Link>
+              <Typography component='span'> & </Typography>
+              <Link
+                href='https://github.com/eys-man'
+                target='_blank'
+                color='inherit'
+                underline='hover'
+              >
+                eys-man
               </Link>
               <Typography component='span'>, 2023</Typography>
             </Item>

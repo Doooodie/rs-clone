@@ -13,7 +13,7 @@ const arcsData = [...Array(10).keys()].map(() => ({
   color: '#2196f3',
 }));
 
-function MuiGlobe() {
+function HomeGlobe() {
   const theme = useTheme();
   const isLightTheme = theme.palette.mode === 'light';
   const XL = useMediaQuery(theme.breakpoints.up('lg'));
@@ -58,4 +58,4 @@ function MuiGlobe() {
   );
 }
 
-export default MuiGlobe;
+export default HomeGlobe;

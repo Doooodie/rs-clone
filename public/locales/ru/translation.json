@@ -1,4 +1,6 @@
 {
+  "intlDateTime": "{{val, datetime}}",
+
   "layout": {
     "product-name": "Badoone Диск",
     "explorer-link": "Мой диск",
@@ -81,6 +83,7 @@
     "modified": "Последнее изменение",
     "size": "Размер",
     "rename": "Переименовать",
+    "remove": "Удалить",
     "newname": "Новое имя"
   }
 }

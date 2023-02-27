@@ -53,14 +53,14 @@ function Auth() {
     try {
       if (isSignIn) {
         const token = await signIn(data).unwrap();
-        dispatch(setCredentials({ name: data.name, token }));
+        dispatch(setCredentials({ name: data.name, token: token.token }));
         const navTimeout = setTimeout(() => {
           navigate('/drive');
           clearTimeout(navTimeout);
         }, 3000);
       } else {
         const token = await signUp(data).unwrap();
-        dispatch(setCredentials({ name: data.name, token }));
+        dispatch(setCredentials({ name: data.name, token: token.token }));
         navigate('/');
         const navTimeout = setTimeout(() => {
           navigate('/drive');

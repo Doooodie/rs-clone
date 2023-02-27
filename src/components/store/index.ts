@@ -17,9 +17,9 @@ import filterReducer from './slices/filterSlice';
 import fileInfoReducer from './slices/fileInfo';
 import appThemeReducer from './slices/appThemeSlice';
 import authReducer from './slices/authSlice';
-import { api } from '../../api/api';
 /* eslint-disable import/no-cycle */
 import { authApi } from './api/authApi';
+import { filesApi } from './api/filesApi';
 /* eslint-enable import/no-cycle */
 
 const rootReducer = combineReducers({
@@ -29,7 +29,7 @@ const rootReducer = combineReducers({
   fileInfo: fileInfoReducer,
   appTheme: appThemeReducer,
   auth: authReducer,
-  [api.reducerPath]: api.reducer,
+  [filesApi.reducerPath]: filesApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
 });
 
@@ -49,7 +49,7 @@ const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     })
-      .concat(api.middleware)
+      .concat(filesApi.middleware)
       .concat(authApi.middleware),
 });
 

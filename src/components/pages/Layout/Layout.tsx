@@ -4,6 +4,8 @@ import { Box, CssBaseline, Fab, useMediaQuery } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles';
 import { SnackbarProvider } from 'notistack';
+import { useTranslation } from 'react-i18next';
+import { ruRU, enUS } from '@mui/x-data-grid';
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
@@ -19,6 +21,8 @@ import ScrollTop from './components/ScrollTop';
 import Auth from './components/Auth';
 
 function Layout() {
+  const { i18n } = useTranslation();
+  const { language } = i18n;
   const dispatch = useAppDispatch();
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const savedTheme = useAppSelector((store) => store.appTheme.theme);
@@ -41,12 +45,15 @@ function Layout() {
 
   const theme = useMemo(
     () =>
-      createTheme({
-        palette: {
-          mode,
+      createTheme(
+        {
+          palette: {
+            mode,
+          },
         },
-      }),
-    [mode],
+        language === 'ru' ? ruRU : enUS,
+      ),
+    [mode, language],
   );
 
   return (

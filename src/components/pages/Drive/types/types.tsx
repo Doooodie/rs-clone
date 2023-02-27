@@ -42,8 +42,8 @@ export type AllDrive = {
 };
 
 export type Coordinate = {
-  xCoordinate: number;
-  yCoordinate: number;
+  mouseX: number;
+  mouseY: number;
 };
 
 export type FileProps = {
@@ -55,4 +55,12 @@ export type FileProps = {
 export type RenameFileType = {
   contextId: number;
   folderNewName: string;
+};
+
+export type FileApi = {
+  name: string;
+  size: number;
+  info?: string;
+  filePath: string;
+  type: string;
 };
