@@ -2,14 +2,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type FilterInitialState = {
   query: string;
-  sort: 'name' | `lastChange` | 'size' | null;
-  isReverse: boolean;
 };
 
 const initialState: FilterInitialState = {
   query: '',
-  sort: null,
-  isReverse: false,
 };
 
 const filterSlice = createSlice({
@@ -20,16 +16,8 @@ const filterSlice = createSlice({
       const currentState = state;
       currentState.query = action.payload;
     },
-    setSort(state, action: PayloadAction<'name' | 'lastChange' | 'size' | null>) {
-      const currentState = state;
-      currentState.sort = action.payload;
-    },
-    changeReverse(state, action: PayloadAction<boolean>) {
-      const currentState = state;
-      currentState.isReverse = action.payload;
-    },
   },
 });
 
-export const { setQuery, setSort, changeReverse } = filterSlice.actions;
+export const { setQuery } = filterSlice.actions;
 export default filterSlice.reducer;

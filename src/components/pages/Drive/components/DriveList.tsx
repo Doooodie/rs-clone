@@ -3,18 +3,9 @@ import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { Box } from '@mui/material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
-import { AllDrive, Coordinate, MyFile } from '../types/types';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
-import {
-  addFile,
-  addFileToTrash,
-  addFolderToTrash,
-  removeFile,
-  removeFileFromTrash,
-  removeFolder,
-  removeFolderFromTrash,
-  renameFolder,
-} from '../../../store/slices/driveSlice';
+import { Coordinate, MyFile } from '../types/types';
+import { useAppDispatch } from '../../../hooks/hooks';
+import { addFile, removeFile } from '../../../store/slices/driveSlice';
 import ContextMenu from './Modals/ContextMenu';
 import MyDialog from './Modals/Dialog';
 import ModalDropper from './ModalDropper';
@@ -25,11 +16,59 @@ type DriveListProps = {
 };
 
 export default function DriveList({ files }: DriveListProps) {
-  const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const [isFile, setIsFile] = useState(false);
-  const [folderNewName, setFolderNewName] = useState('');
-  const currentDrive = useAppSelector((store) => store.files.currentDrive) as keyof AllDrive;
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [coordinate, setCoordinate] = useState<Coordinate | null>(null);
+  const [contextId, setContextId] = useState(0);
+  const [fileName, setFileName] = useState('');
+
+  const onDrop = useCallback(
+    (acceptedFiles: File[]) => {
+      for (let i = 0; i < acceptedFiles.length; i += 1) {
+        const uploadFile = acceptedFiles[i];
+        const uploaderFile: MyFile = {
+          name: uploadFile.name,
+          owner: 'Me',
+          lastChange: uploadFile.lastModified,
+          size: uploadFile.size,
+          id: Math.random(),
+        };
+        dispatch(addFile(uploaderFile));
+      }
+    },
+    [dispatch],
+  );
+
+  const { getRootProps, isDragActive } = useDropzone({ onDrop, noClick: true, noKeyboard: true });
+
+  function handleContextMenu(e: React.MouseEvent) {
+    e.preventDefault();
+    setCoordinate(
+      coordinate === null
+        ? {
+            mouseX: e.clientX + 2,
+            mouseY: e.clientY - 6,
+          }
+        : null,
+    );
+    const id = e.currentTarget.getAttribute('data-id');
+    setContextId(Number(id));
+  }
+  const handleCloseContextMenu = () => {
+    setCoordinate(null);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+    handleCloseContextMenu();
+  };
+  const handleClose = () => setOpen(false);
+
+  function handleDeleteItem(id: number) {
+    dispatch(removeFile(id));
+    handleCloseContextMenu();
+  }
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 2 },
@@ -61,78 +100,6 @@ export default function DriveList({ files }: DriveListProps) {
     };
   });
 
-  const [open, setOpen] = useState(false);
-  const [coordinate, setCoordinate] = useState<Coordinate | null>(null);
-
-  const handleCloseContextMenu = () => {
-    setCoordinate(null);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-    handleCloseContextMenu();
-  };
-  const handleClose = () => setOpen(false);
-
-  const [contextId, setContextId] = useState(0);
-
-  const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      for (let i = 0; i < acceptedFiles.length; i += 1) {
-        const uploadFile = acceptedFiles[i];
-        const uploaderFile: MyFile = {
-          name: uploadFile.name,
-          owner: 'Me',
-          lastChange: uploadFile.lastModified,
-          size: uploadFile.size,
-          id: Math.random(),
-        };
-        dispatch(addFile(uploaderFile));
-      }
-    },
-    [dispatch],
-  );
-
-  const { getRootProps, isDragActive } = useDropzone({ onDrop, noClick: true, noKeyboard: true });
-
-  function handleRenameFolder() {
-    dispatch(renameFolder({ contextId, folderNewName }));
-    setFolderNewName('');
-    handleClose();
-  }
-
-  function handleContextMenu(e: React.MouseEvent) {
-    e.preventDefault();
-    setCoordinate(
-      coordinate === null
-        ? {
-            mouseX: e.clientX + 2,
-            mouseY: e.clientY - 6,
-          }
-        : null,
-    );
-    const id = e.currentTarget.getAttribute('data-id');
-    setIsFile(true);
-    setContextId(Number(id));
-  }
-
-  function handleDeleteItem(id: number) {
-    if (isFile) {
-      if (currentDrive === 'drive') {
-        dispatch(addFileToTrash(id));
-        dispatch(removeFile(id));
-      } else {
-        dispatch(removeFileFromTrash(id));
-      }
-    } else if (currentDrive === 'drive') {
-      dispatch(addFolderToTrash(id));
-      dispatch(removeFolder(id));
-    } else {
-      dispatch(removeFolderFromTrash(id));
-    }
-    handleCloseContextMenu();
-  }
-
   return (
     /* eslint-disable-next-line react/jsx-props-no-spreading */
     <Box {...getRootProps()} sx={{ flexGrow: 1, mt: 2 }}>
@@ -158,10 +125,10 @@ export default function DriveList({ files }: DriveListProps) {
         open={open}
         onClose={handleClose}
         title={t('explorer.rename')}
-        value={folderNewName}
-        onChange={(value) => setFolderNewName(value)}
+        value={fileName}
+        onChange={(value) => setFileName(value)}
         apply={t('explorer.rename')}
-        onApply={() => handleRenameFolder()}
+        onApply={() => console.log('nothing here')}
         cancel={t('explorer.cancel')}
         placeholder={t('explorer.newname')}
       />

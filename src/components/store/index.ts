@@ -11,10 +11,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import modalReducer from './slices/modalSlice';
 import filesReducer from './slices/driveSlice';
 import filterReducer from './slices/filterSlice';
-import fileInfoReducer from './slices/fileInfo';
 import appThemeReducer from './slices/appThemeSlice';
 import authReducer from './slices/authSlice';
 /* eslint-disable import/no-cycle */
@@ -23,10 +21,8 @@ import { filesApi } from './api/filesApi';
 /* eslint-enable import/no-cycle */
 
 const rootReducer = combineReducers({
-  modal: modalReducer,
   files: filesReducer,
   filter: filterReducer,
-  fileInfo: fileInfoReducer,
   appTheme: appThemeReducer,
   auth: authReducer,
   [filesApi.reducerPath]: filesApi.reducer,

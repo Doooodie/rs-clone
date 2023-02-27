@@ -7,11 +7,7 @@ import { useAppDispatch } from '../../../hooks/hooks';
 import { addFile } from '../../../store/slices/driveSlice';
 import ModalCreateFile from './Modals/ModalCreateFile';
 
-interface IDriveHeader {
-  name: string;
-}
-
-export default function DriveHeader({ name }: IDriveHeader) {
+export default function DriveHeader() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -41,7 +37,7 @@ export default function DriveHeader({ name }: IDriveHeader) {
           endIcon={<ArrowDropDown />}
           color='inherit'
         >
-          {t(`explorer.${name}`)}
+          {t(`explorer.drive`)}
         </Button>
         <ModalCreateFile anchorEl={anchorEl} open={open} handleClose={handleClose} />
         <Box sx={{ flexGrow: 1 }} />
