@@ -18,17 +18,13 @@ import {
 import ContextMenu from './Modals/ContextMenu';
 import MyDialog from './Modals/Dialog';
 import ModalDropper from './ModalDropper';
-import convertNumberToDate from '../helpers/convertNumberToDate';
 import convertBytesToKbMb from '../helpers/convertBytesToKbMd';
 
 type DriveListProps = {
   files: MyFile[];
-  folders: MyFile[];
-  drop: boolean;
-  setDrop: (val: boolean) => void;
 };
 
-export default function DriveList({ folders, files, drop, setDrop }: DriveListProps) {
+export default function DriveList({ files }: DriveListProps) {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [isFile, setIsFile] = useState(false);
@@ -37,7 +33,20 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 5 },
-    { field: 'lastChange', headerName: `${t(`explorer.modified`)}`, flex: 1 },
+    {
+      field: 'lastChange',
+      type: 'date',
+      headerName: `${t(`explorer.modified`)}`,
+      flex: 1,
+      valueGetter: ({ value }) =>
+        value &&
+        t('intlDateTime', {
+          val: new Date(value),
+          formatParams: {
+            val: { year: 'numeric', month: 'long', day: 'numeric' },
+          },
+        }),
+    },
     { field: 'size', headerName: `${t(`explorer.size`)}`, flex: 1 },
   ];
 
@@ -46,7 +55,7 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
     return {
       name: file.name,
       owner: file.owner,
-      lastChange: convertNumberToDate(file.lastChange),
+      lastChange: file.lastChange,
       size: `${convertedSize}${t(`explorer.${convertedName}`)}`,
       id: file.id,
     };
@@ -65,7 +74,6 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
   };
   const handleClose = () => setOpen(false);
 
-  // drag and drop
   const [contextId, setContextId] = useState(0);
 
   const onDrop = useCallback(
@@ -74,19 +82,15 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
         const uploadFile = acceptedFiles[i];
         const uploaderFile: MyFile = {
           name: uploadFile.name,
-          // todo userID
           owner: 'Me',
           lastChange: uploadFile.lastModified,
           size: uploadFile.size,
-          // todo Id
           id: Math.random(),
         };
-        // todo add file to server
         dispatch(addFile(uploaderFile));
-        setDrop(false);
       }
     },
-    [dispatch, setDrop],
+    [dispatch],
   );
 
   const { getRootProps, isDragActive } = useDropzone({ onDrop, noClick: true, noKeyboard: true });
@@ -96,8 +100,6 @@ export default function DriveList({ folders, files, drop, setDrop }: DriveListPr
     setFolderNewName('');
     handleClose();
   }
-
-  // context menu
 
   function handleContextMenu(e: React.MouseEvent) {
     e.preventDefault();

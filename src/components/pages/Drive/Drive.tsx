@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Container } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks';
 import { changeSettingModal } from '../../store/slices/modalSlice';
@@ -13,10 +13,8 @@ import { AllDrive, MyFile, MyFolder } from './types/types';
 function Drive() {
   const dispatch = useAppDispatch();
 
-  const [drop, setDrop] = useState(false);
   const currentDrive = useAppSelector((store) => store.files.currentDrive) as keyof AllDrive;
   const { files, name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
-  const { folders } = useAppSelector((store) => store.files.allDrive[currentDrive]);
   const { query, sort, isReverse } = useAppSelector((store) => store.filter);
 
   function filteredByQuery(value: string, array: MyFile[] | MyFolder[]) {
@@ -29,15 +27,10 @@ function Drive() {
   }
 
   const filteredFiles = useMemo(() => filteredByQuery(query, files), [files, query]);
-  const filteredFolders = useMemo(() => filteredByQuery(query, folders), [folders, query]);
 
   const filteredAndSortFiles = useMemo(
     () => sortFiles(sort, filteredFiles, isReverse),
     [sort, filteredFiles, isReverse],
-  );
-  const filteredAndSortFolders = useMemo(
-    () => sortFiles(sort, filteredFolders, isReverse),
-    [sort, filteredFolders, isReverse],
   );
 
   function hiddenModal(e: React.MouseEvent<HTMLElement>) {
@@ -61,12 +54,7 @@ function Drive() {
       sx={{ my: 2, display: 'flex', flexDirection: 'column', height: 'calc(100vh - 220px)' }}
     >
       <DriveHeader name={name} />
-      <DriveList
-        folders={filteredAndSortFolders}
-        files={filteredAndSortFiles}
-        drop={drop}
-        setDrop={(value) => setDrop(value)}
-      />
+      <DriveList files={filteredAndSortFiles} />
     </Container>
   );
 }
