@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { Coordinate, MyFile } from '../types/types';
 import { useAppDispatch } from '../../../hooks/hooks';
-import { addFile, removeFile } from '../../../store/slices/driveSlice';
+import { addFile, removeFile, renameFile } from '../../../store/slices/driveSlice';
 import ContextMenu from './Modals/ContextMenu';
 import MyDialog from './Modals/Dialog';
 import ModalDropper from './ModalDropper';
@@ -70,6 +70,12 @@ export default function DriveList({ files }: DriveListProps) {
     handleCloseContextMenu();
   }
 
+  function handleRenameFile() {
+    dispatch(renameFile({ contextId, fileName }));
+    setFileName('');
+    handleClose();
+  }
+
   const columns: GridColDef[] = [
     { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 2 },
     {
@@ -128,7 +134,7 @@ export default function DriveList({ files }: DriveListProps) {
         value={fileName}
         onChange={(value) => setFileName(value)}
         apply={t('explorer.rename')}
-        onApply={() => console.log('nothing here')}
+        onApply={() => handleRenameFile()}
         cancel={t('explorer.cancel')}
         placeholder={t('explorer.newname')}
       />

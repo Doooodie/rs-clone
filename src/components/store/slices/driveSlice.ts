@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MyFile } from '../../pages/Drive/types/types';
+import { MyFile, RenameFileType } from '../../pages/Drive/types/types';
 
 type DriveInitialState = {
   files: MyFile[];
@@ -21,8 +21,17 @@ const driveSlice = createSlice({
       const currentState = state;
       currentState.files = currentState.files.filter((file) => file.id !== action.payload);
     },
+    renameFile(state, action: PayloadAction<RenameFileType>) {
+      const currentState = state;
+      const id = action.payload.contextId;
+      const name = action.payload.fileName;
+      currentState.files.forEach((file) => {
+        const currentFile = file;
+        if (currentFile.id === id) currentFile.name = name;
+      });
+    },
   },
 });
 
 export default driveSlice.reducer;
-export const { addFile, removeFile } = driveSlice.actions;
+export const { addFile, removeFile, renameFile } = driveSlice.actions;

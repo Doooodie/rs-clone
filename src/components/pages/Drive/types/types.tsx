@@ -13,7 +13,7 @@ export type Coordinate = {
 
 export type RenameFileType = {
   contextId: number;
-  folderNewName: string;
+  fileName: string;
 };
 
 export type FileApi = {
