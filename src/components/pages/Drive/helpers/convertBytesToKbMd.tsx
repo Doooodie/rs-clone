@@ -3,7 +3,7 @@ interface IConvertedSize {
   convertedName: string;
 }
 
-export default function convertBytesToKbMb(bytes: number) {
+function convertBytesToKbMb(bytes: number) {
   const ONE_KB = 1024;
   const ONE_MB = ONE_KB * ONE_KB;
   const sizeInfo: IConvertedSize = {
@@ -25,3 +25,5 @@ export default function convertBytesToKbMb(bytes: number) {
   sizeInfo.convertedName = 'mb';
   return sizeInfo;
 }
+
+export default convertBytesToKbMb;

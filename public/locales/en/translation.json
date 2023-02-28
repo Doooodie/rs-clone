@@ -75,6 +75,7 @@
     "size": "File size",
     "rename": "Rename",
     "remove": "Remove",
+    "download": "Download",
     "newname": "New name"
   }
 }

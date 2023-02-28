@@ -95,6 +95,11 @@ export default function DriveList({ files }: DriveListProps) {
     handleClose();
   };
 
+  const handleDownloadItem = async (id: number) => {
+    await removeFile({ id });
+    handleCloseContextMenu();
+  };
+
   const columns: GridColDef[] = [
     { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 2 },
     {
@@ -134,6 +139,7 @@ export default function DriveList({ files }: DriveListProps) {
         handleCloseContextMenu={handleCloseContextMenu}
         handleDelete={() => handleDeleteItem(contextId)}
         handleModalOpen={handleOpen}
+        handleDownload={() => handleDownloadItem(contextId)}
       />
       <MyDialog
         open={open}
