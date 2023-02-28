@@ -47,6 +47,13 @@ export const filesApi = createApi({
       query: () => ``,
       providesTags: ['file'],
     }),
+    getFile: builder.mutation<MyFile, Partial<MyFile>>({
+      query: ({ id }) => ({
+        url: `${id}`,
+        method: 'GET',
+        cache: 'no-cache',
+      }),
+    }),
   }),
 });
 
@@ -55,4 +62,5 @@ export const {
   useRenameFileMutation,
   useDeleteFileMutation,
   useGetAllFilesQuery,
+  useGetFileMutation,
 } = filesApi;

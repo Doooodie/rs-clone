@@ -46,10 +46,7 @@ export const authApi = createApi({
         body,
       }),
     }),
-    getToken: builder.query<Partial<Result>, void>({
-      query: () => `auth`,
-    }),
   }),
 });
 
-export const { useSignUpMutation, useSignInMutation, useGetTokenQuery } = authApi;
+export const { useSignUpMutation, useSignInMutation } = authApi;

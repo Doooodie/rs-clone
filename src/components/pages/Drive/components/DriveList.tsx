@@ -12,6 +12,7 @@ import {
   useCreateFileMutation,
   useDeleteFileMutation,
   useRenameFileMutation,
+  useGetFileMutation,
 } from '../../../store/api/filesApi';
 
 type DriveListProps = {
@@ -28,6 +29,7 @@ export default function DriveList({ files }: DriveListProps) {
   const [createFile] = useCreateFileMutation();
   const [removeFile] = useDeleteFileMutation();
   const [renameFile] = useRenameFileMutation();
+  const [getFile] = useGetFileMutation();
 
   useEffect(() => {
     setRows(() =>
@@ -96,7 +98,15 @@ export default function DriveList({ files }: DriveListProps) {
   };
 
   const handleDownloadItem = async (id: number) => {
-    await removeFile({ id });
+    const file = await getFile({ id }).unwrap();
+    const downloadURL = file.filePath;
+    // const url = URL.createObjectURL(new Blob([file.filePath]));
+    const link = document.createElement('a');
+    link.href = downloadURL;
+    link.setAttribute('download', file.name);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
     handleCloseContextMenu();
   };
 
