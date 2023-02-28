@@ -4,9 +4,10 @@ import { useAppSelector } from '../../hooks/hooks';
 import DriveHeader from './components/DriveHeader';
 import DriveList from './components/DriveList';
 import { MyFile } from './types/types';
+import { useGetAllFilesQuery } from '../../store/api/filesApi';
 
 function Drive() {
-  const { files } = useAppSelector((store) => store.files);
+  const { data = [] } = useGetAllFilesQuery();
   const { query } = useAppSelector((store) => store.filter);
 
   function filteredByQuery(value: string, array: MyFile[]) {
@@ -18,7 +19,7 @@ function Drive() {
     return [...array];
   }
 
-  const filteredFiles = useMemo(() => filteredByQuery(query, files), [files, query]);
+  const filteredFiles = useMemo(() => filteredByQuery(query, data), [data, query]);
 
   return (
     <Container

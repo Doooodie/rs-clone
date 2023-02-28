@@ -1,25 +1,19 @@
-export type MyFile = {
-  name: string;
-  owner: string;
-  lastChange: number;
-  size: number;
+type MyFile = {
   id: number;
+  name: string;
+  size: number;
+  info: string;
+  filePath: string;
+  parentPath: string;
+  type: 'file' | 'folder';
+  createdAt: Date;
+  updatedAt: Date;
+  userId: number;
 };
 
-export type Coordinate = {
+type Coordinate = {
   mouseX: number;
   mouseY: number;
 };
 
-export type RenameFileType = {
-  contextId: number;
-  fileName: string;
-};
-
-export type FileApi = {
-  name: string;
-  size: number;
-  info?: string;
-  filePath: string;
-  type: string;
-};
+export type { MyFile, Coordinate };

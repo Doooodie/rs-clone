@@ -1,43 +1,62 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { Box } from '@mui/material';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 import { Coordinate, MyFile } from '../types/types';
-import { useAppDispatch } from '../../../hooks/hooks';
-import { addFile, removeFile, renameFile } from '../../../store/slices/driveSlice';
 import ContextMenu from './Modals/ContextMenu';
 import MyDialog from './Modals/Dialog';
 import ModalDropper from './ModalDropper';
 import convertBytesToKbMb from '../helpers/convertBytesToKbMd';
+import {
+  useCreateFileMutation,
+  useDeleteFileMutation,
+  useRenameFileMutation,
+} from '../../../store/api/filesApi';
 
 type DriveListProps = {
   files: MyFile[];
 };
 
 export default function DriveList({ files }: DriveListProps) {
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
+  const [rows, setRows] = useState<GridRowsProp>([]);
   const [open, setOpen] = useState(false);
   const [coordinate, setCoordinate] = useState<Coordinate | null>(null);
   const [contextId, setContextId] = useState(0);
   const [fileName, setFileName] = useState('');
+  const [createFile] = useCreateFileMutation();
+  const [removeFile] = useDeleteFileMutation();
+  const [renameFile] = useRenameFileMutation();
+
+  useEffect(() => {
+    setRows(() =>
+      files.map((file) => {
+        const { convertedSize, convertedName } = convertBytesToKbMb(file.size);
+        return {
+          name: file.name,
+          size: `${convertedSize}${t(`explorer.${convertedName}`)}`,
+          lastChange: file.updatedAt,
+          id: file.id,
+        };
+      }),
+    );
+  }, [files, t]);
 
   const onDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      for (let i = 0; i < acceptedFiles.length; i += 1) {
-        const uploadFile = acceptedFiles[i];
-        const uploaderFile: MyFile = {
-          name: uploadFile.name,
-          owner: 'Me',
-          lastChange: uploadFile.lastModified,
-          size: uploadFile.size,
-          id: Math.random(),
-        };
-        dispatch(addFile(uploaderFile));
-      }
+    async (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      const formData = new FormData();
+      formData.append('name', file.name);
+      formData.append('size', `${file.size}`);
+      formData.append('info', '');
+      formData.append('filePath', '');
+      formData.append('type', 'file');
+      formData.append('file', file);
+
+      await createFile(formData);
     },
-    [dispatch],
+    [createFile],
   );
 
   const { getRootProps, isDragActive } = useDropzone({ onDrop, noClick: true, noKeyboard: true });
@@ -65,16 +84,16 @@ export default function DriveList({ files }: DriveListProps) {
   };
   const handleClose = () => setOpen(false);
 
-  function handleDeleteItem(id: number) {
-    dispatch(removeFile(id));
+  const handleDeleteItem = async (id: number) => {
+    await removeFile({ id });
     handleCloseContextMenu();
-  }
+  };
 
-  function handleRenameFile() {
-    dispatch(renameFile({ contextId, fileName }));
+  const handleRenameFile = async () => {
+    await renameFile({ id: contextId, name: fileName });
     setFileName('');
     handleClose();
-  }
+  };
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: `${t(`explorer.filename`)}`, flex: 2 },
@@ -94,17 +113,6 @@ export default function DriveList({ files }: DriveListProps) {
     },
     { field: 'size', headerName: `${t(`explorer.size`)}`, flex: 1 },
   ];
-
-  const rows: GridRowsProp = files.map((file) => {
-    const { convertedSize, convertedName } = convertBytesToKbMb(file.size);
-    return {
-      name: file.name,
-      owner: file.owner,
-      lastChange: file.lastChange,
-      size: `${convertedSize}${t(`explorer.${convertedName}`)}`,
-      id: file.id,
-    };
-  });
 
   return (
     /* eslint-disable-next-line react/jsx-props-no-spreading */

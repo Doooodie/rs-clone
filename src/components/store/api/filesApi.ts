@@ -1,8 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { REHYDRATE } from 'redux-persist';
+import { MyFile } from '../../pages/Drive/types/types';
 /* eslint-disable-next-line import/no-cycle */
 import { RootState } from '../index';
-import { FileApi } from '../../pages/Drive/types/types';
 
 const isProd = process.env.NODE_ENV === 'production';
 const url = isProd ? 'https://badoone-drive-backend.up.railway.app' : 'http://127.0.0.1:5000';
@@ -20,35 +19,40 @@ export const filesApi = createApi({
       return headers;
     },
   }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE) {
-      return action.payload?.[reducerPath];
-    }
-    return null;
-  },
   endpoints: (builder) => ({
-    createFile: builder.mutation<string, FileApi>({
+    createFile: builder.mutation<string, FormData>({
       query: (body) => ({
         url: ``,
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['file'],
     }),
-    getFile: builder.mutation<string, string>({
-      query: (body) => ({
-        url: ``,
-        method: 'GET',
-        body,
-      }),
-    }),
-    deleteFile: builder.mutation<string, string>({
-      query: (body) => ({
-        url: ``,
+    deleteFile: builder.mutation<string, Partial<MyFile>>({
+      query: ({ id }) => ({
+        url: `${id}`,
         method: 'DELETE',
+      }),
+      invalidatesTags: ['file'],
+    }),
+    renameFile: builder.mutation<string, Partial<MyFile>>({
+      query: ({ id, ...body }) => ({
+        url: `${id}`,
+        method: 'PUT',
         body,
       }),
+      invalidatesTags: ['file'],
+    }),
+    getAllFiles: builder.query<MyFile[], void>({
+      query: () => ``,
+      providesTags: ['file'],
     }),
   }),
 });
 
-export const { useCreateFileMutation, useGetFileMutation, useDeleteFileMutation } = filesApi;
+export const {
+  useCreateFileMutation,
+  useRenameFileMutation,
+  useDeleteFileMutation,
+  useGetAllFilesQuery,
+} = filesApi;

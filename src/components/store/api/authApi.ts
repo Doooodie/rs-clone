@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { REHYDRATE } from 'redux-persist';
 /* eslint-disable-next-line import/no-cycle */
 import { RootState } from '../index';
 
@@ -11,6 +10,9 @@ type Credentials = {
 
 type Result = {
   token: string;
+  user: {
+    id: number;
+  };
 };
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -29,12 +31,6 @@ export const authApi = createApi({
       return headers;
     },
   }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === REHYDRATE) {
-      return action.payload?.[reducerPath];
-    }
-    return null;
-  },
   endpoints: (builder) => ({
     signUp: builder.mutation<Result, Credentials>({
       query: (body) => ({

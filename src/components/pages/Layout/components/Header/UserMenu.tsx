@@ -22,7 +22,7 @@ function UserMenu() {
   };
 
   const logOut = () => {
-    dispatch(setCredentials({ name: '', token: '' }));
+    dispatch(setCredentials({ name: '', token: '', id: -1 }));
     handleClose();
     navigate('/');
   };
