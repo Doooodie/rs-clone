@@ -52,15 +52,15 @@ function Auth() {
   const submitAuth: SubmitHandler<IFormInputs> = async (data: IFormInputs) => {
     try {
       if (isSignIn) {
-        const token = await signIn(data).unwrap();
-        dispatch(setCredentials({ name: data.name, token: token.token }));
+        const userData = await signIn(data).unwrap();
+        dispatch(setCredentials({ name: data.name, token: userData.token, id: userData.user.id }));
         const navTimeout = setTimeout(() => {
           navigate('/drive');
           clearTimeout(navTimeout);
         }, 3000);
       } else {
-        const token = await signUp(data).unwrap();
-        dispatch(setCredentials({ name: data.name, token: token.token }));
+        const userData = await signUp(data).unwrap();
+        dispatch(setCredentials({ name: data.name, token: userData.token, id: userData.user.id }));
         navigate('/');
         const navTimeout = setTimeout(() => {
           navigate('/drive');

@@ -1,4 +1,4 @@
-import { DeleteOutline, DriveFileRenameOutline } from '@mui/icons-material';
+import { DeleteOutline, DriveFileRenameOutline, Download } from '@mui/icons-material';
 import { ListItemIcon, ListItemText, Menu, MenuItem, MenuList } from '@mui/material';
 import { t } from 'i18next';
 import { Coordinate } from '../../types/types';
@@ -8,6 +8,7 @@ interface IModal {
   handleCloseContextMenu: () => void;
   handleDelete: () => void;
   handleModalOpen: () => void;
+  handleDownload: () => void;
 }
 
 export default function ContextMenu({
@@ -15,6 +16,7 @@ export default function ContextMenu({
   handleCloseContextMenu,
   handleDelete,
   handleModalOpen,
+  handleDownload,
 }: IModal) {
   return (
     <Menu
@@ -26,6 +28,13 @@ export default function ContextMenu({
       }
     >
       <MenuList>
+        <MenuItem onClick={handleDownload}>
+          <ListItemIcon>
+            <Download />
+          </ListItemIcon>
+          <ListItemText>{t('explorer.download')}</ListItemText>
+        </MenuItem>
+
         <MenuItem onClick={handleModalOpen}>
           <ListItemIcon>
             <DriveFileRenameOutline />

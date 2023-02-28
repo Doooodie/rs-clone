@@ -1,66 +1,19 @@
-export type MyFile = {
-  name: string;
-  owner: string;
-  lastChange: number;
-  size: number;
+type MyFile = {
   id: number;
-};
-
-export type MyFolder = {
   name: string;
-  owner: string;
-  lastChange: number;
   size: number;
-  id: number;
-  files: MyFile[];
-  children: MyFolder[];
-  parent: number;
+  info: string;
+  filePath: string;
+  parentPath: string;
+  type: 'file' | 'folder';
+  createdAt: Date;
+  updatedAt: Date;
+  userId: number;
 };
 
-export type MainDrive = {
-  name: string;
-  files: MyFile[];
-  folders: MyFile[];
-};
-
-export type TrashDrive = {
-  name: string;
-  files: MyFile[];
-  folders: MyFile[];
-};
-
-export type ImportantDrive = {
-  name: string;
-  files: MyFile[];
-  folders: MyFile[];
-};
-
-export type AllDrive = {
-  drive: MainDrive;
-  trash: TrashDrive;
-  important: ImportantDrive;
-};
-
-export type Coordinate = {
+type Coordinate = {
   mouseX: number;
   mouseY: number;
 };
 
-export type FileProps = {
-  file: MyFile;
-  onContextMenu: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  isFile: boolean;
-};
-
-export type RenameFileType = {
-  contextId: number;
-  folderNewName: string;
-};
-
-export type FileApi = {
-  name: string;
-  size: number;
-  info?: string;
-  filePath: string;
-  type: string;
-};
+export type { MyFile, Coordinate };

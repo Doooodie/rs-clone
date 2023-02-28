@@ -1,8 +1,6 @@
 import { Backdrop, Stack, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
-import { useAppSelector } from '../../../hooks/hooks';
-import { AllDrive } from '../types/types';
 
 const iconStyle = {
   '@keyframes slide-in': {
@@ -27,8 +25,6 @@ interface IModalDropper {
 
 function ModalDropper({ open }: IModalDropper) {
   const { t } = useTranslation();
-  const currentDrive = useAppSelector((store) => store.files.currentDrive) as keyof AllDrive;
-  const { name } = useAppSelector((store) => store.files.allDrive[currentDrive]);
 
   return (
     <Backdrop open={open}>
@@ -38,7 +34,7 @@ function ModalDropper({ open }: IModalDropper) {
           {t(`explorer.dropfile`)}
         </Typography>
         <Typography variant='h5' color='white'>
-          {t(`explorer.${name}`)}
+          {t(`explorer.drive`)}
         </Typography>
       </Stack>
     </Backdrop>
