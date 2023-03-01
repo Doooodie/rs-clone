@@ -2,15 +2,13 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { MyFile } from '../../pages/Drive/types/types';
 /* eslint-disable-next-line import/no-cycle */
 import { RootState } from '../index';
-
-const isProd = process.env.NODE_ENV === 'production';
-const url = isProd ? 'https://badoone-drive-backend.up.railway.app' : 'http://127.0.0.1:5000';
+import { queryUrl } from '../../services/helpers';
 
 export const filesApi = createApi({
   reducerPath: 'filesApi',
   tagTypes: ['file'],
   baseQuery: fetchBaseQuery({
-    baseUrl: `${url}/file`,
+    baseUrl: `${queryUrl}/file`,
     prepareHeaders: (headers, { getState }) => {
       const { token } = (getState() as RootState).auth;
       if (token) {

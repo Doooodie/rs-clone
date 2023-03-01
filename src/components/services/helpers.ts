@@ -13,4 +13,7 @@ function isErrorWithMessage(error: unknown): error is { message: string } {
   );
 }
 
-export { isFetchBaseQueryError, isErrorWithMessage };
+const isProd = process.env.NODE_ENV === 'production';
+const queryUrl = isProd ? 'https://badoone-drive-backend.up.railway.app' : 'http://127.0.0.1:5000';
+
+export { isFetchBaseQueryError, isErrorWithMessage, queryUrl };
