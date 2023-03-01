@@ -1,0 +1,81 @@
+{
+  "intlDateTime": "{{val, datetime}}",
+
+  "layout": {
+    "product-name": "Badoone Drive",
+    "explorer-link": "My drive",
+    "logout": "Logout",
+    "login": "Login",
+    "search-placeholder": "Search…",
+    "app-settings": "App settings",
+    "user-menu": "User menu",
+    "language": "Language",
+    "theme": "Theme",
+    "theme-light": "Light",
+    "theme-dark": "Dark",
+    "with-love": "With ❤️ from",
+    "no-page-error": "The page you are looking for does not exist"
+  },
+
+  "auth": {
+    "sign-in": "Sign in",
+    "sign-up": "Sign up",
+    "sign-in-link": "Already have an account? Sign in",
+    "sign-up-link": "Don't have an account? Sign Up",
+    "name-label": "Name",
+    "name-pattern-error": "Name can only contain latin letters",
+    "name-min-length-error": "Name cannot be under 3 symbols",
+    "name-max-length-error": "Name can be up to 10 symbols",
+    "email-label": "Email Address",
+    "email-pattern-error": "Please provide a corrent email address",
+    "password-label": "Password",
+    "password-pattern-error": "Password should contain at least one uppercase letter, one lowercase letter and one number",
+    "password-min-length-error": "Password cannot be under 8 symbols",
+    "async-error": "An error occured",
+    "async-success": "Successfully signed in"
+  },
+
+  "landing": {
+    "open-drive": "Go To Drive",
+    "register": "Sign Up",
+    "useful-functions": "See what you can do with Badoone Drive",
+    "about-heading": "Easy and secure access to your content",
+    "about-body": "Store, share, and collaborate on files and folders from your mobile device, tablet, or computer",
+    "warning-heading": "Built-in protections against malware, spam, and ransomware",
+    "warning-body": "Drive can provide encrypted and secure access to your files. Files shared with you can be proactively scanned and removed when malware, spam, ransomware, or phishing is detected. And Drive is cloud-native, which eliminates the need for local files and can minimize risk to your devices.",
+    "coop-heading": "People-first collaboration apps to supercharge teamwork",
+    "coop-body": "Drive integrates with Docs, Sheets, and Slides, cloud-native collaboration apps that enable your team to create content and collaborate more effectively in real time.",
+    "integration-heading": "Integration with the tools and apps your team is already using",
+    "integration-body": "Drive integrates with and complements your team’s existing technology. Collaborate in Microsoft Office files without the need to convert file formats, and edit and store over 100 additional file types, including PDFs, CAD files, images, and more.",
+    "search-heading": "Google’s Search and AI technology helps your team move faster",
+    "search-body": "Google’s powerful search capabilities are embedded in Drive and offer speed, reliability, and collaboration. And features like Drive search chips help your team find files fast by quickly surfacing more relevant results.",
+    "teams": "Thousands of teams are already using Drive to revolutionize the way they work",
+    "teams-salesforce": "I never worry about finding a document. Everything’s in Drive, I can access it anywhere, and that’s been revolutionary.",
+    "teams-cardinal": "Most of our team members were already familiar with Drive and found it very intuitive and easy to use, so change management was minimal and we were quickly up and running.",
+    "teams-ibotta": "Real-time collaboration with Google Docs and Drive is a must-have...if we ever tried to move employees off it, it would be a torches and pitchforks situation—complete chaos.",
+    "teams-atb": "Google is revolutionizing collaboration and individual productivity through AI. Employees can focus more on creating value for our customers and less on mundane tasks."
+  },
+
+  "explorer": {
+    "driver": "Drive",
+    "search": "Search in Drive",
+    "create": "New",
+    "drive": "My Drive",
+    "storage": "Storage",
+    "bytes": "Bytes",
+    "kb": "KB",
+    "mb": "MB",
+    "gb": "GB",
+    "of": "of",
+    "fileupload": "File upload",
+    "cancel": "Cancel",
+    "dropfile": "Drop file to upload it to:",
+    "filename": "Name",
+    "modified": "Last modified",
+    "size": "File size",
+    "rename": "Rename",
+    "remove": "Remove",
+    "download": "Download",
+    "newname": "New name"
+  }
+}
