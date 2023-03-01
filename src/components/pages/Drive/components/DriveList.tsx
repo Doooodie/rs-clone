@@ -14,6 +14,8 @@ import {
   useRenameFileMutation,
   useGetFileMutation,
 } from '../../../store/api/filesApi';
+import { useAppSelector } from '../../../hooks/hooks';
+import { queryUrl } from '../../../services/helpers';
 
 type DriveListProps = {
   files: MyFile[];
@@ -30,6 +32,7 @@ export default function DriveList({ files }: DriveListProps) {
   const [removeFile] = useDeleteFileMutation();
   const [renameFile] = useRenameFileMutation();
   const [getFile] = useGetFileMutation();
+  const userName = useAppSelector((store) => store.auth.name);
 
   useEffect(() => {
     setRows(() =>
@@ -99,10 +102,12 @@ export default function DriveList({ files }: DriveListProps) {
 
   const handleDownloadItem = async (id: number) => {
     const file = await getFile({ id }).unwrap();
-    const downloadURL = file.filePath;
-    // const url = URL.createObjectURL(new Blob([file.filePath]));
+    const fileUrl = `${queryUrl}/${userName}/${file.name}`;
+    const fetchQuery = await fetch(`${fileUrl}`);
+    const queryBlob = await fetchQuery.blob();
+    const url = window.URL.createObjectURL(new Blob([queryBlob]));
     const link = document.createElement('a');
-    link.href = downloadURL;
+    link.href = url;
     link.setAttribute('download', file.name);
     document.body.appendChild(link);
     link.click();
